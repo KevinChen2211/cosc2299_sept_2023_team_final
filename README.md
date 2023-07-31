@@ -44,6 +44,8 @@ You will need to have in your system
 
 Other tools will be required to complete the project (e.g., Docker)
 
+Branch naming conventions: feature or bug / documentation or backend or frontend or database / task number _ short description
+
 ## Backend
 
 - Delete any unused services (i.e. backend/movies). They are there only for an initial reference.
