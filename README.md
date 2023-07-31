@@ -5,19 +5,19 @@
 
 # Group Information
 
-## Group-PX-XX
+## Group-P5-01
 
 ## Members
-* Student Name 1 (sXXXXX)
-* Antoni Giannakopoulos (s3895923)
-* Student Name 3 (sXXXXX)
-* Student Name 4 (sXXXXX)
-* Student Name 5 (sXXXXX)
-* Student Name 6 (sXXXXX)
+* Kelly Smith (s3898340)
+* Myat Theingi Nwe (Gigi) (s3963447)
+* Tanya Tran (s3843142)
+* Huy Do (s3894502)
+* Antonio Ginnakopoulos (Toni) (s3895923)
+* Kevin Chen (s3895923)
 
 ## Records
 
-* Github repository: https://github.com/xxx
+* Github repository: https://github.com/cosc2299-sept-2023/team-project-group-p05-01
 * Github Project Board : https://xxxx
 
 	
