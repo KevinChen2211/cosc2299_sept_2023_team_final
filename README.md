@@ -9,9 +9,11 @@
 
 ## Members
 * Student Name 1 (sXXXXX)
-* Student Name 2 (sXXXXX)
+* Antoni Giannakopoulos (s3895923)
 * Student Name 3 (sXXXXX)
 * Student Name 4 (sXXXXX)
+* Student Name 5 (sXXXXX)
+* Student Name 6 (sXXXXX)
 
 ## Records
 
