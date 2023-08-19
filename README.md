@@ -18,7 +18,8 @@
 ## Records
 
 * Github repository: https://github.com/cosc2299-sept-2023/team-project-group-p05-01
-* Github Project Board : https://xxxx
+* Github Project Board : https://github.com/orgs/cosc2299-sept-2023/projects/16
+* MSTeams : https://teams.microsoft.com/l/team/19%3aNChlnKbsNFo61Gx2VLHjMo5etMlfKM6DgI-l8FfGS341%40thread.tacv2/conversations?groupId=f663c8bd-84db-444a-bc08-1aaf3f67e12b&tenantId=d1323671-cdbe-4417-b4d4-bdb24b51316b 
 
 	
 ## Code documentation - Release 0.1.0 - date
