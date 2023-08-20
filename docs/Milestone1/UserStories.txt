@@ -1,0 +1,54 @@
+User Stories
+
+Product Search and Categorization
+---------------------------------
+As a user, I want to search for specific grocery products so that I can efficiently find what I need.
+As a user, I want to view products in categories so that I can browse new items. 
+As a user, I want to filter products by specific preferences so that I can save time searching for the items that I want.
+
+Price Comparison
+----------------
+As a user, I want to be shown in real-time, accurate product prices from various supermarkets so that I can make informed decisions about where to shop.
+
+Delivery Organization
+---------------------
+As a user, I want the option to have groceries delivered to my house so that I do not need to go directly to the store.
+As a user, I want to see an estimated date range of when my groceries will be delivered, so that I know when to expect it coming.
+As a user, I want to select an express delivery option so that I receive my groceries as soon as possible.  
+As a user, I want to see a list of delivery time options so that I can select the most convenient time slot.
+As a user, I want to provide specific instructions for the delivery services so that I receive my groceries in an orderly manner. 
+
+Notifications and Alerts
+------------------------
+As a user, I want to receive notifications and alerts for price drops and special offers, so that I am aware of the current money-saving deals.
+As a user, I want to opt in and opt out of notifications so that I can choose if I want to be notified.
+
+User-Friendly Interface
+-----------------------
+As a user, I want to use a user-friendly and intuitive interface, so that I can enjoy a seamless shopping experience.
+
+Purchasing Items
+----------------
+As a user, I want to add items to the shopping cart so that I can purchase them after I finish browsing. 
+As a user, I want to purchase the items inside my shopping cart so that I can proceed to payment. 
+
+
+User Creation
+-------------
+As an unregistered user, I want to create an account so that I can use all of SuperPrice’s features. 
+As a user, I want to have an error message displayed when I log in with the incorrect credentials, so that I can try to login again with the correct credentials. 
+As a user, I want to login to the application so that I can access my personal account.
+As a user, I want to logout of the application so that I can exit out of my account. 
+As a user, I want to edit my account details so that my provided information is up to date. 
+
+
+Extra requirements (extra marks)
+================================
+User Review and Rating
+----------------------
+As a user, I want to write reviews about the products I have bought so that other people can make better informed purchases.
+As a user, I want to be able to provide feedback and rate my shopping experience with different supermarkets, so that I can help others make better-informed purchase decisions.
+As a user, I want to read customer feedback about different supermarkets so that I can decide where to shop for a positive and user-friendly experience.
+As a user, I want to read product reviews so that I can buy trustworthy products.
+
+
