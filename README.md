@@ -13,7 +13,7 @@
 * Tanya Tran (s3843142)
 * Huy Do (s3894502)
 * Antonio Ginnakopoulos (Toni) (s3895923)
-* Kevin Chen (s3895923)
+* Kevin Chen (s3780646)
 
 ## Records
 
