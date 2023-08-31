@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping(value = "v1/Products")
+
 public class ProductController {
 
     private ProductService service;
@@ -27,13 +27,15 @@ public class ProductController {
         this.service = serv;
     }
 
+    @RequestMapping(value = "v1/Products")
     @GetMapping
     public Collection<Product> all(){
         return service.getProducts();
     }
 
-    // @GetMapping
-    // public String getName() {
-    //     return service.getName();
-    // }
+    @RequestMapping(value = "v1/Products/{name}")
+    @GetMapping
+    public String getName(String name) {
+        return service.getName(name);
+    }
 }

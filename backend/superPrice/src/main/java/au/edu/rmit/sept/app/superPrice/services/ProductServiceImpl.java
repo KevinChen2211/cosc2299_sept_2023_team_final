@@ -18,7 +18,7 @@ public class ProductServiceImpl implements ProductService{
         return repository.findAll();
     }
 
-    public String getName() {
-        return repository.getT();
+    public String getName( String name) {
+        return repository.getT(name);
     }
 }

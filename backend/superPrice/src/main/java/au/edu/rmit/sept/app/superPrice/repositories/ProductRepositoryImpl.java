@@ -41,8 +41,9 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public String  getT() {
-        return "";
+    public String  getT(String name) {
+        return new Product(1L, name , new BigDecimal("2.00"), 10).getName();
+        // return name;
     }
 
     //     @Override

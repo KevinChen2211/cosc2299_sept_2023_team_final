@@ -11,5 +11,5 @@ import org.springframework.stereotype.Service;
 public interface ProductService
  {
     public Collection<Product> getProducts();
-    public String getName();
+    public String getName(String Name);
 }

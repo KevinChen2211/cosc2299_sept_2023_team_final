@@ -9,5 +9,5 @@ import au.edu.rmit.sept.app.superPrice.models.Product;
 @Repository
 public interface ProductRepository {
     public List<Product> findAll();
-    public String getT();
+    public String getT(String Name);
 }
