@@ -10,9 +10,15 @@ import au.edu.rmit.sept.app.superPrice.repositories.ProductRepositoryImpl;
 
 @Service
 public class ProductServiceImpl implements ProductService{
+
     private ProductRepository repository = new ProductRepositoryImpl();
+    
     @Override
     public Collection<Product> getProducts() {
         return repository.findAll();
+    }
+
+    public String getName() {
+        return repository.getT();
     }
 }
