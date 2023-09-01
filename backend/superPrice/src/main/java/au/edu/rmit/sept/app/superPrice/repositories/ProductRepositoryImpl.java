@@ -1,10 +1,13 @@
 package au.edu.rmit.sept.app.superPrice.repositories;
 import au.edu.rmit.sept.app.superPrice.models.Product;
+import au.edu.rmit.sept.app.superPrice.models.Product.Category;
+import au.edu.rmit.sept.app.superPrice.models.Product.SubCategory;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -29,21 +32,35 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public List<Product> findAll() {
         List<Product> products = new ArrayList<>();
-        
-        // Existing products
-        products.add(new Product(1L, "banana", new BigDecimal("2.00"), 10));
-        products.add(new Product(2L, "apple", new BigDecimal("1.50"), 20));
-        
-        // Add new product here
-        products.add(new Product(3L, "orange", new BigDecimal("2.50"), 15));
-        
+
+        // Adding new fields to existing products
+        products.add(new Product(1L, "prod1", "banana", "img/banana.png", 
+                                  Category.FOOD, SubCategory.GROCERY, "Chain1",
+                                  new BigDecimal("2.00"), 10,
+                                  Arrays.asList("Good", "Tasty"), 4.5));
+
+        products.add(new Product(2L, "prod2", "apple", "img/apple.png", 
+                                  Category.FOOD, SubCategory.GROCERY, "Chain2",
+                                  new BigDecimal("1.50"), 20,
+                                  Arrays.asList("Fresh", "Crisp"), 4.7));
+                                  
+        // Add new products with new fields here
+        products.add(new Product(3L, "prod3", "orange", "img/orange.png", 
+                                  Category.FOOD, SubCategory.GROCERY, "Chain1",
+                                  new BigDecimal("2.50"), 15,
+                                  Arrays.asList("Juicy", "Sour"), 4.3));
+
         return products;
     }
 
     @Override
-    public String  getT(String name) {
-        return new Product(1L, name , new BigDecimal("2.00"), 10).getName();
-        // return name;
+    public String getT(String name) {
+        // New fields are added but might not be used in this method
+        Product product = new Product(1L, "prod1", name, "img/placeholder.png",
+                                      Category.FOOD, SubCategory.GROCERY, "Chain1",
+                                      new BigDecimal("2.00"), 10,
+                                      Arrays.asList("Placeholder"), 0.0);
+        return product.getName();
     }
 
     //     @Override
