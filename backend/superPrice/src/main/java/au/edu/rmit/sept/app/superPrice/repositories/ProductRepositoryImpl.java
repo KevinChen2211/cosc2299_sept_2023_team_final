@@ -54,13 +54,13 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public String getT(String name) {
+    public Product getT(String name) {
         // New fields are added but might not be used in this method
         Product product = new Product(1L, "prod1", name, "img/placeholder.png",
                                       Category.FOOD, SubCategory.GROCERY, "Chain1",
                                       new BigDecimal("2.00"), 10,
                                       Arrays.asList("Placeholder"), 0.0);
-        return product.getName();
+        return product;
     }
 
     //     @Override
