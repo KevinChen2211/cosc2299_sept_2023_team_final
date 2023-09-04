@@ -57,7 +57,7 @@ Branch naming conventions: feature or bug / documentation or backend or frontend
 ## Frontend
 - cd into frontend/
 - Install dependencies "npm install"
-- Run the app with "npm run dev"
+- Run the app with "npm start"
 
 
 
