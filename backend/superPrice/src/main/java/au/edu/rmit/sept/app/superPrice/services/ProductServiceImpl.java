@@ -51,7 +51,7 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public Product findrProductByID(Long id) {
         for (Product product : ls) {
-            if (product.getId() == id) {
+            if (product.getId().equals(id)) {
                 return product;
             }
         }
