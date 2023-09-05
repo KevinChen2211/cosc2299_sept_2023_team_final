@@ -33,10 +33,6 @@ public class ShoppingCartController {
     ShoppingCartService cartService;
 
     @GetMapping("views")
-    // public String viewCarts(Model model) {
-    //     model.addAttribute("CART_ITEMS", cartService.getAllItems());
-    //     return "cart-item";
-    // }
     public ResponseEntity<Object> getAllProducts(){
         return new ResponseEntity<>(cartService.getAllItems(),HttpStatus.OK);
     }

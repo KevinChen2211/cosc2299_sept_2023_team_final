@@ -40,7 +40,7 @@ public class ProductRepositoryImpl implements ProductRepository {
                                   Arrays.asList("Good", "Tasty"), 4.5));
 
         products.add(new Product(2L, "prod2", "apple", "img/apple.png", 
-                                  Category.FOOD, SubCategory.GROCERY, "Chain2",
+                                  Category.FOOD, SubCategory.GROCERY, "Exaokajhabsd",
                                   new BigDecimal("1.50"), 20,
                                   Arrays.asList("Fresh", "Crisp"), 4.7));
                                   

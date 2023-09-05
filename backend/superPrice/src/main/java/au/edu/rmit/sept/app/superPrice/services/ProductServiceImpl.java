@@ -17,27 +17,28 @@ import au.edu.rmit.sept.app.superPrice.repositories.ProductRepositoryImpl;
 @Service
 public class ProductServiceImpl implements ProductService{
 
-    public static List<Product> ls = new ArrayList<>();
-    static {
-        // Adding new fields to existing products
-        ls.add(new Product(1L, "prod1", "banana", "img/banana.png", 
-                                  Category.FOOD, SubCategory.GROCERY, "Chain1",
-                                  new BigDecimal("2.00"), 10,
-                                  Arrays.asList("Good", "Tasty"), 4.5));
+   
+    // static {
+    //     // Adding new fields to existing products
+    //     ls.add(new Product(1L, "prod1", "banana", "img/banana.png", 
+    //                               Category.FOOD, SubCategory.GROCERY, "Chain1",
+    //                               new BigDecimal("2.00"), 10,
+    //                               Arrays.asList("Good", "Tasty"), 4.5));
 
-        ls.add(new Product(2L, "prod2", "apple", "img/apple.png", 
-                                  Category.FOOD, SubCategory.GROCERY, "Chain2",
-                                  new BigDecimal("1.50"), 20,
-                                  Arrays.asList("Fresh", "Crisp"), 4.7));
+    //     ls.add(new Product(2L, "prod2", "apple", "img/apple.png", 
+    //                               Category.FOOD, SubCategory.GROCERY, "Chain2",
+    //                               new BigDecimal("1.50"), 20,
+    //                               Arrays.asList("Fresh", "Crisp"), 4.7));
                                   
-        // Add new products with new fields here
-        ls.add(new Product(3L, "prod3", "orange", "img/orange.png", 
-                                  Category.FOOD, SubCategory.GROCERY, "Chain1",
-                                  new BigDecimal("2.50"), 15,
-                                  Arrays.asList("Juicy", "Sour"), 4.3));
-    }       
+    //     // Add new products with new fields here
+    //     ls.add(new Product(3L, "prod3", "orange", "img/orange.png", 
+    //                               Category.FOOD, SubCategory.GROCERY, "Chain1",
+    //                               new BigDecimal("2.50"), 15,
+    //                               Arrays.asList("Juicy", "Sour"), 4.3));
+    // }
     private ProductRepository repository = new ProductRepositoryImpl();
-    
+
+    public  List<Product> ls = repository.findAll();
     @Override
     public Collection<Product> getProducts() {
         return repository.findAll();
