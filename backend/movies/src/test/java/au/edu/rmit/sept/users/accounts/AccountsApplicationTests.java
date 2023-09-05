@@ -1,4 +1,4 @@
-package au.edu.rmit.sept.cinemas.accounts;
+package au.edu.rmit.sept.users.accounts;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
