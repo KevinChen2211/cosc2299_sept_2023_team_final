@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ProductAppication<superPrice>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "au.edu.rmit.sept.app.superPrice.ProductAppication",
+            "projectName": "superPrice",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

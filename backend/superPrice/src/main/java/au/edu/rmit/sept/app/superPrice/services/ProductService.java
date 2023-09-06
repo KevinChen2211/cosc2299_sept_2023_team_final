@@ -11,7 +11,12 @@ import org.springframework.stereotype.Service;
 public interface ProductService
  {
     public Collection<Product> getProducts();
-    public Product getName(String Name);
+
+    public Product getById(String id);
+    public Product getByName( String name);
+    public Collection<Product> getByChain( String name);
+    public Collection<Product> getByCategory( String name);
+    public Collection<Product> getBySubCategory( String name);
     public Product findrProductByID(Long id);
 
 }

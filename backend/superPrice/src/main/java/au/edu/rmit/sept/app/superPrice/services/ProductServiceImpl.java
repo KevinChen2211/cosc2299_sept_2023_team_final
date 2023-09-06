@@ -9,33 +9,14 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import au.edu.rmit.sept.app.superPrice.models.Product;
-import au.edu.rmit.sept.app.superPrice.models.Product.Category;
-import au.edu.rmit.sept.app.superPrice.models.Product.SubCategory;
+// import au.edu.rmit.sept.app.superPrice.models.Product.Category;
+// import au.edu.rmit.sept.app.superPrice.models.Product.SubCategory;
 import au.edu.rmit.sept.app.superPrice.repositories.ProductRepository;
 import au.edu.rmit.sept.app.superPrice.repositories.ProductRepositoryImpl;
 
 @Service
 public class ProductServiceImpl implements ProductService{
 
-   
-    // static {
-    //     // Adding new fields to existing products
-    //     ls.add(new Product(1L, "prod1", "banana", "img/banana.png", 
-    //                               Category.FOOD, SubCategory.GROCERY, "Chain1",
-    //                               new BigDecimal("2.00"), 10,
-    //                               Arrays.asList("Good", "Tasty"), 4.5));
-
-    //     ls.add(new Product(2L, "prod2", "apple", "img/apple.png", 
-    //                               Category.FOOD, SubCategory.GROCERY, "Chain2",
-    //                               new BigDecimal("1.50"), 20,
-    //                               Arrays.asList("Fresh", "Crisp"), 4.7));
-                                  
-    //     // Add new products with new fields here
-    //     ls.add(new Product(3L, "prod3", "orange", "img/orange.png", 
-    //                               Category.FOOD, SubCategory.GROCERY, "Chain1",
-    //                               new BigDecimal("2.50"), 15,
-    //                               Arrays.asList("Juicy", "Sour"), 4.3));
-    // }
     private ProductRepository repository = new ProductRepositoryImpl();
 
     public  List<Product> ls = repository.findAll();
@@ -45,9 +26,30 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product getName( String name) {
-        return repository.getT(name);
+    public Product getById( String id) {
+        return repository.getById(id);
     }
+
+    @Override
+    public Product getByName( String name) {
+        return repository.getByName(name);
+    }
+
+        @Override
+    public Collection<Product> getByChain( String name) {
+        return repository.getByChain(name);
+    }
+
+    @Override
+    public Collection<Product> getByCategory( String name) {
+        return repository.getByCategory(name);
+    }
+
+    @Override
+    public Collection<Product> getBySubCategory( String name) {
+        return repository.getBySubCategory(name);
+    }
+
 
     @Override
     public Product findrProductByID(Long id) {

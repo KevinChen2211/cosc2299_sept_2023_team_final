@@ -39,12 +39,6 @@ public class ProductController {
         return new ResponseEntity<>(this.service.getProducts(),HttpStatus.OK);
     }
 
-    // @GetMapping("views")
-    // public String viewProducts(Model model) {
-    //     // model.addAttribute("LIST_PRODUCT", service.getProducts());
-    //     return "view-products";
-    // }
-
     
     @GetMapping("views/all")
     public Collection<Product> all(){
@@ -52,18 +46,48 @@ public class ProductController {
     }
 
     
-    @GetMapping("get/{id}")
-    public Product getName(@PathVariable("id")String id) {
-        return service.getName(id);
-    }
 
-    @GetMapping("/{product_id}")
-    public ResponseEntity<Object> getProductById(@PathVariable("product_id")Long id){
-        Product productOptional = service.findrProductByID(id);
+    @GetMapping("id/{product_id}")
+    public ResponseEntity<Object> getProductById(@PathVariable("product_id")String id){
+        Product productOptional = service.getById(id);
         if (productOptional == null)
             return new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(productOptional,HttpStatus.OK);
     }
+
+    @GetMapping("name/{product_name}")
+    public ResponseEntity<Object> getProductByName(@PathVariable("product_name")String name){
+        Product productOptional = service.getByName(name);
+        if (productOptional == null)
+            return new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(productOptional,HttpStatus.OK);
+    }
+
+    @GetMapping("chain/{product_chain}")
+    public ResponseEntity<Object> getProductByChain(@PathVariable("product_chain")String name){
+        Collection<Product> productOptional = service.getByChain(name);
+        if (productOptional == null)
+            return new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(productOptional,HttpStatus.OK);
+    }
+
+    @GetMapping("cate/{product_cate}")
+    public ResponseEntity<Object> getProductByCategory(@PathVariable("product_cate")String name){
+        Collection<Product> productOptional = service.getByCategory(name);
+        if (productOptional == null)
+            return new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(productOptional,HttpStatus.OK);
+    }
+
+    @GetMapping("subcate/{product_subcate}")
+    public ResponseEntity<Object> getProductBySubCate(@PathVariable("product_subcate")String name){
+        Collection<Product> productOptional = service.getBySubCategory(name);
+        if (productOptional == null)
+            return new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(productOptional,HttpStatus.OK);
+    }
+
+
 
 
     // @GetMapping("/{product_id}")
