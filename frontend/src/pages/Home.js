@@ -22,6 +22,7 @@ function Home(props) {
               <>
               <p>this is the landing page</p>
                  <input onClick= {handleSubmit} className="btn btn-primary" value="Sign Up" />
+                 <p></p><p>Already have an account?<a href="/login"> Login here</a></p>
               </>
               :
               <>
