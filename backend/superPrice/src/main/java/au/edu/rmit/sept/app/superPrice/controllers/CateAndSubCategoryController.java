@@ -2,9 +2,11 @@ package au.edu.rmit.sept.app.superPrice.controllers;
 
 
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import au.edu.rmit.sept.app.superPrice.models.Product;
 import au.edu.rmit.sept.app.superPrice.services.ProductService;
@@ -50,8 +52,18 @@ public class CateAndSubCategoryController {
     }
 
     @GetMapping("sub/{cate_sub}")
-    public ResponseEntity<Object> getAllSubCateByCate(@PathVariable("cate_sub")String CateName) {
-        return null;
-        // return new ResponseEntity<>(this.service.getProducts(), HttpStatus.OK);
+    public ResponseEntity<Object> getAllSubCateByCate(@PathVariable("cate_sub") String CateName) {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/product?cat=" + CateName;
+
+        Product[] productsArray = restTemplate.getForObject(url, Product[].class);
+        
+        // Extracting unique subcategories from the products array
+        List<String> subcategories = Arrays.stream(productsArray)
+                                        .map(Product::getSubcategory)
+                                        .distinct()
+                                        .collect(Collectors.toList());
+
+        return new ResponseEntity<>(subcategories, HttpStatus.OK);
     }
 }
