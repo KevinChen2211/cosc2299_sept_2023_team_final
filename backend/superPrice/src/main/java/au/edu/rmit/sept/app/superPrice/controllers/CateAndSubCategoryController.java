@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping(value = "cate")
@@ -30,16 +31,22 @@ public class CateAndSubCategoryController {
         this.service = serv;
     }
 
-    @GetMapping("all/sub")
+    @GetMapping("all/cate")
     public ResponseEntity<Object> getAllCate() {
-        return null;
-        // return new ResponseEntity<>(this.service.getProducts(), HttpStatus.OK);
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/categories";
+
+        List<String> categories = restTemplate.getForObject(url, List.class);
+        return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
-    @GetMapping("all/cate")
+    @GetMapping("all/subcate")
     public ResponseEntity<Object> getAllSubCate() {
-        return null;
-        // return new ResponseEntity<>(this.service.getProducts(), HttpStatus.OK);
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/subcategories";
+
+        List<String> subcategories = restTemplate.getForObject(url, List.class);
+        return new ResponseEntity<>(subcategories, HttpStatus.OK);
     }
 
     @GetMapping("sub/{cate_sub}")
