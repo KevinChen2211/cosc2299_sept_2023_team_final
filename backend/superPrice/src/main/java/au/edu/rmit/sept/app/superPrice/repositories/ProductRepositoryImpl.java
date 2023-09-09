@@ -22,55 +22,6 @@ import org.springframework.web.client.RestTemplate;
 @Repository
 public class ProductRepositoryImpl implements ProductRepository {
 
-    // public DataSource getDataSource() {
-    //     DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-    //     dataSourceBuilder.driverClassName("org.h2.Driver");
-    //     dataSourceBuilder.url("jdbc:h2:file:/tmp/demodb");
-    //     dataSourceBuilder.username("sa");
-    //     dataSourceBuilder.password("password");
-    //     return dataSourceBuilder.build();
-    // }
-
-//     private static List<Product> products = new ArrayList<>();
-//     static {
-//         // Existing products
-//         products.add(new Product("1", "prod1", "banana", "img/banana.png",
-//                 "FOOD", "GROCERY", "Chain1",
-//                 new BigDecimal("2.00"), 10,
-//                 Arrays.asList("Good", "Tasty"), 4.5));
-
-//         products.add(new Product("2", "prod2", "apple", "img/apple.png",
-//                 "FOOD", "GROCERY", "Exaokajhabsd",
-//                 new BigDecimal("1.50"), 20,
-//                 Arrays.asList("Fresh", "Crisp"), 4.7));
-
-//         products.add(new Product("3", "prod3", "orange", "img/orange.png",
-//                 "FOOD", "GROCERY", "Chain1",
-//                 new BigDecimal("2.50"), 15,
-//                 Arrays.asList("Juicy", "Sour"), 4.3));
-
-//         // Additional products to fulfill requirements
-//         // From Chain1 and Exaokajhabsd
-//         // Categories: FOOD and ELECTRONICS
-//         // Subcategories: GROCERY and PHONES
-//         for (int i = 4; i <= 13; i++) {
-//             String id = String.valueOf(i);
-//             String prodId = "prod" + id;
-//             String name = "product" + id;
-//             String imgLocation = "img/" + name + ".png";
-//             String category = i % 2 == 0 ? "FOOD" : "ELECTRONICS";
-//             String subCategory = i % 3 == 0 ? "GROCERY" : "PHONES";
-//             String chain = i % 4 == 0 ? "Chain1" : "Exaokajhabsd";
-//             BigDecimal price = new BigDecimal("1.00").add(new BigDecimal("0.50").multiply(new BigDecimal(i)));
-//             Integer quantity = 10 + i;
-//             List<String> reviews = Arrays.asList("Review1", "Review2");
-//             Double avgRating = 4.0 + (i % 2 == 0 ? 0.5 : 0.0);
-
-//             products.add(new Product(id, prodId, name, imgLocation, category, subCategory, chain, price, quantity,
-//                     reviews, avgRating));
-//         }
-//     }
-
         @Override
         public List<Product> findAll() {
         RestTemplate restTemplate = new RestTemplate();
@@ -80,24 +31,18 @@ public class ProductRepositoryImpl implements ProductRepository {
         return Arrays.asList(productsArray);
         }
 
-//     @Override
-//     public List<Product> findAll() {
 
-//         return products;
-//     }
+        @Override
+        public Product getById(String id) {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/product/" + id;
 
-    // @Override
-    // public Product getT(String name) {
-    //     return null;
-    //     return product;
-    // }
-//     @Override
-//     public Product getById(String id) {
-//         return products.stream()
-//                 .filter(product -> id.equals(product.getId()))
-//                 .findFirst()
-//                 .orElse(null);
-//     }
+        Product[] productsArray = restTemplate.getForObject(url, Product[].class);
+        if (productsArray != null && productsArray.length > 0) {
+                return productsArray[0];
+        }
+        return null;
+        }
 //     @Override
 //     public Product getByName(String name) {
 //         return products.stream()

@@ -30,36 +30,36 @@ public class ProductServiceImpl implements ProductService{
         return repository.getById(id);
     }
 
-    @Override
-    public Product getByName( String name) {
-        return repository.getByName(name);
-    }
+    // @Override
+    // public Product getByName( String name) {
+    //     return repository.getByName(name);
+    // }
 
-        @Override
-    public Collection<Product> getByChain( String name) {
-        return repository.getByChain(name);
-    }
+    //     @Override
+    // public Collection<Product> getByChain( String name) {
+    //     return repository.getByChain(name);
+    // }
 
-    @Override
-    public Collection<Product> getByCategory( String name) {
-        return repository.getByCategory(name);
-    }
+    // @Override
+    // public Collection<Product> getByCategory( String name) {
+    //     return repository.getByCategory(name);
+    // }
 
-    @Override
-    public Collection<Product> getBySubCategory( String name) {
-        return repository.getBySubCategory(name);
-    }
+    // @Override
+    // public Collection<Product> getBySubCategory( String name) {
+    //     return repository.getBySubCategory(name);
+    // }
 
 
-    @Override
-    public Product findrProductByID(Long id) {
-        for (Product product : ls) {
-            if (product.getProductID().equals(id)) {
-                return product;
-            }
-        }
-        return null;
-    }
+    // @Override
+    // public Product findrProductByID(Long id) {
+    //     for (Product product : ls) {
+    //         if (product.getProductID().equals(id)) {
+    //             return product;
+    //         }
+    //     }
+    //     return null;
+    // }
 
 
 }
