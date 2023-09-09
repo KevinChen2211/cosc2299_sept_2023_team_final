@@ -13,10 +13,10 @@ public interface ProductService
     public Collection<Product> getProducts();
 
     public Product getById(String id);
-    // public Product getByName( String name);
-    // public Collection<Product> getByChain( String name);
-    // public Collection<Product> getByCategory( String name);
-    // public Collection<Product> getBySubCategory( String name);
+    public Collection<Product> getByName( String name);
+    public Collection<Product> getByChain( String name);
+    public Collection<Product> getByCategory( String name);
+    public Collection<Product> getBySubCategory( String name);
     
 
 }
