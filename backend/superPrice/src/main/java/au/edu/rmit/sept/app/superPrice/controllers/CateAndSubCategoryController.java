@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
@@ -37,9 +38,13 @@ public class CateAndSubCategoryController {
     public ResponseEntity<Object> getAllCate() {
         RestTemplate restTemplate = new RestTemplate();
         String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/categories";
+        try {
+            List<String> categories = restTemplate.getForObject(url, List.class);
+            return new ResponseEntity<>(categories, HttpStatus.OK);
+        } catch (HttpClientErrorException.NotFound e) {
+            return new ResponseEntity<>("No categories found.", HttpStatus.NOT_FOUND);
+        }
 
-        List<String> categories = restTemplate.getForObject(url, List.class);
-        return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
     @GetMapping("all/subcate")
@@ -47,8 +52,13 @@ public class CateAndSubCategoryController {
         RestTemplate restTemplate = new RestTemplate();
         String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/subcategories";
 
-        List<String> subcategories = restTemplate.getForObject(url, List.class);
-        return new ResponseEntity<>(subcategories, HttpStatus.OK);
+       
+        try {
+             List<String> subcategories = restTemplate.getForObject(url, List.class);
+            return new ResponseEntity<>(subcategories, HttpStatus.OK);
+        } catch (HttpClientErrorException.NotFound e) {
+            return new ResponseEntity<>("No categories found.", HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("sub/{cate_sub}")
@@ -56,14 +66,18 @@ public class CateAndSubCategoryController {
         RestTemplate restTemplate = new RestTemplate();
         String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/product?cat=" + CateName;
 
-        Product[] productsArray = restTemplate.getForObject(url, Product[].class);
-        
-        // Extracting unique subcategories from the products array
-        List<String> subcategories = Arrays.stream(productsArray)
-                                        .map(Product::getSubcategory)
-                                        .distinct()
-                                        .collect(Collectors.toList());
+        try {
+            Product[] productsArray = restTemplate.getForObject(url, Product[].class);
+            
+            // Extracting unique subcategories from the products array
+            List<String> subcategories = Arrays.stream(productsArray)
+                                            .map(Product::getSubcategory)
+                                            .distinct()
+                                            .collect(Collectors.toList());
 
-        return new ResponseEntity<>(subcategories, HttpStatus.OK);
-    }
+            return new ResponseEntity<>(subcategories, HttpStatus.OK);
+        } catch (HttpClientErrorException.NotFound e) {
+            return new ResponseEntity<>("No subcategories found for the given category.", HttpStatus.NOT_FOUND);
+        }
+}
 }
