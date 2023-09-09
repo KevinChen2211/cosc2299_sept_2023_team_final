@@ -11,12 +11,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product implements Serializable {
-    private String id;
-    private String productId; // New field
+    // private String id;
+    private String productID; // New field
     private String name;
-    private String productImageLocation; // New field
+    private String imageLocation; // New field
     private String category; // New field
-    private String subCategory; // New field
+    private String subcategory; // New field
     private String chain; // New field
     private BigDecimal price;
     private Integer quantity;
@@ -33,15 +33,15 @@ public class Product implements Serializable {
     //     MOBILE, GROCERY, MEN, FURNITURE
     // }
 
-    public Product(String id, String productId, String name, String productImageLocation,
+    public Product(String productId, String name, String productImageLocation,
             String category, String subCategory, String chain,
             BigDecimal price, int quantity, List<String> reviews, double avgRating) {
-        this.id = id;
-        this.productId = productId;
+        // this.id = id;
+        this.productID = productId;
         this.name = name;
-        this.productImageLocation = productImageLocation;
+        this.imageLocation = productImageLocation;
         this.category = category;
-        this.subCategory = subCategory;
+        this.subcategory = subCategory;
         this.chain = chain;
         this.price = price;
         this.quantity = quantity;

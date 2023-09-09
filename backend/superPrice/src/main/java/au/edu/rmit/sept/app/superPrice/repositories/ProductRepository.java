@@ -11,8 +11,8 @@ public interface ProductRepository {
     public List<Product> findAll();
 
     public Product getById(String id);
-    public Product getByName(String name);
-    public List<Product> getByChain(String chain);
-    public List<Product> getByCategory(String category);
-    public List<Product> getBySubCategory(String subCategory);
+    // public Product getByName(String name);
+    // public List<Product> getByChain(String chain);
+    // public List<Product> getByCategory(String category);
+    // public List<Product> getBySubCategory(String subCategory);
 }
