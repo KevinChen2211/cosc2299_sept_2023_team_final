@@ -50,7 +50,7 @@ public class ProductRepositoryImpl implements ProductRepository {
         @Override
         public  List<Product> getByName(String name) {
                 RestTemplate restTemplate = new RestTemplate();
-                        String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/product?name=" + name;
+                        String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/product?search=" + name;
                         try {
                                 Product[] productsArray = restTemplate.getForObject(url, Product[].class);
                                 if (productsArray != null && productsArray.length > 0) {
