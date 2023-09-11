@@ -5,7 +5,7 @@ import { initUsers } from "../data/repository";
 import { verifySignUpUser } from "../data/repository";
 
 function SignUp(props) {
-    const [fields, setFields] = useState({ fullname: "", email: "", password: "" });
+    const [fields, setFields] = useState({ firstname: "", lastname: "", mobile: "", email: "", password: "" });
     const [errorMessage, setErrorMessage] = useState(null);
     const navigate = useNavigate();
 
@@ -15,7 +15,7 @@ function SignUp(props) {
         const value = event.target.value;
 
         // Copy fields.
-        const temp = { fullname: fields.fullname, email: fields.email, password: fields.password };
+        const temp = { firstname: fields.firstname, lastname: fields.lastname, mobile: fields.mobile, email: fields.email, password: fields.password };
         // OR use spread operator.
         // const temp = { ...fields };
 
@@ -27,13 +27,12 @@ function SignUp(props) {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        const verified = verifySignUpUser(fields.fullname, fields.email, fields.password);
+        const verified = verifySignUpUser(fields.firstname, fields.lastname, fields.mobile, fields.email, fields.password);
 
         // If verified login the user.
         if (verified === true) {
             props.loginUser(fields.email);
-            const dateJoined = new Date().toLocaleDateString();
-            saveUser(fields.fullname, fields.email, fields.password, dateJoined);
+            saveUser(fields.firstname, fields.lastname, fields.mobile, fields.email, fields.password);
             initUsers();
             // Navigate to the home page.
             navigate("/profile");
@@ -67,7 +66,7 @@ function SignUp(props) {
                         <div className="form-group">
                             <label htmlFor="mobile" className="control-label">Mobile Number</label>
                             <input name="mobile" id="mobile" className="form-control"
-                                value={fields.fullname} onChange={handleInputChange} />
+                                value={fields.mobile} onChange={handleInputChange} />
                         </div>
 
                         <div className="form-group">
