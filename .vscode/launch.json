@@ -1,0 +1,36 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "ProductAppication",
+            "request": "launch",
+            "mainClass": "au.edu.rmit.sept.app.Product.ProductAppication"
+        },
+        {
+            "type": "java",
+            "name": "ProductAppication",
+            "request": "launch",
+            "mainClass": "au.edu.rmit.sept.app.superPrice.ProductAppication"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ProductAppication<superPrice>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "au.edu.rmit.sept.app.superPrice.ProductAppication",
+            "projectName": "superPrice",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ProductAppication<superPrice>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "au.edu.rmit.sept.app.Product.ProductAppication",
+            "projectName": "superPrice",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
