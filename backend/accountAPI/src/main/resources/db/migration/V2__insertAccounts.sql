@@ -1,0 +1,2 @@
+INSERT INTO accounts (firstName, lastName, address, email, password, phone) VALUES ('Keely', 'Smith', 'Coburg', 's3898340@student.rmit.edu.au', 'verysecure', '0173628128');
+INSERT INTO accounts (firstName, lastName, address, email, password, phone) VALUES ('smith', 'Keely', 'LA', 'ihaveagmail@gmail.com', 'notsecure', '812653926');

@@ -6,15 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class AccountModel implements Serializable {
-        private String customerID;
-        private String name;
-        private String address;
-        private String email;
-        private String password;
-        private String phone;
+
+public record AccountModel (Long customerID, String firstName, String lastName, String address, String email, String password, String phone) {
 
 }
