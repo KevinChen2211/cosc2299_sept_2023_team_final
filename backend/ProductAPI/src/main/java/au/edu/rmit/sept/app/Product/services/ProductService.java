@@ -1,10 +1,10 @@
-package au.edu.rmit.sept.app.superPrice.services;
-
-import au.edu.rmit.sept.app.superPrice.models.Product;
+package au.edu.rmit.sept.app.Product.services;
 
 import java.util.Collection;
 
 import org.springframework.stereotype.Service;
+
+import au.edu.rmit.sept.app.Product.models.Product;
 
 
 @Service

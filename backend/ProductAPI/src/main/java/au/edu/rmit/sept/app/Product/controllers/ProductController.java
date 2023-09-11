@@ -1,13 +1,10 @@
-package au.edu.rmit.sept.app.superPrice.controllers;
+package au.edu.rmit.sept.app.Product.controllers;
 
 
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-
-import au.edu.rmit.sept.app.superPrice.models.Product;
-import au.edu.rmit.sept.app.superPrice.services.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +16,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
+import au.edu.rmit.sept.app.Product.models.Product;
+import au.edu.rmit.sept.app.Product.services.ProductService;
 
 
 

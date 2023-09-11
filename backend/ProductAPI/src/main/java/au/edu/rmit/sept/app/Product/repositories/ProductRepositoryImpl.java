@@ -1,6 +1,4 @@
-package au.edu.rmit.sept.app.superPrice.repositories;
-import au.edu.rmit.sept.app.superPrice.models.Product;
-
+package au.edu.rmit.sept.app.Product.repositories;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,6 +7,8 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+
+import au.edu.rmit.sept.app.Product.models.Product;
 
 @Repository
 public class ProductRepositoryImpl implements ProductRepository {
