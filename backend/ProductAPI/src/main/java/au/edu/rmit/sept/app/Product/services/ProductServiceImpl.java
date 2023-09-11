@@ -1,4 +1,4 @@
-package au.edu.rmit.sept.app.superPrice.services;
+package au.edu.rmit.sept.app.Product.services;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -8,11 +8,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import au.edu.rmit.sept.app.superPrice.models.Product;
+import au.edu.rmit.sept.app.Product.models.Product;
 // import au.edu.rmit.sept.app.superPrice.models.Product.Category;
 // import au.edu.rmit.sept.app.superPrice.models.Product.SubCategory;
-import au.edu.rmit.sept.app.superPrice.repositories.ProductRepository;
-import au.edu.rmit.sept.app.superPrice.repositories.ProductRepositoryImpl;
+import au.edu.rmit.sept.app.Product.repositories.ProductRepository;
+import au.edu.rmit.sept.app.Product.repositories.ProductRepositoryImpl;
 
 @Service
 public class ProductServiceImpl implements ProductService{

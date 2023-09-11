@@ -1,5 +1,5 @@
-package au.edu.rmit.sept.app.superPrice.repositories;
-import au.edu.rmit.sept.app.superPrice.models.Product;
+package au.edu.rmit.sept.app.Product.repositories;
+import au.edu.rmit.sept.app.Product.models.Product;
 // import au.edu.rmit.sept.app.superPrice.models.Product.Category;
 // import au.edu.rmit.sept.app.superPrice.models.Product.SubCategory;
 

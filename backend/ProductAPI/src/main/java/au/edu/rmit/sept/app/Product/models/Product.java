@@ -1,4 +1,4 @@
-package au.edu.rmit.sept.app.superPrice.models;
+package au.edu.rmit.sept.app.Product.models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

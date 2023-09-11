@@ -1,4 +1,4 @@
-package au.edu.rmit.sept.app.superPrice;
+package au.edu.rmit.sept.app.Product;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

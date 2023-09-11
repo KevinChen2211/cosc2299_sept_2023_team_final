@@ -1,6 +1,6 @@
-package au.edu.rmit.sept.app.superPrice.services;
+package au.edu.rmit.sept.app.Product.services;
 
-import au.edu.rmit.sept.app.superPrice.models.Product;
+import au.edu.rmit.sept.app.Product.models.Product;
 
 import java.util.Collection;
 

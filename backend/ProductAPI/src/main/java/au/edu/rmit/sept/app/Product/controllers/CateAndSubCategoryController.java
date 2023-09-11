@@ -1,4 +1,4 @@
-package au.edu.rmit.sept.app.superPrice.controllers;
+package au.edu.rmit.sept.app.Product.controllers;
 
 
 
@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import au.edu.rmit.sept.app.superPrice.models.Product;
-import au.edu.rmit.sept.app.superPrice.services.ProductService;
+import au.edu.rmit.sept.app.Product.models.Product;
+import au.edu.rmit.sept.app.Product.services.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
