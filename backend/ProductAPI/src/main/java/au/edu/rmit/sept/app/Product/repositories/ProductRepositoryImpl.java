@@ -106,5 +106,31 @@ public class ProductRepositoryImpl implements ProductRepository {
                         return null;
         }
 
+        @Override
+        public List<Product> getSearch(String name) {
+                RestTemplate restTemplate = new RestTemplate();
+                String baseUrl = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/products";
+
+                StringBuilder urlBuilder = new StringBuilder(baseUrl);
+                if (name != null && !name.isEmpty()) {
+                        urlBuilder.append("?search=").append(String.join(",", name));
+                }
+
+
+                try {
+                        Product[] ProductArray = restTemplate.getForObject(urlBuilder.toString(), Product[].class);
+                        if (ProductArray != null) {
+                                return Arrays.asList(ProductArray);
+                        } else {
+                                return new ArrayList<>();
+                        }
+                } catch (HttpClientErrorException.NotFound e) {
+                        return new ArrayList<>();
+                } catch (Exception e) {
+                        // Handle other exceptions if needed
+                        return new ArrayList<>();
+                }
+        }
+
 
 }
