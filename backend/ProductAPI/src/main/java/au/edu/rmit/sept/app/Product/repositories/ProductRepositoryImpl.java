@@ -124,7 +124,7 @@ public class ProductRepositoryImpl implements ProductRepository {
                         } else {
                                 urlBuilder.append("?");
                         }
-                        urlBuilder.append("category=").append(String.join(",", categories));
+                        urlBuilder.append("cat=").append(String.join(",", categories));
                 }
                 //subcat
                 if (subcategories != null && !subcategories.isEmpty()) {
@@ -133,7 +133,7 @@ public class ProductRepositoryImpl implements ProductRepository {
                         } else {
                                 urlBuilder.append("?");
                         }
-                        urlBuilder.append("subcategory=").append(String.join(",", subcategories));
+                        urlBuilder.append("subcat=").append(String.join(",", subcategories));
                 }
 
                 //chain
