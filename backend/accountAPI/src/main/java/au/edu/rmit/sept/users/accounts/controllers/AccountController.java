@@ -37,9 +37,6 @@ public class AccountController {
     @GetMapping("/{email}/{password}")
     public Optional<AccountModel> get(@PathVariable String email, @PathVariable String password) {
         Optional<AccountModel> currAcc = service.getAccount(email);
-        System.out.println(currAcc);
-        System.out.println(currAcc.get().password());
-        System.out.println(password);
         if (currAcc.get().password().equals(password)){
             return currAcc;
         }
