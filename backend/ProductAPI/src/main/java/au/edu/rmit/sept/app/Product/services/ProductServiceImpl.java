@@ -9,8 +9,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import au.edu.rmit.sept.app.Product.models.Product;
-// import au.edu.rmit.sept.app.superPrice.models.Product.Category;
-// import au.edu.rmit.sept.app.superPrice.models.Product.SubCategory;
 import au.edu.rmit.sept.app.Product.repositories.ProductRepository;
 import au.edu.rmit.sept.app.Product.repositories.ProductRepositoryImpl;
 
@@ -30,36 +28,25 @@ public class ProductServiceImpl implements ProductService{
         return repository.getById(id);
     }
 
-    // @Override
-    // public Product getByName( String name) {
-    //     return repository.getByName(name);
-    // }
+    @Override
+    public Collection<Product> getByName( String name) {
+        return repository.getByName(name);
+    }
 
-    //     @Override
-    // public Collection<Product> getByChain( String name) {
-    //     return repository.getByChain(name);
-    // }
+        @Override
+    public Collection<Product> getByChain( String name) {
+        return repository.getByChain(name);
+    }
 
-    // @Override
-    // public Collection<Product> getByCategory( String name) {
-    //     return repository.getByCategory(name);
-    // }
+    @Override
+    public Collection<Product> getByCategory( String name) {
+        return repository.getByCategory(name);
+    }
 
-    // @Override
-    // public Collection<Product> getBySubCategory( String name) {
-    //     return repository.getBySubCategory(name);
-    // }
-
-
-    // @Override
-    // public Product findrProductByID(Long id) {
-    //     for (Product product : ls) {
-    //         if (product.getProductID().equals(id)) {
-    //             return product;
-    //         }
-    //     }
-    //     return null;
-    // }
+    @Override
+    public Collection<Product> getBySubCategory( String name) {
+        return repository.getBySubCategory(name);
+    }
 
 
 }
