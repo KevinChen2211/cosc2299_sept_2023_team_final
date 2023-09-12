@@ -49,7 +49,8 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<Product> getSearchProducts(String name) {
-        return repository.getSearch(name);
+    public List<Product> getSearchProducts(String name, List<String> categories, List<String> subcategories,
+            List<String> chains) {
+        return repository.getSearch(name, categories, subcategories, chains);
     }
 }

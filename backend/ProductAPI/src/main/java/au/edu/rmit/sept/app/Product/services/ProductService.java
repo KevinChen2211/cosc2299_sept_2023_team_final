@@ -18,6 +18,7 @@ public interface ProductService
     public Collection<Product> getByChain( String name);
     public Collection<Product> getByCategory( String name);
     public Collection<Product> getBySubCategory( String name);
-    public List<Product> getSearchProducts(String name);
+    public List<Product> getSearchProducts(String name, List<String> categories, List<String> subcategories,
+            List<String> chains);
 
 }
