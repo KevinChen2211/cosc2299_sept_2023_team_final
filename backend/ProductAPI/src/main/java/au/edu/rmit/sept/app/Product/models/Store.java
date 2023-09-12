@@ -14,6 +14,6 @@ public class Store implements Serializable {
     private String name;
     private String address;
     private String postcode;
-    private Chain chain;
+    private String chain;
 
 }
