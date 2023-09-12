@@ -10,10 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Store implements Serializable {
-
     private String name;
     private String address;
     private String postcode;
     private String chain;
-
 }
