@@ -16,7 +16,7 @@ public class ProductRepositoryImpl implements ProductRepository {
         @Override
         public List<Product> findAll() {
                 RestTemplate restTemplate = new RestTemplate();
-                String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/product";
+                String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/products";
                 try {
                         Product[] productsArray = restTemplate.getForObject(url, Product[].class);
                         if (productsArray != null) {
@@ -36,7 +36,7 @@ public class ProductRepositoryImpl implements ProductRepository {
         @Override
         public Product getById(String id) {
                 RestTemplate restTemplate = new RestTemplate();
-                String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/product/" + id;
+                String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/products/" + id;
                 try {
                         Product[] productsArray = restTemplate.getForObject(url, Product[].class);
                         if (productsArray != null && productsArray.length > 0) {
@@ -50,7 +50,7 @@ public class ProductRepositoryImpl implements ProductRepository {
         @Override
         public  List<Product> getByName(String name) {
                 RestTemplate restTemplate = new RestTemplate();
-                        String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/product?search=" + name;
+                        String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/products?search=" + name;
                         try {
                                 Product[] productsArray = restTemplate.getForObject(url, Product[].class);
                                 if (productsArray != null && productsArray.length > 0) {
@@ -64,7 +64,7 @@ public class ProductRepositoryImpl implements ProductRepository {
         @Override
         public List<Product> getByChain(String chain) {
                 RestTemplate restTemplate = new RestTemplate();
-                        String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/product?chain=" + chain;
+                        String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/products?chain=" + chain;
                         try {
                                 Product[] productsArray = restTemplate.getForObject(url, Product[].class);
                                 if (productsArray != null && productsArray.length > 0) {
@@ -79,7 +79,7 @@ public class ProductRepositoryImpl implements ProductRepository {
         @Override
         public List<Product> getByCategory(String category) {
                 RestTemplate restTemplate = new RestTemplate();
-                        String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/product?cat=" + category;
+                        String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/products?cat=" + category;
                         try {
                                 Product[] productsArray = restTemplate.getForObject(url, Product[].class);
                                 if (productsArray != null && productsArray.length > 0) {
@@ -94,7 +94,7 @@ public class ProductRepositoryImpl implements ProductRepository {
         @Override
         public List<Product> getBySubCategory(String subCategory) {
                 RestTemplate restTemplate = new RestTemplate();
-                        String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/product?subcat=" + subCategory;
+                        String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/products?subcat=" + subCategory;
                         try {
                                 Product[] productsArray = restTemplate.getForObject(url, Product[].class);
                                 if (productsArray != null && productsArray.length > 0) {
