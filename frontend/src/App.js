@@ -25,7 +25,7 @@ function App() {
       <Router>
         <Navbar email={email} logoutUser={logoutUser} />
         <p></p>
-     
+
         <main role="main">
           <div className="container my-3">
             <Routes>
@@ -33,12 +33,12 @@ function App() {
               <Route path="/signup" element={<SignUp loginUser={loginUser} />} />
               <Route path="/login" element={<Login loginUser={loginUser} />} />
               <Route path="/profile" element={<MyProfile email={email} />} />
-        
+
             </Routes>
           </div>
         </main>
         <p></p>
-      
+
       </Router>
     </div>
   );
