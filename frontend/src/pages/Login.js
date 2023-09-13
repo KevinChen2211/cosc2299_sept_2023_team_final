@@ -6,7 +6,7 @@ function Login(props) {
   const [fields, setFields] = useState({ email: "", password: "" });
   const [errorMessage, setErrorMessage] = useState(null);
   const navigate = useNavigate();
-  
+
 
   // Generic change handler.
   const handleInputChange = (event) => {
@@ -29,7 +29,7 @@ function Login(props) {
     const verified = verifyUser(fields.email, fields.password);
 
     // If verified login the user.
-    if(verified === true) {
+    if (verified === true) {
       props.loginUser(fields.email);
 
       // Navigate to the home page.
