@@ -23,8 +23,13 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public Optional<AccountModel> getAccount(String email) {
-        return repository.findById(email);
+    public Optional<AccountModel> getAccount(String email, String password) {
+        return repository.findById(email, password);
+    }
+
+    @Override
+    public void updateAccount(AccountModel updatedDetails, String email, String password) {
+
     }
 
 }

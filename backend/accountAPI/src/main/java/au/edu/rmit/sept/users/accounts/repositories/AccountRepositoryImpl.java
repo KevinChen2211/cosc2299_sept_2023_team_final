@@ -2,7 +2,11 @@ package au.edu.rmit.sept.users.accounts.repositories;
 
 import au.edu.rmit.sept.users.accounts.models.AccountModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
 
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
@@ -21,7 +25,7 @@ public class AccountRepositoryImpl implements AccountRepository{
     }
 
     private AccountModel extractAccount(ResultSet rs) throws SQLException {
-        return new AccountModel(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7));
+        return new AccountModel(rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7));
     }
 
     @Override
@@ -46,7 +50,7 @@ public class AccountRepositoryImpl implements AccountRepository{
             ResultSet generatedKeys = stm.getGeneratedKeys();
             if (generatedKeys.next()) {
                 Long id = generatedKeys.getLong(1);
-                return new AccountModel(id, account.firstName(), account.firstName(), account.address(), account.email(), account.password(), account.phone());
+                return new AccountModel(account.firstName(), account.firstName(), account.address(), account.email(), account.password(), account.phone());
             } else {
                 throw new SQLException("Creating book failed, no ID obtained.");
             }
@@ -55,19 +59,26 @@ public class AccountRepositoryImpl implements AccountRepository{
         }
     }
 
-    public Optional<AccountModel> findById(String email) {
+    public Optional<AccountModel> findById(String email, String password) {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/customers/" + email + "/" + password;
+        AccountModel account = restTemplate.getForObject(url, AccountModel.class);
+
         try {
-            PreparedStatement stm = this.source.getConnection().prepareStatement(
-                    "SELECT * FROM accounts WHERE email = ?");
-            stm.setString(1, email);
-            ResultSet rs = stm.executeQuery();
-            if (rs.next()) {
-                return Optional.of(extractAccount(rs));
+            if (account.email().equals(email)) { //if email == gotten email
+                return Optional.of(account);
             }
             return Optional.empty();
-        } catch (SQLException e) {
-            throw new RuntimeException("Error in findById", e);
+        } catch (HttpClientErrorException.NotFound e) {
+            return Optional.empty();
         }
+    }
+
+    @Override
+    public void update(AccountModel newDetails, String email, String password) {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/customers/" + email + "/" + password + "?lastName= " + newDetails.lastName() + "&password=" + newDetails.password() + "&phone= " + newDetails.phone() + "&firstName=" + newDetails.firstName() +"&address=" + newDetails.address() /*105%20Example%20St*/;
+
     }
 
 }

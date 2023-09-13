@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 
-public record AccountModel (Long customerID, String firstName, String lastName, String address, String email, String password, String phone) {
+public record AccountModel (String firstName, String lastName, String address, String email, String password, String phone) {
 
 }

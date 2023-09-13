@@ -1,6 +1,5 @@
 package au.edu.rmit.sept.users.accounts.services;
 
-import java.util.Collection;
 import java.util.Optional;
 
 import au.edu.rmit.sept.users.accounts.models.AccountModel;
@@ -11,5 +10,7 @@ public interface AccountService {
     public AccountModel createAccount(AccountModel account);
 
     //Declare getBook
-    public Optional<AccountModel> getAccount(String email);
+    public Optional<AccountModel> getAccount(String email, String password);
+
+    public void updateAccount(AccountModel updatedDetails, String email, String password);
 }

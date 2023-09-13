@@ -9,5 +9,7 @@ public interface AccountRepository {
     public AccountModel create(AccountModel account);
 
     //Find book by ID
-    public Optional<AccountModel> findById(String email);
+    public Optional<AccountModel> findById(String email, String password);
+
+    public void update(AccountModel newDetails, String email, String password);
 }

@@ -33,7 +33,7 @@ public class AccountControllerTest {
 
     @Test
     void get_should_returnBookDetails_When_available() {
-        when(this.service.getAccount("howard@duck.com"))
+        when(this.service.getAccount("howard@duck.com", password))
                 .thenReturn(Optional.of(new AccountModel(1L, "howard", "duck", "space", "howard@duck.com", "password", "2034")));
         Optional<AccountModel> m = this.controller.get("howard@duck.com", "password");
         assertNotNull(m);
