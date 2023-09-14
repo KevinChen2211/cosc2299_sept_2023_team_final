@@ -93,10 +93,10 @@ export default function Checkout() {
                           <label>Email</label>
                         </td>
                         <td align='left'>
-                          <input type="text" name="email" value={formData.email} onChange={handleInputChange} />
+                          <input type="text" name="email" value={formData.email} onChange={handleInputChange} width={'100%'} />
                         </td>
                       </tr>
-                      {/* Delivery Information */}
+                      {/* ----------Delivery Information--------- */}
                       <tr>
                         <td colSpan={4}><div className='subtitle'><b>Delivery Information</b></div></td>
                       </tr>
@@ -122,7 +122,7 @@ export default function Checkout() {
                           <label>Address</label>
                         </td>
                         <td align='left' colSpan={3}>
-                          <input type="text" name="address" value={formData.address} onChange={handleInputChange} />
+                          <input type="text" name="address" value={formData.address} onChange={handleInputChange}  width={'100%'} />
                         </td>
                       </tr>
                       {/* City and State */}
@@ -164,6 +164,7 @@ export default function Checkout() {
                           </button>
                         </td>
                       </tr>
+                      <br></br>
                     </tbody>
                   </table>
                 </td>

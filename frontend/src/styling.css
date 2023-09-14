@@ -24,7 +24,7 @@ td {
 }
   
 .totalAmount{
-    text-align: right;
+    text-align: center;
 }
 
 img{
@@ -203,4 +203,16 @@ input{
     align-items: center;
     padding: 10px;
     width: 60%;
+}
+
+
+/* ------------item page ------------------*/
+
+.itemInformation{
+    vertical-align: top;
+    margin: 20px;
+}
+
+.setPadding{
+    padding-right: 10px;
 }

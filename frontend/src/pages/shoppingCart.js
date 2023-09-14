@@ -62,7 +62,7 @@ FYI: the whole code is based on the use of html tables
                 <td> <button className='cancelButton'> X </button> </td>  
 
                 {/*   Item Image  */}
-                <td align='center'><img src="./assets/milk.jpeg" alt="itemImage" width={70} height={70}/> </td>
+                <td align='center'><img src="../assets/milk.jpeg" alt="itemImage" width={70} height={70}/> </td>
                 
                 {/*   Item Name  */}
                 <td> item name </td> 
@@ -84,13 +84,14 @@ FYI: the whole code is based on the use of html tables
 
             </table>  
           </div>
-            <hr></hr>
+            
           <div>
+          <hr></hr>
             <table align='center' width="60%">
               {/* ---------------  Total price ----------------- */}
               <tr>
                 <td align='right' width="80%"><span className='grayColor'>Total:</span></td>
-                <td className='totalAmount'> $ Total </td>
+                <td className='totalAmount' align='center'> $ Total </td>
               </tr>
             </table>
           </div>

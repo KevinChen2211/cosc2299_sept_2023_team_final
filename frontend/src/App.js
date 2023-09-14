@@ -7,6 +7,7 @@ import MyProfile from "./pages/MyProfile";
 import SignUp from "./pages/SignUp";
 import Checkout from "./pages/Checkout";
 import Payment from "./pages/Payment";
+import Item from "./pages/Item";
 import ShoppingCart from './pages/ShoppingCart';
 import { getUser, removeUser } from "./data/repository";
 import './App.css';
@@ -39,6 +40,7 @@ function App() {
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/payment" element={<Payment />} />
               <Route path="/shoppingcart" element={<ShoppingCart />} />
+              <Route path="/item" element={<Item />} />
         
             </Routes>
           </div>
