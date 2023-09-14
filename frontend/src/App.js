@@ -5,6 +5,9 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import MyProfile from "./pages/MyProfile";
 import SignUp from "./pages/SignUp";
+import Checkout from "./pages/Checkout";
+import Payment from "./pages/Payment";
+import ShoppingCart from './pages/ShoppingCart';
 import { getUser, removeUser } from "./data/repository";
 import './App.css';
 
@@ -33,6 +36,9 @@ function App() {
               <Route path="/signup" element={<SignUp loginUser={loginUser} />} />
               <Route path="/login" element={<Login loginUser={loginUser} />} />
               <Route path="/profile" element={<MyProfile email={email} />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/payment" element={<Payment />} />
+              <Route path="/shoppingcart" element={<ShoppingCart />} />
         
             </Routes>
           </div>

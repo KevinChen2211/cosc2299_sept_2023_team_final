@@ -1,7 +1,7 @@
 import '../styling.css';
 import React, { useState } from "react";
 
-export default function shoppingCart(){
+export default function ShoppingCart(){
     const [formData, setFormData] = useState([
       { id: 1, name: 'Product 1', price: 10, quantity: 2, imageUrl: '../assets/milk.jpeg',},
       { id: 1, name: 'Product 2', price: 15, quantity: 1, imageUrl: '../assets/milk.jpeg',},
@@ -43,6 +43,7 @@ FYI: the whole code is based on the use of html tables
         <body className='container'>
         <form onSubmit={handleSubmit}>
           <div className='center'>Shopping cart</div>
+          <br></br><br></br>
           <div>
             <table align='center'>
               <tr>
@@ -50,8 +51,8 @@ FYI: the whole code is based on the use of html tables
                 <td></td>
                 <td></td>
                 <td className='title' align='left'>Item Name</td>
-                <td className='title' align='right'>Price</td>
-                <td></td>
+                <td className='title' align='center'>Price</td>
+                <td className='title' align='center'>Quantity</td>
                 <td className='title' align='right'>Total Price</td>
               </tr>
               <br></br>
@@ -61,24 +62,24 @@ FYI: the whole code is based on the use of html tables
                 <td> <button className='cancelButton'> X </button> </td>  
 
                 {/*   Item Image  */}
-                <td align='center'><img src="../assets/milk.jpeg" alt="itemImage" width={70} height={70}/> </td>
+                <td align='center'><img src="./assets/milk.jpeg" alt="itemImage" width={70} height={70}/> </td>
                 
                 {/*   Item Name  */}
-                <td> item.name </td> 
+                <td> item name </td> 
 
                 {/*   Item Unit Price  */}
-                <td align='right'> <p> ${item.price.toFixed(2)} </p> </td>
+                <td> price </td> 
 
                 {/*   Item quantity  */}
-                <td align='right'> 
+                <td align='center'> 
                   <div className="quantityBar">
                     <button className='quantityButton'> - </button>
-                    <span className='quantityContainer'> {item.quantity} </span>
+                    <span className='quantityContainer'>quantity</span>
                     <button className='quantityButton'> + </button>
                   </div>
                 </td>
                 {/*   Item total price  */}
-                <td width="15%" align='right'> <span>  ${(item.price * item.quantity).toFixed(2)}  </span> </td>
+                <td width="15%" align='right'> <span> total price</span> </td>
               </tr>
 
             </table>  
@@ -88,12 +89,12 @@ FYI: the whole code is based on the use of html tables
             <table align='center' width="60%">
               {/* ---------------  Total price ----------------- */}
               <tr>
-                <td align='right' width="80%"><p className='grayColor'>Total:</p></td>
+                <td align='right' width="80%"><span className='grayColor'>Total:</span></td>
                 <td className='totalAmount'> $ Total </td>
               </tr>
             </table>
           </div>
-
+          <br></br><br></br>
           {/* ---------------  Check out button ----------------- */}
 
           <div className='button'>

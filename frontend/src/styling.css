@@ -105,16 +105,12 @@ img{
 
 /*     ______main container________   */
 .containerCheckout{
-    width: 65%;
-    height: 85%;
     background-color: #ffffff;
     border-radius: 20px;
     box-shadow: 0px 25px 40px #1687d933;
     justify-content: center;
     align-items: center;
-    padding-top: 20px;
-    margin: auto;
-    margin-top: 70px;
+    padding: 10px;
 }
 
 .quantityButton{
@@ -179,7 +175,6 @@ input{
     box-sizing: border-box;
     border: 0.5px solid gray;
     padding: 2px;
-    width: 90%;
     border-radius: 3px;
 }
 
@@ -196,4 +191,16 @@ input{
 .timeRangeButton:active{
     background-color: rgb(241, 241, 185);
     border: 0.5px solid gray;
+}
+
+/*     ______payment________   */
+
+.containerPayment{
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0px 25px 40px #1687d933;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    width: 60%;
 }
