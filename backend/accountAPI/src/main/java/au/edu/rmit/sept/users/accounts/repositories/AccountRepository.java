@@ -1,6 +1,7 @@
 package au.edu.rmit.sept.users.accounts.repositories;
 
 import au.edu.rmit.sept.users.accounts.models.AccountModel;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;

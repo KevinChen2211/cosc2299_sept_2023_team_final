@@ -3,6 +3,7 @@ package au.edu.rmit.sept.users.accounts.services;
 import au.edu.rmit.sept.users.accounts.models.AccountModel;
 import au.edu.rmit.sept.users.accounts.repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -29,7 +30,7 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public void updateAccount(AccountModel updatedDetails, String email, String password) {
-
+        repository.update(updatedDetails, email, password);
     }
 
 }

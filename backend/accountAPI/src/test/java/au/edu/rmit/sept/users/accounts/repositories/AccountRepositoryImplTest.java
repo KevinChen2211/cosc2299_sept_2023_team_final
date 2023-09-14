@@ -36,13 +36,11 @@ public class AccountRepositoryImplTest {
 
     @Test
     void create_should_addNewAccountToDB() {
-        AccountModel m = this.repo.create(new AccountModel(-1L, "name1", "name2", "brisvegas", "name1@name2.com", "0987", "026153949"));
-
-        assertEquals(3, m.customerID());
+        AccountModel m = this.repo.create(new AccountModel("name1", "name2", "brisvegas", "name1@name2.com", "0987", "026153949"));
         assertEquals("name1@name2.com", m.email());
 
-        AccountModel m2 = this.repo.findById("name1@name2.com").get();
-        assertEquals("name1@name2.com", m.email());
+        AccountModel m2 = this.repo.findById("name1@name2.com", "0987").get();
+        assertEquals("name1@name2.com", m2.email());
     }
 
 }

@@ -8,8 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
@@ -26,18 +25,26 @@ public class AccountControllerTest {
 
     @Test
     void newAccount_should_callCreateService() {
-        AccountModel m = new AccountModel(null, "Billy", "Howard", "11 Albert Parade", "billy.howard@jim.com", "1234", "0498765");
-        this.controller.newBook(m);
+        AccountModel m = new AccountModel("Billy", "Howard", "11 Albert Parade", "billy.howard@jim.com", "1234", "0498765");
+        this.controller.newAccount(m);
         verify(this.service, times(1)).createAccount(m);
     }
 
     @Test
-    void get_should_returnBookDetails_When_available() {
-        when(this.service.getAccount("howard@duck.com", password))
-                .thenReturn(Optional.of(new AccountModel(1L, "howard", "duck", "space", "howard@duck.com", "password", "2034")));
+    void get_should_returnAccountDetails_When_available() {
+        when(this.service.getAccount("howard@duck.com", "password"))
+                .thenReturn(Optional.of(new AccountModel("howard", "duck", "space", "howard@duck.com", "password", "2034")));
         Optional<AccountModel> m = this.controller.get("howard@duck.com", "password");
         assertNotNull(m);
         assertEquals("howard@duck.com", m.get().email());
+    }
+
+    @Test
+    void get_should_throwException_when_NotFound() {
+        assertThrows(RuntimeException.class,
+                () -> {
+                    this.controller.get("lilly@nonexist.com", "apassword");
+                });
     }
 
 }

@@ -4,13 +4,15 @@ import au.edu.rmit.sept.users.accounts.repositories.AccountRepository;
 import au.edu.rmit.sept.users.accounts.repositories.AccountRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import au.edu.rmit.sept.users.accounts.models.AccountModel;
 import au.edu.rmit.sept.users.accounts.services.AccountService;
+import org.springframework.web.client.RestTemplate;
 
-import java.sql.SQLException;
+import javax.security.auth.login.AccountNotFoundException;
 import java.util.Optional;
 
 @RestController
@@ -24,10 +26,9 @@ public class AccountController {
         this.service=serv;
     }
 
-    @PostMapping
-    public ResponseEntity<AccountModel> newAccount(@RequestBody AccountModel account) {
-        AccountModel m = service.createAccount(account);
-        return new ResponseEntity<AccountModel>(m, HttpStatus.CREATED);
+    @PostMapping(value = "/create", consumes = "application/json", produces = "application/json")
+    public AccountModel newAccount(@RequestBody AccountModel account) {
+        return this.service.createAccount(account);
     }
 
     @GetMapping("/{email}/{password}")
@@ -36,20 +37,17 @@ public class AccountController {
         if (currAcc.get().password().equals(password)){
             return currAcc;
         }
-        else {
-            return Optional.empty();
-        }
+        return Optional.empty();
     }
-
 
     @PutMapping("/update/{email}/{password}")
     public ResponseEntity<HttpStatus> update(@PathVariable String email, @PathVariable String password, @RequestBody AccountModel accountDetails) {
         Optional<AccountModel> result = get(email, password);
         if (result.isPresent()) {
             this.service.updateAccount(accountDetails, email, password);
-            return new ResponseEntity<HttpStatus>(HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
         } else {
-            return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 

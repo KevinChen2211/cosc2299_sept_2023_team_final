@@ -3,6 +3,7 @@ package au.edu.rmit.sept.users.accounts.services;
 import java.util.Optional;
 
 import au.edu.rmit.sept.users.accounts.models.AccountModel;
+import org.springframework.http.ResponseEntity;
 
 public interface AccountService {
 
