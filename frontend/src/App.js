@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import MyProfile from "./pages/MyProfile";
 import SignUp from "./pages/SignUp";
+import ProductPage from "./pages/components/ProductPage";
 import { getUser, removeUser } from "./data/repository";
 import './App.css';
 
@@ -33,7 +34,7 @@ function App() {
               <Route path="/signup" element={<SignUp loginUser={loginUser} />} />
               <Route path="/login" element={<Login loginUser={loginUser} />} />
               <Route path="/profile" element={<MyProfile email={email} />} />
-
+              <Route path="/product/:productName" element={<ProductPage />} />
             </Routes>
           </div>
         </main>
