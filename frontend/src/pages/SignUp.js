@@ -35,7 +35,7 @@ function SignUp(props) {
             saveUser(fields.firstname, fields.lastname, fields.mobile, fields.email, fields.password);
             initUsers();
             // Navigate to the home page.
-            navigate("/profile");
+            navigate("/");
             return;
         }
 

@@ -27,9 +27,7 @@ function Navbar(props) {
               </>
               :
               <>
-                <li className="nav-item">
-                  <span className="nav-link text-light">Welcome, {props.email}</span>
-                </li>
+        
                 <li className="nav-item">
                   <Link className="nav-link" to="/profile">Profile</Link>
                 </li>
