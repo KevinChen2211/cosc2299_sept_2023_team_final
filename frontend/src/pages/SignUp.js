@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { saveUser } from "../data/repository";
 import { initUsers } from "../data/repository";
@@ -83,8 +83,8 @@ function SignUp(props) {
 
                         <div className="form-group">
                             <label for="notifications">
-                                <input type="checkbox" value={fields.checkbox} onChange={handleInputChange}/> I would like to receive notifications from SuperPrice
-                                </label>
+                                <input type="checkbox" value={fields.checkbox} onChange={handleInputChange} /> I would like to receive notifications from SuperPrice
+                            </label>
 
                         </div>
 
