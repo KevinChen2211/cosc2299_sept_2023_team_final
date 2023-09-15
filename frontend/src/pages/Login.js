@@ -33,7 +33,7 @@ function Login(props) {
       props.loginUser(fields.email);
 
       // Navigate to the home page.
-      navigate("/profile");
+      navigate("/");
       return;
     }
 
