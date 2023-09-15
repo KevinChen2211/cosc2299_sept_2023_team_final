@@ -7,6 +7,7 @@ import MyProfile from "./pages/MyProfile";
 import SignUp from "./pages/SignUp";
 import Location from "./pages/Location";
 import Notifications from "./pages/Notifications";
+// import ShoppingCart from "./pages/ShoppingCart";
 import { getUser, removeUser } from "./data/repository";
 import './App.css';
 
@@ -37,6 +38,7 @@ function App() {
               <Route path="/profile" element={<MyProfile email={email} />} />
               <Route path="/location" element={<Location email={email} />} />
               <Route path="/notifications" element={<Notifications email={email} />} />
+              {/* <Route path="/shoppingcart" element={<ShoppingCart email={email} />} /> */}
             </Routes>
           </div>
         </main>
