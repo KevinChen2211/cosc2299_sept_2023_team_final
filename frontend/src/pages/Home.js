@@ -37,16 +37,6 @@ function Home(props) {
         <>
           <p>you only see this when you log in</p>
 
-        </div>
-      {props.email === null ?
-        <>
-          <p>this is the landing page</p>
-          <input onClick={handleSubmit} className="btn btn-primary" value="Sign Up" />
-        </>
-        :
-        <>
-          <p>you only see this when you log in</p>
-
         </>
       }
 
