@@ -64,7 +64,7 @@ public class CateAndSubCategoryController {
     @GetMapping("sub/{cate_sub}")
     public ResponseEntity<Object> getAllSubCateByCate(@PathVariable("cate_sub") String CateName) {
         RestTemplate restTemplate = new RestTemplate();
-        String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/product?cat=" + CateName;
+        String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/products?cat=" + CateName;
 
         try {
             Product[] productsArray = restTemplate.getForObject(url, Product[].class);
