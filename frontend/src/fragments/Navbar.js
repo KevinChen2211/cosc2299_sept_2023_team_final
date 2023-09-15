@@ -32,6 +32,15 @@ function Navbar(props) {
                   <Link className="nav-link" to="/profile">Profile</Link>
                 </li>
                 <li className="nav-item">
+                  <Link className="nav-link" to="/location">Location</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/notifications">Notifications</Link>
+                </li>
+                {/* <li className="nav-item">
+                  <Link className="nav-link" to="/shoppingcart">Shopping Cart</Link>
+                </li> */}
+                <li className="nav-item">
                   <Link className="nav-link" to="/login" onClick={props.logoutUser}>Logout</Link>
                 </li>
 

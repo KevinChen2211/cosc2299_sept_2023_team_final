@@ -5,6 +5,8 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import MyProfile from "./pages/MyProfile";
 import SignUp from "./pages/SignUp";
+import Location from "./pages/Location";
+import Notifications from "./pages/Notifications";
 import { getUser, removeUser } from "./data/repository";
 import './App.css';
 
@@ -33,7 +35,8 @@ function App() {
               <Route path="/signup" element={<SignUp loginUser={loginUser} />} />
               <Route path="/login" element={<Login loginUser={loginUser} />} />
               <Route path="/profile" element={<MyProfile email={email} />} />
-
+              <Route path="/location" element={<Location email={email} />} />
+              <Route path="/notifications" element={<Notifications email={email} />} />
             </Routes>
           </div>
         </main>
