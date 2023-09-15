@@ -6,9 +6,9 @@ import logo from "../assets/logo.png";
 function Navbar(props) {
   return (
     // nav bar colour bootstrap
-    <nav className="navbar navbar-expand-lg navbar-dark bg-secondary">
+    <nav className="navbar navbar-expand-sm bg-warning navbar-dark">
       <div className="container">
-        <Link className="navbar-brand" to="/"><img src={logo} alt="logo" width="25" height="25" />   SUPERPRICE</Link>
+        <Link className="navbar-brand" to="/"><img src={logo} alt="logo" width="180" height="80" /></Link>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
@@ -27,9 +27,7 @@ function Navbar(props) {
               </>
               :
               <>
-                <li className="nav-item">
-                  <span className="nav-link text-light">Welcome, {props.email}</span>
-                </li>
+        
                 <li className="nav-item">
                   <Link className="nav-link" to="/profile">Profile</Link>
                 </li>

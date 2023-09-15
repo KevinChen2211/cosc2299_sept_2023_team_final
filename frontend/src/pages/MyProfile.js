@@ -19,9 +19,8 @@ function MyProfile(props) {
 
         <hr />
         <p></p>
-        <p>Name: {getFullName(props.email)}</p>
+        <p>Name: {getFullName(props.firstname)}</p>
         <p>Email: {props.email}</p>
-
       </div>
     </div>
   );
