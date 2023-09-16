@@ -1,3 +1,4 @@
+import axios from 'axios';
 const USERS_KEY = "users";
 const USER_KEY = "user";
 
@@ -46,7 +47,15 @@ function getFullName(currentEmail){
   }
 }
 
-
+function getAccount (email){
+  axios.get(`http://localhost:8080/v1/account/${email}`)
+      .then(response => {
+       return response.data;
+      })
+      .catch(error => {
+        console.error("There was an error fetching account by email.", error);
+      });
+}
 
 function verifySignUpUser(firstname, lastname, mobile, email, password) {
   if (firstname === "") {
@@ -64,6 +73,9 @@ function verifySignUpUser(firstname, lastname, mobile, email, password) {
     return "**Email is required**";
   } else if (!/\S+@\S+\.\S+/.test(email)) {
     return "**Email is invalid**";
+  }
+  if (getAccount(email)){
+    return "**Email already exist**";
   }
   if (password === "") {
     return "**Password is required**";
@@ -93,5 +105,6 @@ export {
   removeUser,
   saveUser,
   verifySignUpUser,
-  getFullName
+  getFullName, 
+  getAccount
 }
