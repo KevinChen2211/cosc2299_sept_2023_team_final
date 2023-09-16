@@ -49,7 +49,7 @@ function Login(props) {
   // Sign In form
   return (
     <div>
-      <h2>Sign In</h2>
+      <h2>Log In</h2>
       <hr />
       <div className="row">
         <div className="col-md-6">
@@ -66,8 +66,9 @@ function Login(props) {
               <input type="password" name="password" id="password" className="form-control"
                 value={fields.password} onChange={handleInputChange} />
             </div>
+            <p></p><p>Don't have an account?<a href="/signup"> Sign up here</a></p>
             <div className="form-group">
-              <input type="submit" className="btn btn-primary" value="Sign In" />
+              <input type="submit" className="btn btn-primary" value="Login" />
             </div>
             {errorMessage !== null &&
               <div className="form-group">
