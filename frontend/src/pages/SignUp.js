@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { saveUser } from "../data/repository";
 import { initUsers } from "../data/repository";
 import { verifySignUpUser } from "../data/repository";
+import axios from 'axios';
 
 function SignUp(props) {
     const [fields, setFields] = useState({ firstname: "", lastname: "", mobile: "", email: "", password: "" });
@@ -29,13 +30,24 @@ function SignUp(props) {
 
         const verified = verifySignUpUser(fields.firstname, fields.lastname, fields.mobile, fields.email, fields.password);
 
-        // If verified login the user.
+        // If verified signup the user.
         if (verified === true) {
-            props.loginUser(fields.email);
-            saveUser(fields.firstname, fields.lastname, fields.mobile, fields.email, fields.password);
-            initUsers();
-            // Navigate to the home page.
-            navigate("/");
+            // storing user account
+            axios.post('http://localhost:8080/v1/account/create')
+                .then(response => {
+                    props.loginUser(fields.email);
+                    // saveUser(fields.firstname, fields.lastname, fields.mobile, fields.email, fields.password);
+                    // initUsers();
+                    // Navigate to the home page.
+                    navigate("/");
+                    setErrorMessage('');
+                })
+                .catch(error => {
+
+                    setErrorMessage(`Error creating account: ${error.message}`);
+                });
+            
+
             return;
         }
 

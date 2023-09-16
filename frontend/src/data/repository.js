@@ -57,6 +57,9 @@ function verifySignUpUser(firstname, lastname, mobile, email, password) {
   }if (mobile === "") {
     return "**Mobile number is required**";
   }
+  else if (!/^04\d{8}$/.test(mobile)){
+    return "Mobile format must be 04XXXXXXXX"
+  }
   if (email === "") {
     return "**Email is required**";
   } else if (!/\S+@\S+\.\S+/.test(email)) {
@@ -64,8 +67,6 @@ function verifySignUpUser(firstname, lastname, mobile, email, password) {
   }
   if (password === "") {
     return "**Password is required**";
-  } else if (password.length < 8) {
-    return "**Password must contain 8 or more characters**";
   }
 
 
