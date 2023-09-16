@@ -34,12 +34,10 @@ public class AccountRepositoryImpl implements AccountRepository{
         return null;
     }
     @Override
-    public AccountModel create(AccountModel account) {
+    public void create(AccountModel account) {
         RestTemplate restTemplate = new RestTemplate();
         String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/customers";
-        ResponseEntity<AccountModel> response = restTemplate.postForEntity(url, account, AccountModel.class);
-        System.out.println(response.getStatusCode());
-        return response.getBody();
+        restTemplate.postForObject(url, account, String.class);
     }
 
     @Override

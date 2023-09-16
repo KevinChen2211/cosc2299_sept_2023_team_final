@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 public interface AccountService {
 
     //Declare createBook
-    public AccountModel createAccount(AccountModel account);
+    public void createAccount(AccountModel account);
 
     //Declare getBook
     public Optional<AccountModel> getAccount(String email, String password);

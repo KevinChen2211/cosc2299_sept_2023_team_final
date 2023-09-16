@@ -27,8 +27,8 @@ public class AccountController {
     }
 
     @PostMapping(value = "/create", consumes = "application/json", produces = "application/json")
-    public AccountModel newAccount(@RequestBody AccountModel account) {
-        return this.service.createAccount(account);
+    public void newAccount(@RequestBody AccountModel account) {
+        this.service.createAccount(account);
     }
 
     @GetMapping("/{email}/{password}")

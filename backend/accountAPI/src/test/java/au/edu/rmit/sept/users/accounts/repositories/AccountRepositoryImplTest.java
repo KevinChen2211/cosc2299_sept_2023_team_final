@@ -36,11 +36,26 @@ public class AccountRepositoryImplTest {
 
     @Test
     void create_should_addNewAccountToDB() {
-        AccountModel m = this.repo.create(new AccountModel("name1", "name2", "brisvegas", "name1@name2.com", "0987", "026153949"));
-        assertEquals("name1@name2.com", m.email());
+        //must change email every time until delete method has been created
+        this.repo.create(new AccountModel("name1", "name2", "brisvegas", "name1@name2test2.com", "0987", "026153949"));
+        AccountModel m2 = this.repo.findById("name1@name2test2.com", "0987").get();
+        assertEquals("name1@name2test2.com", m2.email());
 
-        AccountModel m2 = this.repo.findById("name1@name2.com", "0987").get();
-        assertEquals("name1@name2.com", m2.email());
+        //delete method here
     }
+
+    @Test
+    void update_should_updateAccountToDB(){
+        //must change email every time until delete method has been created
+
+        this.repo.create(new AccountModel("name3", "name4", "neuva york", "name3@name5.com", "4567", "016373628"));
+        AccountModel m = new AccountModel("newName1", "newName2", "neuva york", "name3@name5.com", "4567", "016373628");
+        this.repo.update(m, m.email(), m.password());
+        AccountModel m2 = this.repo.findById("name3@name5.com", "4567").get();
+        assertEquals(m2.firstName(), m.firstName());
+        //delete method here
+    }
+
+
 
 }

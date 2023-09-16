@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 public interface AccountRepository {
-    public AccountModel create(AccountModel account);
+    public void create(AccountModel account);
 
     //Find book by ID
     public Optional<AccountModel> findById(String email, String password);

@@ -19,9 +19,7 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public AccountModel createAccount(AccountModel account) {
-        return repository.create(account);
-    }
+    public void createAccount(AccountModel account){repository.create(account);}
 
     @Override
     public Optional<AccountModel> getAccount(String email, String password) {
