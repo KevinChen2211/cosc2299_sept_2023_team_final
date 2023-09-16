@@ -26,7 +26,7 @@ function getUsers() {
 
 // NOTE: In this example the login is also persistent as it is stored in local storage.
 function verifyUser(email, password) {
-  const users = getUsers();
+  const users = getAccount(email);
   for (const user of users) {
     if (email === user.email && password === user.password) {
       setUser(email);
