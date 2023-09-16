@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { saveUser } from "../data/repository";
-import { initUsers } from "../data/repository";
 import { verifySignUpUser } from "../data/repository";
 import axios from 'axios';
 
@@ -46,7 +44,7 @@ function SignUp(props) {
 
                     setErrorMessage(`Error creating account: ${error.message}`);
                 });
-            
+
 
             return;
         }
