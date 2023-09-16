@@ -34,19 +34,19 @@ function Navbar(props) {
               :
               <>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/location"> <img src={location} alt="location" width="30" height="30"/> </Link>
+                  <Link className="nav-link" to="/location"> <img src={location} alt="location" width="30" height="30" /> </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/profile"><img src={profile} alt="profile" width="30" height="30"/></Link>
+                  <Link className="nav-link" to="/profile"><img src={profile} alt="profile" width="30" height="30" /></Link>
                 </li>
                 {/* <li className="nav-item">
                   <Link className="nav-link" to="/shoppingcart"><img src={shoppingcart} alt="shoppingcart" width="30" height="30"/></Link>
                 </li> */}
                 <li className="nav-item">
-                  <Link className="nav-link" to="/notifications"><img src={notification} alt="notification" width="30" height="30"/></Link>
+                  <Link className="nav-link" to="/notifications"><img src={notification} alt="notification" width="30" height="30" /></Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/login" onClick={props.logoutUser}><img src={logout} alt="logout" width="30" height="30"/></Link>
+                  <Link className="nav-link" to="/login" onClick={props.logoutUser}><img src={logout} alt="logout" width="30" height="30" /></Link>
                 </li>
 
               </>
