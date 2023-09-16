@@ -106,5 +106,59 @@ public class ProductRepositoryImpl implements ProductRepository {
                         return null;
         }
 
+        @Override
+        public List<Product> getSearch(String name, List<String> categories, List<String> subcategories,
+                        List<String> chains) {
+                RestTemplate restTemplate = new RestTemplate();
+                String baseUrl = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/products";
+
+                StringBuilder urlBuilder = new StringBuilder(baseUrl);
+                //product name
+                if (name != null && !name.isEmpty()) {
+                        urlBuilder.append("?search=").append(String.join(",", name));
+                }
+                //category
+                if (categories != null && !categories.isEmpty()) {
+                        if (urlBuilder.toString().contains("?")) {
+                                urlBuilder.append("&");
+                        } else {
+                                urlBuilder.append("?");
+                        }
+                        urlBuilder.append("cat=").append(String.join(",", categories));
+                }
+                //subcat
+                if (subcategories != null && !subcategories.isEmpty()) {
+                        if (urlBuilder.toString().contains("?")) {
+                                urlBuilder.append("&");
+                        } else {
+                                urlBuilder.append("?");
+                        }
+                        urlBuilder.append("subcat=").append(String.join(",", subcategories));
+                }
+
+                //chain
+                if (chains != null && !chains.isEmpty()) {
+                        if (urlBuilder.toString().contains("?")) {
+                                urlBuilder.append("&");
+                        } else {
+                                urlBuilder.append("?");
+                        }
+                        urlBuilder.append("chain=").append(String.join(",", chains));
+                }
+                try {
+                        Product[] ProductArray = restTemplate.getForObject(urlBuilder.toString(), Product[].class);
+                        if (ProductArray != null) {
+                                return Arrays.asList(ProductArray);
+                        } else {
+                                return new ArrayList<>();
+                        }
+                } catch (HttpClientErrorException.NotFound e) {
+                        return new ArrayList<>();
+                } catch (Exception e) {
+                        // Handle other exceptions if needed
+                        return new ArrayList<>();
+                }
+        }
+
 
 }

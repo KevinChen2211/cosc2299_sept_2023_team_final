@@ -38,7 +38,6 @@ function App() {
           </div>
         </main>
         <p></p>
-
       </Router>
     </div>
   );

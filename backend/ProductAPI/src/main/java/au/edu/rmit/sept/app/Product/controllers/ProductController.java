@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -86,5 +87,18 @@ public class ProductController {
             return new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(productOptional,HttpStatus.OK);
     }
+
+    @GetMapping("")
+     public ResponseEntity<Object> Search(
+             @RequestParam(required = false) String name,
+             @RequestParam(required = false) List<String> cat,
+             @RequestParam(required = false) List<String> subcat,
+             @RequestParam(required = false) List<String> chain) {
+
+         List<Product> stores = service.getSearchProducts(name,cat,subcat,chain);
+         if (stores == null || stores.isEmpty())
+             return new ResponseEntity<>("Products not found", HttpStatus.NOT_FOUND);
+         return new ResponseEntity<>(stores, HttpStatus.OK);
+     }
 
 }
