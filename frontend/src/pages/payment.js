@@ -11,7 +11,22 @@ export default function Payment() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted with data: ", formData);
+    const validationErrors = {};
+    if (!validateCardNumber(formData.cardNumber)) {
+      validationErrors.cardNumber = "Invalid card number";
+    }
+    if (!validateExpiryDate(formData.expiryDate)) {
+      validationErrors.expiryDate = "Invalid expiry date";
+    }
+    if (!validateCVC(formData.CVC)) {
+      validationErrors.CVC = "Invalid CVC/CVV";
+    }
+
+    if (Object.keys(validationErrors).length === 0) {
+        console.log("Form submitted with data: ", formData);
+      } else {
+        console.log("Form has validation errors:", validationErrors);
+      }
   };
 
   const handleInputChange = (e) => {
@@ -22,17 +37,24 @@ export default function Payment() {
     });
   };
 
+  const validateCardNumber = (cardNumber) => {
+    return /^\d{12,19}$/.test(cardNumber);
+  };
+
+  const validateExpiryDate = (expiryDate) => {
+    return /^\d{2}\/\d{2}$/.test(expiryDate);
+  };
+
+  const validateCVC = (cvc) => {
+    return /^\d{3,4}$/.test(cvc);
+  };
+
   const totalAmount = 100; 
 
   return (
-    <main>
-      <head>
-        <title>Payment</title>
-      </head>
-
-      <body className="containerPayment" align='center'>
+      <div className="containerPayment" align='center'>
+        <div className="center">Payment</div>
         <form onSubmit={handleSubmit}>
-          <div className="center">Payment</div>
           <br></br><br></br>
           <table align="center" cellPadding={'10px'}>
             <tbody>
@@ -121,7 +143,6 @@ export default function Payment() {
             </tbody>
           </table>
         </form>
-      </body>
-    </main>
+        </div>
   );
 }

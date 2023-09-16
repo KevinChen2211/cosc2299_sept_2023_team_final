@@ -1,5 +1,7 @@
 import '../styling.css';
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; 
+
 
 export default function ShoppingCart(){
     const [formData, setFormData] = useState([
@@ -11,14 +13,31 @@ export default function ShoppingCart(){
       e.preventDefault();
       console.log("Form submitted with data: ",formData);
       }
-  
-      const handleInputChange = (e) =>{
-          const {name, value} = e.target;
-          setFormData({
-              ...formData,
-              [name]: value
-          });
-      };
+
+    const calculateTotal = () => {
+      let total = 0;
+      for (const item of formData) {
+        total += item.price * item.quantity;
+      }
+      return total;
+    }
+
+    const handleQuantityChange = (index, amount) => {
+      const updatedData = [...formData];
+      updatedData[index].quantity += amount;
+      setFormData(updatedData);
+    }
+    
+    const handleRemoveItem = (indexToRemove) => {
+      const updatedFormData = formData.filter((_, index) => index !== indexToRemove);
+      setFormData(updatedFormData);
+    };    
+    
+    const navigate = useNavigate();
+
+    const handleCheckout = () => {
+      navigate("/checkout");
+    }
 
 /*
 FYI: the whole code is based on the use of html tables
@@ -28,72 +47,72 @@ FYI: the whole code is based on the use of html tables
       ~ name
       ~ unit price
       ~ - and + buttons for modifying quantity
-      ~ item quantity, that can be typed in to directly modify without the use of -+ buttons
       ~ total price = quantity * unit price
 - Total = Sum of all total prices of items
 - Checkout button will lead to check out page
 */
 
   return (
-      <main> 
-        <head>
-          <title>Shopping Cart</title>
-        </head>
 
-        <body className='container'>
+        <body className='container' width="50%">
         <form onSubmit={handleSubmit}>
+          
           <div className='center'>Shopping cart</div>
-          <br></br><br></br>
-          <div>
-            <table align='center'>
-              <tr>
+          <br/>
+              
                 {/* ---------------  Subheading ----------------- */}
-                <td></td>
+                {/* <td className='setPadding'></td>
+                <td className='setPadding'></td>
                 <td></td>
                 <td className='title' align='left'>Item Name</td>
                 <td className='title' align='center'>Price</td>
                 <td className='title' align='center'>Quantity</td>
-                <td className='title' align='right'>Total Price</td>
-              </tr>
-              <br></br>
-              <tr>
+                <td className='title' align='right'>Total Price</td> */}
+             
+              
+              {formData.map((item, index) => (
+                <div align='center'>
                 {/* ---------------  Product row ----------------- */}
                 {/*   Cancel Item  */}
-                <td> <button className='cancelButton'> X </button> </td>  
+                <td className='setPadding'> 
+                <button className='cancelButton' onClick={() => handleRemoveItem(index)}> 
+                X </button> </td>  
 
                 {/*   Item Image  */}
-                <td align='center'><img src="../assets/milk.jpeg" alt="itemImage" width={70} height={70}/> </td>
+                <td align='center' className='setPadding'><img src="../assets/milk.jpeg" alt="itemImage" width={70} height={70}/> </td>
                 
                 {/*   Item Name  */}
-                <td> item name </td> 
+                <td className='setPadding'> {item.name} </td> 
 
                 {/*   Item Unit Price  */}
-                <td> price </td> 
+                <td> $ {item.price} </td> 
 
                 {/*   Item quantity  */}
-                <td align='center'> 
+                <td align='center' width={'140px'}> 
                   <div className="quantityBar">
-                    <button className='quantityButton'> - </button>
-                    <span className='quantityContainer'>quantity</span>
-                    <button className='quantityButton'> + </button>
+                    <button 
+                        className='quantityButton'
+                        onClick={() => handleQuantityChange(index, -1)}> 
+                    - </button>
+                    <span className='quantityContainer'>{item.quantity}</span>
+                    <button className='quantityButton'
+                        onClick={() => handleQuantityChange(index, 1)}> 
+                    + </button>
                   </div>
                 </td>
                 {/*   Item total price  */}
-                <td width="15%" align='right'> <span> total price</span> </td>
-              </tr>
-
-            </table>  
-          </div>
-            
+                <td width="100px" align='center'> <span>$ {item.price * item.quantity}</span> </td>
+                </div>
+                ))}
           <div>
           <hr></hr>
             <table align='center' width="60%">
               {/* ---------------  Total price ----------------- */}
               <tr>
-                <td align='right' width="80%"><span className='grayColor'>Total:</span></td>
-                <td className='totalAmount' align='center'> $ Total </td>
-              </tr>
-            </table>
+                <td align='right' width="60%"><span className='grayColor'><b>Total:</b></span></td>
+                <td className='totalAmount' align='center'> <b>$ {calculateTotal()}</b> </td>
+               </tr>
+            </table>  
           </div>
           <br></br><br></br>
           {/* ---------------  Check out button ----------------- */}
@@ -101,7 +120,7 @@ FYI: the whole code is based on the use of html tables
           <div className='button'>
             <table align='center'>
               <td align='right'>
-                <button className='checkoutButton'>
+                <button className='checkoutButton'  onClick={handleCheckout} >
                   <span >
                     Continue to checkout
                   </span>
@@ -111,6 +130,5 @@ FYI: the whole code is based on the use of html tables
           </div>
           </form>
         </body>
-      </main>
       );
-} 
+}

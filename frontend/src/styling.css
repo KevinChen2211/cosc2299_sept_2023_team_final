@@ -47,6 +47,7 @@ img{
 .right{
     padding-right: 10px;
     text-align: right;
+    align-items: right;
 }
 
 /*    ______ check out button with arrow animation ________*/
@@ -104,6 +105,29 @@ img{
 }
 
 /*     ______main container________   */
+
+.container {
+    display: flex;
+    width: 45%;
+}
+
+.container > * {
+    flex: 1 1 0;
+  }
+
+.containerLeft{
+    display: flex;
+    flex: 30%;
+}
+
+.containerRight{
+    display: flex;
+    flex: 70%;
+}
+.containerRight > * {
+    flex: 1 1 0;
+  }
+
 .containerCheckout{
     background-color: #ffffff;
     border-radius: 20px;
@@ -111,6 +135,29 @@ img{
     justify-content: center;
     align-items: center;
     padding: 10px;
+    width: 400px;
+    display: flex;
+}
+
+.textColumn{
+    display: flex;
+}
+.textColumn > * {
+    flex: 2 1 0;
+  }
+
+.textColumnLeft{
+    flex: 50%;
+    text-align: left;
+    margin: 20px;
+}
+
+.textColumnRight{
+    flex: 50%;
+    text-align: right;
+    align-items: right;
+
+    justify-content: space-between;
 }
 
 .quantityButton{
@@ -141,11 +188,18 @@ img{
     color:rgb(149, 149, 146);
     font-size: 18px;
     font-style: oblique;
+    padding: 40px;
 }
-
+.cancelButton{
+    margin: 10px;
+    margin-right: 10px;
+    height: fit-content;
+    vertical-align: center;
+    background-color: white;
+}
 .cancelButton:hover{
-    color:red;
-}
+    background-color: rgb(247, 189, 189);
+}   
 
 /* .....................CHECKOUT Page....................... */
 
@@ -160,21 +214,20 @@ img{
 
 .productName{
     font-size: 15px;
+    margin-left: 10px;
 }
 
 .productPrice{
     font-size: 15px;
     color: gray;
-}
-
-.cancelButton{
-    margin: 10;
+    margin-left: 10px;
 }
 
 input{
     box-sizing: border-box;
     border: 0.5px solid gray;
     padding: 2px;
+    margin: auto;
     border-radius: 3px;
 }
 
@@ -202,7 +255,7 @@ input{
     justify-content: center;
     align-items: center;
     padding: 10px;
-    width: 60%;
+    width: 100px;
 }
 
 

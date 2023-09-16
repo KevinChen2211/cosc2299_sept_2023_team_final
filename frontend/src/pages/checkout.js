@@ -1,178 +1,151 @@
 import React, { useState } from "react";
-import '../styling.css'
+import '../styling.css';
+import { useNavigate } from "react-router-dom"; 
 
 export default function Checkout() {
-  const [formData, setFormData] = useState({
-    email: "",
-    firstName: "",
-    lastName: "",
-    address: "",
-    city: "",
-    postcode: "",
-    phone: ""
-  });
+  const [cartItems, setCartItems] = useState([
+    { id: 1, name: "Product 1", price: 10 , image: '../assets/milk.jpeg'},
+    { id: 2, name: "Product 2", price: 15 , image: '../assets/milk.jpeg'},
+    { id: 3, name: "Product 3", price: 20 , image: '../assets/milk.jpeg'},
+  ]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form submitted with data: ", formData);
-  }
+  const handleRemoveItem = (indexToRemove) => {
+    const updatedFormData = cartItems.filter((_, index) => index !== indexToRemove);
+    setCartItems(updatedFormData);
+  };  
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
+  const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    navigate("/payment"); // Navigate to the checkout page
   };
 
-  return (
+  const calculateTotal = () => {
+    let total = 0;
+    for (const item of cartItems) {
+      total += item.price;
+    }
+    return total;
+  }
+
+  const shippingFee = 7;
+
+  return (  
     <main>
-      <head>
-        <title>Checkout</title>
-      </head>
 
-      <body>
-        <br></br>
-        <form onSubmit={handleSubmit}>
-          <table width={"100%"}>
-            <tbody>
-              {/* Left container contains "my order" */}
-              <tr>
-                <td width={'30%'} className='vertical'>
-                  <table className='containerCheckout' cellPadding={'10px'}> 
-                    <tbody>
-                      <tr>
-                        <td colSpan={3}><div className='subtitle'><b>My order</b></div></td>
-                      </tr>
-                      <tr><td colSpan={3}><hr></hr></td></tr>
-                      <tr>
-                        {/* Item cancel */}
-                        <td width={'15%'}> <button className='cancelButton'> X </button> </td>
-                        {/* Item image */}
-                        <td align='center'><img src="../assets/milk.jpeg" alt="itemImage" width={70} height={70} /> </td>
-                        {/* Item name and price */}
-                        <td>
-                          <span className='productName'>Product Name</span>
-                          <br></br>
-                          <span className='productPrice'>Price</span>
-                        </td>
-                      </tr>
-                      <tr><td colSpan={3}><hr></hr></td></tr>
-                      {/* Subtotal */}
-                      <tr>
-                        <td colSpan={2} className='left'><span>Subtotal</span></td>
-                        <td className='right'><span>$ Subtotal</span></td>
-                      </tr>
-                      {/* Shipping fee */}
-                      <tr>
-                        <td colSpan={2} className='left'><span>Shipping fee</span></td>
-                        <td className='right'><span>$ Shipping</span></td>
-                      </tr>
-                      <tr><td colSpan={3}><hr></hr></td></tr>
-                      {/* Grand Total */}
-                      <tr>
-                        <td colSpan={2} className='left'><span><b>Total</b></span></td>
-                        <td className='right'><span><b>$ Total</b></span></td>
-                      </tr>
-                      <br></br>
-                    </tbody>
-                  </table>
-                </td>
+    <div className='center' >Checkout</div>  <br/>
 
-                {/* Right container contains contact information */}
-                <td width={'70%'} className='vertical'>
-                  <table className='containerCheckout' cellPadding={'10px'}>
-                    <tbody>
-                      <tr>
-                        <td colSpan={4}><div className='subtitle'><b>Contact Information</b></div></td>
-                      </tr>
-                      <tr><td colSpan={4}><hr></hr></td></tr>
-                      {/* Email */}
-                      <tr>
-                        <td className='left' width={'15%'}>
-                          <label>Email</label>
-                        </td>
-                        <td align='left'>
-                          <input type="text" name="email" value={formData.email} onChange={handleInputChange} width={'100%'} />
-                        </td>
-                      </tr>
-                      {/* ----------Delivery Information--------- */}
-                      <tr>
-                        <td colSpan={4}><div className='subtitle'><b>Delivery Information</b></div></td>
-                      </tr>
-                      <tr><td colSpan={4}><hr></hr></td></tr>
-                      {/* First Name and Last Name */}
-                      <tr>
-                        <td className='left'>
-                          <label>First Name</label>
-                        </td>
-                        <td align='left'>
-                          <input type="text" name="firstName" value={formData.firstName} onChange={handleInputChange} />
-                        </td>
-                        <td className='left' width={'15%'}>
-                          <label>Last Name</label>
-                        </td>
-                        <td align='left'>
-                          <input type="text" name="lastName" value={formData.lastName} onChange={handleInputChange} />
-                        </td>
-                      </tr>
-                      {/* Address */}
-                      <tr>
-                        <td className='left'>
-                          <label>Address</label>
-                        </td>
-                        <td align='left' colSpan={3}>
-                          <input type="text" name="address" value={formData.address} onChange={handleInputChange}  width={'100%'} />
-                        </td>
-                      </tr>
-                      {/* City and State */}
-                      <tr>
-                        <td className='left'>
-                          <label>City</label>
-                        </td>
-                        <td align='left'>
-                          <input type="text" name="city" value={formData.city} onChange={handleInputChange} />
-                        </td>
-                        <td className='left'>
-                          <label>State</label>
-                        </td>
-                        <td align='left'>
-                          <input type="text" name="state" value={formData.state} onChange={handleInputChange} />
-                        </td>
-                      </tr>
-                      {/* Postcode and Phone */}
-                      <tr>
-                        <td className='left'>
-                          <label>Postcode</label>
-                        </td>
-                        <td align='left'>
-                          <input type="text" name="postcode" value={formData.postcode} onChange={handleInputChange} />
-                        </td>
-                        <td className='left'>
-                          <label>Phone</label>
-                        </td>
-                        <td align='left'>
-                          <input type="text" name="phone" value={formData.phone} onChange={handleInputChange} />
-                        </td>
-                      </tr>
-                      {/* Button for continue shipping */}
-                      <br></br>
-                      <tr>
-                        <td colSpan={4} align='center'>
-                          <button className='checkoutButton'>
-                            <span>Continue Shipping</span>
-                          </button>
-                        </td>
-                      </tr>
-                      <br></br>
-                    </tbody>
-                  </table>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </form>
-      </body>
-    </main>
+    <div style={{display:'flex'}}>
+      {/* Left container contains "my order" */}
+      <div className='containerCheckout' style={{display:'flex',flexDirection:'column'}}>
+
+      <div className='subtitle'><b>My Order</b></div>
+        <hr />
+        {/* Render items in a loop */}
+        {cartItems.map((item, index) => (
+          <div key={index} style={{display:'flex'}}>
+          
+            <button className='cancelButton'  onClick={() => handleRemoveItem(index)}>
+               X </button>
+            <img src={`../assets/${item.image}`} alt="itemImage" width={70} height={70} />
+          
+            <div style={{display:'flex',flexDirection:'column'}}>
+              <span className='productName'>{item.name}</span>
+              <span className='productPrice'>Price ${item.price}</span>
+            </div>
+          </div>
+        ))}
+
+      <hr />
+      {/* Subtotal */}
+      <div className="textColumn">
+        <div>
+          <span className="textColumnLeft" ><i>Subtotal: </i></span>
+          <span className="textColumnRight">$ {calculateTotal()}</span>
+        </div>
+      </div>
+      <div className="textColumn">
+        {/* Shipping fee */}
+        <div>
+          <span className="textColumnLeft"><i>Shipping fee:</i></span>
+          <span className="textColumnRight">$ {shippingFee}</span>
+        </div>
+            <br></br>
+        </div>
+          
+        <hr />
+        <div className="textColumn">
+        {/* Grand Total */}
+        <div>
+          <span className="textColumnLeft"><b><i>Total Amount:</i></b></span>
+          <span className="textColumnRight"><b>$ {calculateTotal() + shippingFee}</b></span>
+        </div>
+        <br/>
+      </div>
+    </div>
+
+
+
+    {/* Right container contains contact information */}
+
+    <div className='containerCheckout' style={{display:'flex',flexDirection:'column'}}>
+      <div className='subtitle'><b>Contact Information</b></div>
+      <hr />
+
+      {/* Email */}
+      <div className='form-group'>
+        <label className="setPadding">Email</label>
+        <input type="text" name="email" />
+      </div>
+
+      {/* Delivery Information */}
+      <div className='subtitle'><b>Delivery Information</b></div>
+      <hr />
+
+      {/* First Name and Last Name */}
+      <div className='form-group'>
+        <label className="setPadding">First Name</label>
+        <input type="text" name="firstName" />
+      </div>
+      <div className='form-group'>
+        <label className="setPadding">Last Name</label>
+        <input type="text" name="lastName"/>
+      </div>
+
+      {/* Address */}
+      <div className='form-group'>
+        <label className="setPadding">Address</label>
+        <input type="text" name="address" />
+      </div>
+
+      {/* City and State */}
+      <div className='form-group'>
+        <label className="setPadding">City</label>
+        <input type="text" name="city"/>
+      </div>
+      <div className='form-group'>
+        <label className="setPadding">State</label>
+        <input type="text" name="state" />
+      </div>
+
+      {/* Postcode and Phone */}
+      <div className='form-group'>
+        <label className="setPadding">Postcode</label>
+        <input type="text" name="postcode" />
+      </div>
+      <div className='form-group'>
+        <label className="setPadding">Phone</label>
+        <input type="text" name="phone" />
+      </div>
+
+      {/* Button for continue shipping */}
+      <div className='form-group'>
+        <button className='checkoutButton' onClick={handleCheckout}>
+          Continue to Payment
+        </button>
+      </div>
+      </div>
+    </div> 
+  </main>
   );
 }
