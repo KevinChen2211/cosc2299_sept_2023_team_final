@@ -85,12 +85,11 @@ function SignUp(props) {
                             <label for="notifications">
                                 <input type="checkbox" value={fields.checkbox} onChange={handleInputChange} /> I would like to receive notifications from SuperPrice
                             </label>
-
                         </div>
-
                         <div className="form-group">
                             <input type="submit" className="btn btn-primary" value="Sign Up" />
                         </div>
+                        <p></p><p>Already have an account?<a href="/login"> Login here</a></p>
                         {errorMessage !== null &&
                             <div className="form-group">
                                 <span className="errorMessage">{errorMessage}</span>
