@@ -84,7 +84,7 @@ function SignUp(props) {
                         setErrorMessage('');
                     } else {
 
-                        setErrorMessage(`Error creating account:`);
+                        setErrorMessage(`Error creating account: Email already exists.`);
                     }
                 })
                 .catch((error) => {
