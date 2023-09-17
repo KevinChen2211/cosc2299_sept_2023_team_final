@@ -47,8 +47,8 @@ function getFullName(currentEmail){
   }
 }
 
-function getAccount (email){
-  axios.get(`http://localhost:8080/v1/account/${email}`)
+function getAccount (email, password){
+  axios.get(`http://localhost:8080/v1/account/${email}${password}`)
       .then(response => {
        return response.data;
       })
