@@ -23,39 +23,45 @@ function getUsers() {
   // Convert data to objects.
   return JSON.parse(data);
 }
-
-// NOTE: In this example the login is also persistent as it is stored in local storage.
-function verifyUser(email, password) {
-  const user = getAccount(email, password);
-    if (email === user.email && password === user.password) {
-      setUser(email);
-      return true;
-    }
-  return false;
-}
-
 // loop finds user's name
-function getFullName(currentEmail){
- let usersname = "";
-  for (const user of users){
-    if (currentEmail === user.email){
+function getFullName(currentEmail) {
+  let usersname = "";
+  for (const user of users) {
+    if (currentEmail === user.email) {
       usersname = user.firstname;
     }
-   return(usersname);
+    return (usersname);
   }
 }
 
-function getAccount (email, password){
-  axios.get(`http://localhost:8081/v1/account/${email}/${password}`)
-      .then(response => {
-        console.log(response.data);
-        return response.data;
-      })
-      .catch(error => {
-        console.error("There was an error fetching account by email.", error);
-      });
-      
+function getAccount(email, password) {
+
+  return axios.get(`http://localhost:8080/v1/account/${email}/${password}`)
+    .then(response => {
+      return response.data;
+    })
+    .catch(error => {
+      console.error("There was an error fetching account by email.", error);
+      throw error;
+    });
 }
+
+async function verifyUser(email, password) {
+  try {
+    const user = await getAccount(email, password);
+    if (email === user.email && password === user.password) {
+      setUser(email);
+
+      return true;
+    }
+
+    return false;
+  } catch (error) {
+    console.error("There was an error verifying the user.", error);
+    return false; 
+  }
+}
+
 
 function verifySignUpUser(firstname, lastname, mobile, email, password) {
   if (firstname === "") {
@@ -63,10 +69,10 @@ function verifySignUpUser(firstname, lastname, mobile, email, password) {
   }
   if (lastname === "") {
     return "**Last name is required**";
-  }if (mobile === "") {
+  } if (mobile === "") {
     return "**Mobile number is required**";
   }
-  else if (!/^04\d{8}$/.test(mobile)){
+  else if (!/^04\d{8}$/.test(mobile)) {
     return "Mobile format must be 04XXXXXXXX"
   }
   if (email === "") {
@@ -74,7 +80,7 @@ function verifySignUpUser(firstname, lastname, mobile, email, password) {
   } else if (!/\S+@\S+\.\S+/.test(email)) {
     return "**Email is invalid**";
   }
-  if (getAccount(email)){
+  if (getAccount(email)) {
     return "**Email already exist**";
   }
   if (password === "") {
@@ -105,6 +111,6 @@ export {
   removeUser,
   saveUser,
   verifySignUpUser,
-  getFullName, 
+  getFullName,
   getAccount
 }
