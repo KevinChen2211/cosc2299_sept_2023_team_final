@@ -1,6 +1,6 @@
 import '../styling.css';
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate, useLocation } from "react-router-dom"; 
 
 
 export default function ShoppingCart(){
@@ -38,6 +38,10 @@ export default function ShoppingCart(){
     const handleCheckout = () => {
       navigate("/checkout");
     }
+    
+    // const location = useLocation();
+    // console.log(location.state.name);
+
 
 /*
 FYI: the whole code is based on the use of html tables
@@ -52,58 +56,59 @@ FYI: the whole code is based on the use of html tables
 - Checkout button will lead to check out page
 */
 
-  return (
 
+
+  return (
+      
         <body className='container' width="50%">
+          {/* <h1>Product template here of :{location.state.productName}</h1> */}
         <form onSubmit={handleSubmit}>
-          
+          <td align='left'>
+              <button onClick={() => navigate('/login')}>
+                <span >
+                  Back to home page
+                </span>
+              </button>
+            </td>
           <div className='center'>Shopping cart</div>
           <br/>
-              
-                {/* ---------------  Subheading ----------------- */}
-                {/* <td className='setPadding'></td>
-                <td className='setPadding'></td>
-                <td></td>
-                <td className='title' align='left'>Item Name</td>
-                <td className='title' align='center'>Price</td>
-                <td className='title' align='center'>Quantity</td>
-                <td className='title' align='right'>Total Price</td> */}
-             
-              
-              {formData.map((item, index) => (
-                <div align='center'>
-                {/* ---------------  Product row ----------------- */}
-                {/*   Cancel Item  */}
-                <td className='setPadding'> 
-                <button className='cancelButton' onClick={() => handleRemoveItem(index)}> 
-                X </button> </td>  
+        
+        {formData.map((item, index) => (
+          <div align='center'>
+          {/* ---------------  Product row ----------------- */}
+          {/*   Cancel Item  */}
+          <td className='setPadding'> 
+            <button className='cancelButton' onClick={() => handleRemoveItem(index)}> 
+            X </button> </td>  
 
-                {/*   Item Image  */}
-                <td align='center' className='setPadding'><img src="../assets/milk.jpeg" alt="itemImage" width={70} height={70}/> </td>
-                
-                {/*   Item Name  */}
-                <td className='setPadding'> {item.name} </td> 
+          {/*   Item Image  */}
+          <td align='center' className='setPadding'><img src="../assets/milk.jpeg" alt="itemImage" width={70} height={70}/> </td>
+          
+          {/*   Item Name  */}
+          <td className='setPadding'> {item.name} </td> 
+          {/* <td className='setPadding'> {location.state.productName} </td>  */}
 
-                {/*   Item Unit Price  */}
-                <td> $ {item.price} </td> 
+          {/*   Item Unit Price  */}
+          <td> $ {item.price} </td> 
 
-                {/*   Item quantity  */}
-                <td align='center' width={'140px'}> 
-                  <div className="quantityBar">
-                    <button 
-                        className='quantityButton'
-                        onClick={() => handleQuantityChange(index, -1)}> 
-                    - </button>
-                    <span className='quantityContainer'>{item.quantity}</span>
-                    <button className='quantityButton'
-                        onClick={() => handleQuantityChange(index, 1)}> 
-                    + </button>
-                  </div>
-                </td>
-                {/*   Item total price  */}
-                <td width="100px" align='center'> <span>$ {item.price * item.quantity}</span> </td>
-                </div>
-                ))}
+          {/*   Item quantity  */}
+          <td align='center' width={'140px'}> 
+            <div className="quantityBar">
+              <button 
+                  className='quantityButton'
+                  onClick={() => handleQuantityChange(index, -1)}> 
+              - </button>
+              <span className='quantityContainer'>{item.quantity}</span>
+              <button className='quantityButton'
+                  onClick={() => handleQuantityChange(index, 1)}> 
+              + </button>
+            </div>
+          </td>
+          {/*   Item total price  */}
+          <td width="100px" align='center'> <span>$ {item.price * item.quantity}</span> </td>
+          </div>
+          ))}
+          
           <div>
           <hr></hr>
             <table align='center' width="60%">

@@ -11,7 +11,7 @@ export default function Item() {
   
   return (
     <tbody>
-      <table width={'60%'} align="center">
+      <table width={'0%'} align="center">
        <tr >
         <td><img src="../assets/milk.jpeg" alt="itemImage" width={'350px'} height={'350px'} ></img> </td>
         <td width={'10px'}></td>
