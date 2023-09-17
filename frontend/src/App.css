@@ -41,3 +41,28 @@
     transform: rotate(360deg);
   }
 }
+
+.specials-container{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-end;
+}
+
+.specials-container img {
+  border: 2px solid transparent; 
+  cursor: pointer;
+  transition: border-color 0.3s; 
+}
+
+.specials-container img:hover {
+  border-color: black; 
+}
+
+.main-page-image{
+  width: 50rem;
+}
+
+.home-page-search-catagories{
+  display: flex;
+  justify-content: space-around;
+}
