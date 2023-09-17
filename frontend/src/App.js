@@ -6,6 +6,9 @@ import Login from "./pages/Login";
 import MyProfile from "./pages/MyProfile";
 import SignUp from "./pages/SignUp";
 import ProductPage from "./pages/components/ProductPage";
+import Categories from "./pages/Categories";
+import SubCategories from "./pages/SubCategories"
+import SubCategoryProducts from "./pages/SubCategoryProducts"
 import { getUser, removeUser } from "./data/repository";
 import './App.css';
 
@@ -35,6 +38,9 @@ function App() {
               <Route path="/login" element={<Login loginUser={loginUser} />} />
               <Route path="/profile" element={<MyProfile email={email} />} />
               <Route path="/product/:productName" element={<ProductPage />} />
+              <Route path="/categories" element={<Categories />} />
+              <Route path="/categories/:subCategories" element={<SubCategories />} />
+              <Route path="/categories/:subCategories/:SubCategoryProducts" element={<SubCategoryProducts />} />
             </Routes>
           </div>
         </main>

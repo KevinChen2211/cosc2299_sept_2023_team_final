@@ -25,11 +25,16 @@ function Home(props) {
     return;
   }
 
+  const routeChange = () => {
+    let path = `/categories`;
+    navigate(path);
+  }
 
   const handleSubmit = (event) => {
     navigate("/signup");
     return;
   }
+
   return (
     <div className="text-center">
       {/* content describing website purpose */}
@@ -55,16 +60,16 @@ function Home(props) {
         </>
         :
         <>
-          <div className="home-page-search-catagories">
+          <div className="home-page-search-categories">
             {/* TODO: add feature to broswe tab */}
-            <button>browse</button>
+            <button onClick={routeChange}>Categories</button>
             <SearchBar />
           </div>
           <img
             src={supermarket}
             className="main-page-image"
           />
-          <h1>specials</h1>
+          <h1>Popular Items</h1>
           <div className="specials-container">
             {products.map(product => (
               <li key={product.productID}>
