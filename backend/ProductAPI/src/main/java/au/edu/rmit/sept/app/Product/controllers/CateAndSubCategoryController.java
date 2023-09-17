@@ -40,11 +40,11 @@ public class CateAndSubCategoryController {
         String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/categories";
         try {
             List<String> categories = restTemplate.getForObject(url, List.class);
+            categories.sort(String::compareTo); // Sort the list
             return new ResponseEntity<>(categories, HttpStatus.OK);
         } catch (HttpClientErrorException.NotFound e) {
             return new ResponseEntity<>("No categories found.", HttpStatus.NOT_FOUND);
         }
-
     }
 
     @GetMapping("all/subcate")
@@ -52,9 +52,9 @@ public class CateAndSubCategoryController {
         RestTemplate restTemplate = new RestTemplate();
         String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/subcategories";
 
-       
         try {
-             List<String> subcategories = restTemplate.getForObject(url, List.class);
+            List<String> subcategories = restTemplate.getForObject(url, List.class);
+            subcategories.sort(String::compareTo); // Sort the list
             return new ResponseEntity<>(subcategories, HttpStatus.OK);
         } catch (HttpClientErrorException.NotFound e) {
             return new ResponseEntity<>("No categories found.", HttpStatus.NOT_FOUND);
@@ -68,16 +68,18 @@ public class CateAndSubCategoryController {
 
         try {
             Product[] productsArray = restTemplate.getForObject(url, Product[].class);
-            
-            // Extracting unique subcategories from the products array
+
+            // Extracting unique subcategories from the products array and sorting them
             List<String> subcategories = Arrays.stream(productsArray)
-                                            .map(Product::getSubcategory)
-                                            .distinct()
-                                            .collect(Collectors.toList());
+                    .map(Product::getSubcategory)
+                    .distinct()
+                    .sorted()
+                    .collect(Collectors.toList());
 
             return new ResponseEntity<>(subcategories, HttpStatus.OK);
         } catch (HttpClientErrorException.NotFound e) {
             return new ResponseEntity<>("No subcategories found for the given category.", HttpStatus.NOT_FOUND);
         }
-}
+    }
+
 }

@@ -1,14 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import SearchBar from "./components/SearchBar";
+import supermarket from "../assets/supermarket.png";
+import axios from 'axios';
 
 function Home(props) {
-  const navigate = useNavigate();
-  const handleSubmit = (event) => {
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    axios.get(`http://localhost:8080/product/subcate/apples`)
+      .then(response => {
+        setProducts(response.data);
+      })
+      .catch(error => {
+        console.error("There was an error fetching products for the subcategory:", error);
+      });
+  }, []);
 
+
+  const navigate = useNavigate();
+
+  const handleImageClick = (product) => {
+    // Replace with the actual URLs with the navigate 
+    navigate("/product/" + product, { state: { productName: product } });
+    return;
+  }
+
+
+  const handleSubmit = (event) => {
     navigate("/signup");
     return;
-
-
   }
   return (
     <div className="text-center">
@@ -35,8 +55,30 @@ function Home(props) {
         </>
         :
         <>
-          <p>you only see this when you log in</p>
+          <div className="home-page-search-catagories">
+            {/* TODO: add feature to broswe tab */}
+            <button>browse</button>
+            <SearchBar />
+          </div>
+          <img
+            src={supermarket}
+            className="main-page-image"
+          />
+          <h1>specials</h1>
+          <div className="specials-container">
+            {products.map(product => (
+              <li key={product.productID}>
+                <img
+                  src={product.imageLocation}
+                  alt={product.name} width="100"
+                  onClick={() => handleImageClick(product.name)}
+                />
+                <br />
+                <strong>{product.name}</strong> - ${product.price.toFixed(2)}
+              </li>
+            ))}
 
+          </div>
         </>
       }
 
