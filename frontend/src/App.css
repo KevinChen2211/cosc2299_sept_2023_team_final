@@ -86,13 +86,13 @@
 
 .productList{
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: flex-end;
   flex-wrap: wrap; 
 }
 
 .products{
-  width: 17rem;
+  width: 20rem;
 }
 
 /* hover effect */
