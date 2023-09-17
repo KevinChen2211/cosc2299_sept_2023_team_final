@@ -8,9 +8,9 @@ const Subcategory = (props) => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const handleImageClick = (product) => {
+    const handleImageClick = (product, productIdentifier) => {
         // Replace with the actual URLs with the navigate 
-        navigate("/product/" + product, { state: { productName: product } });
+        navigate("/product/" + product, { state: { productID: productIdentifier } });
         return;
     }
 
@@ -32,7 +32,7 @@ const Subcategory = (props) => {
                 {products.map(product => (
                     <div
                         className='products'
-                        onClick={() => handleImageClick(product.name)}
+                        onClick={() => handleImageClick(product.name, product.productID)}
                     >
                         <img src={product.imageLocation} alt={product.name} width="100" />
                         <br />
