@@ -34,7 +34,6 @@ export default function ShoppingCart({cartItems, updateCartItems}){
     navigate("/checkout");
   }
   
-  
   return (
         <body className='container' width="50%">
         <form onSubmit={handleSubmit}>
