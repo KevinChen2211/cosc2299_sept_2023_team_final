@@ -1,217 +1,199 @@
 import React, { useState } from "react";
-import '../styling.css'
+import '../styling.css';
+import { useNavigate } from "react-router-dom"; 
 
-export default function checkout(){
+export default function Checkout({cartItems, updateCartItems}) {
   const [formData, setFormData] = useState({
-    email: "", firstName: "", lastName: "",
-    address: "", city: "", postcode: "", phone: ""
+    email: "",
+    firstName: "",
+    lastName: "",
+    address: "",
+    city: "",
+    postcode: "",
+    phone: "",
   });
 
-  const handleSubmit = (e) =>{
-    e.preventDefault();
-    console.log("Form submitted with data: ",formData);
-  }
+  const [formErrors, setFormErrors] = useState({});
 
-  const handleInputChange = (e) =>{
-    const {name, value} = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
+  const handleRemoveItem = (indexToRemove) => {
+    const updatedFormData = cartItems.filter((_, index) => index !== indexToRemove);
+    updateCartItems(updatedFormData);
+  };  
+
+  const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    // Validate the contact information inputs
+    const errors = {};
+    if (!formData.email || !/^\S+@\S+\.\S+$/.test(formData.email)) {
+      errors.email = "Invalid email format";
+    }
+    if (!formData.firstName) {
+      errors.firstName = "First Name is required";
+    }
+    if (!formData.lastName) {
+      errors.lastName = "Last Name is required";
+    }
+    if (!formData.address) {
+      errors.address = "Address is required";
+    }
+    if (!formData.city) {
+      errors.city = "City is required";
+    }
+    if (!formData.state) {
+      errors.state = "State is required";
+    }
+    if (!formData.postcode || !/^\d{4}$/.test(formData.postcode)) {
+      errors.postcode = "Postcode must be 4 digits";
+    }
+    if (!formData.phone) {
+      errors.phone = "Phone is required";
+    }
+
+    // If there are validation errors, set them in the state and prevent navigation
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+    } else {
+      // If there are no validation errors, navigate to the payment page
+      navigate("/payment");
+    }
   };
 
-/*
-FYI: - The whole code is implemented inside two containers: left (my order), right( delivery info)
-MY ORDER CONTAINER: 
-  - My order container has EACH ITEM with the following functions:
-      ~ cancel item
-      ~ item image
-      ~ item name and item price
-  - Total = Subtotal + Shipping Fee
-DELIVERY INFO CONTAINER:
-  - email, first name, last name, address, city, state, postcode, phone
-CONTINUE SHIPPING BUTTON:
-  - will lead to delivery page
-*/
+  const calculateTotal = () => {
+    let total = 0;
+    for (const item of cartItems) {
+      total += item.price;
+    }
+    return total;
+  }
 
-  return (
-      <main> 
-        <head>
-          <title>Checkout</title>
-        </head>
+  const shippingFee = 7;
 
-        <body>
-          <br></br>
-          <form onSubmit={handleSubmit}>
-            <table width={"100%"}>
-              {/* ---------------  Left container contains "my order" ----------------- */}
-              <tr> 
-                <td width={'30%'} className='vertical'>
-                  <table className='containerCheckout'>
-                    <br></br>
-                    <tr>
-                      <td colSpan={3}><div className='subtitle'><b>My order</b></div></td>
-                    </tr>
-                    <br></br>
-                    <tr><td colSpan={3}><hr></hr></td></tr>
-                    <br></br>
-                    <tr>
-                      {/*   Item cancel */}
-                      <td width={'15%'}> <button className='cancelButton'> X </button> </td>
-                      {/*   Item image  */}
-                      <td align='center'><img src="../assets/milk.jpeg" alt="itemImage" width={70} height={70}/> </td>
-                      {/*   Item name and price  */}
-                      <td>
-                        <span className='productName'>Product Name</span>
-                        <br></br>
-                        <span className='productPrice'>Price</span>
-                      </td>
-                    </tr>
-                    <br></br>
-                    
-                    <br></br>
-                    <tr><td colSpan={3}><hr></hr></td></tr>
-                    <br></br>
-                    {/*   Subtotal  */}
-                    <tr >
-                      <td colSpan={2} className='left'><span>Subtotal</span></td>
-                      <td className='right'><span>$ Subtotal</span></td>
-                    </tr>
-                    {/*   Shipping fee */}
-                    <tr>
-                      <td colSpan={2} className='left'><span>Shipping fee</span></td>
-                      <td className='right'><span>$ Shipping</span></td>
-                    </tr>
-                    <br></br>
-                    <tr><td colSpan={3}><hr></hr></td></tr>
-                    {/*   Grand Total */}
-                    <tr>
-                      <td colSpan={2} className='left'><span><b>Total</b></span></td>
-                      <td className='right'><span><b>$ Total</b></span></td>
-                    </tr>
-                    <br></br>
-                  </table>
-                </td>
+  return (  
+    <main>
+      <button onClick={() => navigate('/shoppingCart')} >
+        <span>
+          Back to shopping cart
+        </span>
+      </button>
 
-                {/* ---------------  Right container contains contact information ----------------- */}
+      <div className='center'>Checkout</div>  <br/>
 
-                <td width={'60%'} className='vertical'>
-                  <table className='containerCheckout'>
-                    <br></br>
-                    <tr>
-                      <td colSpan={4}><div className='subtitle'><b>Contact Information</b></div></td>
-                    </tr>
-                    <br></br>
-                    <tr><td colSpan={4}><hr></hr></td></tr>
-                    <br></br>
+      <div style={{display:'flex'}}>
+        {/* Left container contains "my order" */}
+        <div className='containerCheckout' style={{display:'flex',flexDirection:'column'}}>
 
-                    {/*   Email  */}
-                    <tr>
-                      <td className='left' width={'15%'}>
-                        <label>Email</label> 
-                      </td>
-                      <td align='left'>
-                        <input type="text" name="email" width={'35%'}></input>
-                      </td>
-                    </tr>
-                    <br></br>
-                    <br></br>
+          <div className='subtitle'><b>My Order</b></div>
+          <hr />
+          {/* Render items in a loop */}
+          {cartItems.map((item, index) => (
+            <div key={index} style={{display:'flex'}}>
+              {/* Cancel Item */}
+              <button className='cancelButton' onClick={() => handleRemoveItem(index)}>
+                X
+              </button>
+              <img src={`../assets/${item.image}`} alt="itemImage" width={70} height={70} />
+              <div style={{display:'flex',flexDirection:'column'}}>
+                <span className='productName'>{item.name}</span>
+                <span className='productPrice'>Price ${item.price}</span>
+              </div>
+            </div>
+          ))}
+          <hr />
+          {/* Subtotal */}
+          <div className="textColumn">
+            <div>
+              <span className="textColumnLeft" ><i>Subtotal: </i></span>
+              <span className="textColumnRight">$ {calculateTotal()}</span>
+            </div>
+          </div>
+          <div className="textColumn">
+            {/* Shipping fee */}
+            <div>
+              <span className="textColumnLeft"><i>Shipping fee:</i></span>
+              <span className="textColumnRight">$ {shippingFee}</span>
+            </div>
+            <br></br>
+          </div>
+          <hr />
+          <div className="textColumn">
+            {/* Grand Total */}
+            <div>
+              <span className="textColumnLeft"><b><i>Total Amount:</i></b></span>
+              <span className="textColumnRight"><b>$ {calculateTotal() + shippingFee}</b></span>
+            </div>
+            <br/>
+          </div>
+        </div>
 
-                    {/*  ------- Delivery Information ------  */}
-                    <tr>
-                      <td colSpan={4}><div className='subtitle'><b>Delivery Information</b></div></td>
-                    </tr>
-                    <br></br>
-                    <tr><td colSpan={4}><hr></hr></td></tr>
-                    <br></br>
+        {/* Right container contains contact information */}
+        <div className='containerCheckout' style={{display:'flex',flexDirection:'column'}}>
+          <div className='subtitle'><b>Contact Information</b></div>
+          <hr />
 
-                    {/*   First Name  */}
-                    <tr>
-                      <td className='left'>
-                        <label>First Name</label> 
-                      </td>
-                      <td align='left' >
-                        <input type="text" name="firstName"></input>
-                      </td>
+          {/* Email */}
+          <div className='form-group'>
+            <label className="setPadding">Email</label>
+            <input type="text" name="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
+            {formErrors.email && <div className="error">{formErrors.email}</div>}
+          </div>
 
-                      {/*   Last Name  */}
-                      <td className='left' width={'15%'}>
-                        <label>Last Name</label> 
-                      </td>
-                      <td align='left' >
-                        <input type="text" name="lastName"></input>
-                      </td>
-                    </tr>
-                    <br></br>
+          {/* Delivery Information */}
+          <div className='subtitle'><b>Delivery Information</b></div>
+          <hr />
 
-                    {/*   Address  */}
-                    <tr>
-                      <td className='left'>
-                        <label>Address</label> 
-                      </td>
-                      <td align='left' colSpan={3}>
-                        <input type="text" name="address"></input>
-                      </td>
-                    </tr>
-                    <br></br>
+          {/* First Name and Last Name */}
+          <div className='form-group'>
+            <label className="setPadding">First Name</label>
+            <input type="text" name="firstName" value={formData.firstName} onChange={(e) => setFormData({ ...formData, firstName: e.target.value })} />
+            {formErrors.firstName && <div className="error">{formErrors.firstName}</div>}
+          </div>
+          <div className='form-group'>
+            <label className="setPadding">Last Name</label>
+            <input type="text" name="lastName" value={formData.lastName} onChange={(e) => setFormData({ ...formData, lastName: e.target.value })} />
+            {formErrors.lastName && <div className="error">{formErrors.lastName}</div>}
+          </div>
 
-                    {/*   City  */}
-                    <tr>
-                      <td className='left'>
-                        <label>City</label> 
-                      </td>
-                      <td align='left' >
-                        <input type="text" name="city"></input>
-                      </td>
+          {/* Address */}
+          <div className='form-group'>
+            <label className="setPadding">Address</label>
+            <input type="text" name="address" value={formData.address} onChange={(e) => setFormData({ ...formData, address: e.target.value })} />
+            {formErrors.address && <div className="error">{formErrors.address}</div>}
+          </div>
 
-                    {/*   State  */}
-                      <td className='left'>
-                        <label>State</label> 
-                      </td>
-                      <td align='left' >
-                        <input type="text" name="state"></input>
-                      </td>
-                    </tr>
-                    <br></br>
+          {/* City and State */}
+          <div className='form-group'>
+            <label className="setPadding">City</label>
+            <input type="text" name="city" value={formData.city} onChange={(e) => setFormData({ ...formData, city: e.target.value })} />
+            {formErrors.city && <div className="error">{formErrors.city}</div>}
+          </div>
 
-                    {/*   Postcode  */}
-                    <tr>
-                      <td className='left'>
-                        <label>Postcode</label> 
-                      </td>
-                      <td align='left' >
-                        <input type="text" name="postcode"></input>
-                      </td>
+          <div className='form-group'>
+            <label className="setPadding">State</label>
+            <input type="text" name="state" value={formData.state} onChange={(e) => setFormData({ ...formData, state: e.target.value })} />
+            {formErrors.state && <div className="error">{formErrors.state}</div>}
+          </div>
 
-                    {/*   Phone  */}
-                      <td className='left'>
-                        <label>Phone</label> 
-                      </td>
-                      <td align='left' >
-                        <input type="text" name="phone"></input>
-                      </td>
-                    </tr>
-                    <br></br>
-                    <br></br>
+          {/* Postcode and Phone */}
+          <div className='form-group'>
+            <label className="setPadding">Postcode</label>
+            <input type="text" name="postcode" value={formData.postcode} onChange={(e) => setFormData({ ...formData, postcode: e.target.value })} />
+            {formErrors.postcode && <div className="error">{formErrors.postcode}</div>}
+          </div>
+          <div className='form-group'>
+            <label className="setPadding">Phone</label>
+            <input type="text" name="phone" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} />
+            {formErrors.phone && <div className="error">{formErrors.phone}</div>}
+          </div>
 
-                    {/* ---------------  Button for continue shipping ----------------- */}
-
-                    <tr>
-                      <td colSpan={4} align='right'>
-                        <button className='checkoutButton'>
-                          <span> Continue Shipping </span>
-                        </button>
-                      </td>
-                    </tr>
-                    <br></br>
-                  </table>
-                </td>
-              </tr>
-
-            </table>
-          </form>
-        </body>
-        
-      </main>
-      );
-} 
+          {/* Button for continue shipping */}
+          <div className='form-group'>
+            <button className='checkoutButton' onClick={handleCheckout}>
+              Continue to Payment
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  );
+}

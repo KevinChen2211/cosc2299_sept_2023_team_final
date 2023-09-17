@@ -1,105 +1,105 @@
 import '../styling.css';
 import React, { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom"; 
 
-export default function shoppingCart(){
-    const [formData, setFormData] = useState([
-      { id: 1, name: 'Product 1', price: 10, quantity: 2, imageUrl: '../assets/milk.jpeg',},
-      { id: 1, name: 'Product 2', price: 15, quantity: 1, imageUrl: '../assets/milk.jpeg',},
-    ]);
 
-    const handleSubmit = (e) =>{
-      e.preventDefault();
-      console.log("Form submitted with data: ",formData);
-      }
+export default function ShoppingCart({cartItems, updateCartItems}){
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+    console.log("Form submitted with data: ",cartItems);
+    }
+
+  const calculateTotal = () => {
+    let total = 0;
+    for (const item of cartItems) {
+      total += item.price * item.quantity;
+    }
+    return total;
+  }
+
+  const handleQuantityChange = (index, amount) => {
+    const updatedData = [...cartItems];
+    updatedData[index].quantity += amount;
+    updateCartItems(updatedData);
+  }
   
-      const handleInputChange = (e) =>{
-          const {name, value} = e.target;
-          setFormData({
-              ...formData,
-              [name]: value
-          });
-      };
+  const handleRemoveItem = (indexToRemove) => {
+    const updatedFormData = cartItems.filter((_, index) => index !== indexToRemove);
+    updateCartItems(updatedFormData);
+  };    
+    
+  const navigate = useNavigate();
 
-/*
-FYI: the whole code is based on the use of html tables
-- Each row of product has: 
-      ~ cancel button
-      ~ image
-      ~ name
-      ~ unit price
-      ~ - and + buttons for modifying quantity
-      ~ item quantity, that can be typed in to directly modify without the use of -+ buttons
-      ~ total price = quantity * unit price
-- Total = Sum of all total prices of items
-- Checkout button will lead to check out page
-*/
-
+  const handleCheckout = () => {
+    navigate("/checkout");
+  }
+  
   return (
-      <main> 
-        <head>
-          <title>Shopping Cart</title>
-        </head>
-
-        <body className='container'>
+        <body className='container' width="50%">
         <form onSubmit={handleSubmit}>
+          <td align='left'>
+              <button onClick={() => navigate('/item')}>
+                <span >
+                  Back to item details
+                </span>
+              </button>
+            </td>
           <div className='center'>Shopping cart</div>
-          <div>
-            <table align='center'>
-              <tr>
-                {/* ---------------  Subheading ----------------- */}
-                <td></td>
-                <td></td>
-                <td className='title' align='left'>Item Name</td>
-                <td className='title' align='right'>Price</td>
-                <td></td>
-                <td className='title' align='right'>Total Price</td>
-              </tr>
-              <br></br>
-              <tr>
-                {/* ---------------  Product row ----------------- */}
-                {/*   Cancel Item  */}
-                <td> <button className='cancelButton'> X </button> </td>  
+          <br/>
+        
+        {cartItems.map((item, index) => (
+          <div align='center'>
+          {/* ---------------  Product row ----------------- */}
+          {/*   Cancel Item  */}
+          <td className='setPadding'> 
+            <button className='cancelButton' onClick={() => handleRemoveItem(index)}> 
+            X </button> </td>  
 
-                {/*   Item Image  */}
-                <td align='center'><img src="../assets/milk.jpeg" alt="itemImage" width={70} height={70}/> </td>
-                
-                {/*   Item Name  */}
-                <td> item.name </td> 
+          {/*   Item Image  */}
+          <td align='center' className='setPadding'><img src="../assets/milk.jpeg" alt="itemImage" width={70} height={70}/> </td>
+          
+          {/*   Item Name  */}
+          <td className='setPadding' key={item.id}> {item.name} </td> 
+          {/* <td className='setPadding'> {location.state.productName} </td>  */}
 
-                {/*   Item Unit Price  */}
-                <td align='right'> <p> ${item.price.toFixed(2)} </p> </td>
+          {/*   Item Unit Price  */}
+          <td> $ {item.price} </td> 
 
-                {/*   Item quantity  */}
-                <td align='right'> 
-                  <div className="quantityBar">
-                    <button className='quantityButton'> - </button>
-                    <span className='quantityContainer'> {item.quantity} </span>
-                    <button className='quantityButton'> + </button>
-                  </div>
-                </td>
-                {/*   Item total price  */}
-                <td width="15%" align='right'> <span>  ${(item.price * item.quantity).toFixed(2)}  </span> </td>
-              </tr>
-
-            </table>  
+          {/*   Item quantity  */}
+          <td align='center' width={'140px'}> 
+            <div className="quantityBar">
+              <button 
+                  className='quantityButton'
+                  onClick={() => handleQuantityChange(index, -1)}> 
+              - </button>
+              <span className='quantityContainer'>{item.quantity}</span>
+              <button className='quantityButton'
+                  onClick={() => handleQuantityChange(index, 1)}> 
+              + </button>
+            </div>
+          </td>
+          {/*   Item total price  */}
+          <td width="100px" align='center'> <span>$ {item.price * item.quantity}</span> </td>
           </div>
-            <hr></hr>
+          ))}
+          
           <div>
+          <hr></hr>
             <table align='center' width="60%">
               {/* ---------------  Total price ----------------- */}
               <tr>
-                <td align='right' width="80%"><p className='grayColor'>Total:</p></td>
-                <td className='totalAmount'> $ Total </td>
-              </tr>
-            </table>
+                <td align='right' width="60%"><span className='grayColor'><b>Total:</b></span></td>
+                <td className='totalAmount' align='center'> <b>$ {calculateTotal()}</b> </td>
+               </tr>
+            </table>  
           </div>
-
+          <br></br><br></br>
           {/* ---------------  Check out button ----------------- */}
 
           <div className='button'>
             <table align='center'>
               <td align='right'>
-                <button className='checkoutButton'>
+                <button className='checkoutButton'  onClick={handleCheckout} >
                   <span >
                     Continue to checkout
                   </span>
@@ -109,6 +109,5 @@ FYI: the whole code is based on the use of html tables
           </div>
           </form>
         </body>
-      </main>
       );
-} 
+}
