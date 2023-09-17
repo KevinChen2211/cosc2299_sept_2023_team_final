@@ -41,6 +41,9 @@ function getAccount(email, password) {
       return response.data;
     })
     .catch(error => {
+      if (error.response && error.response.status === 404) {
+        return null; // Email not found
+      }
       console.error("There was an error fetching account by email.", error);
       throw error;
     });
@@ -80,9 +83,9 @@ function verifySignUpUser(firstname, lastname, mobile, email, password) {
   } else if (!/\S+@\S+\.\S+/.test(email)) {
     return "**Email is invalid**";
   }
-  if (getAccount(email)) {
-    return "**Email already exist**";
-  }
+  // if (getAccount(email)) {
+  //   return "**Email already exist**";
+  // }
   if (password === "") {
     return "**Password is required**";
   }

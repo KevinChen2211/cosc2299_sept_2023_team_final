@@ -58,8 +58,6 @@ function SignUp(props) {
         const verified = verifySignUpUser(fields.firstname, fields.lastname, fields.mobile, fields.email, fields.password);
         if (verified === true) {
             // Prepare the user data to be sent in the POST request
-        console.log(fields.firstname+"hello");
-         
             const userData = {
                 firstName : fields.firstname,
                 lastName: fields.lastname,
@@ -69,7 +67,7 @@ function SignUp(props) {
                 phone: fields.mobile,
             };
 
-            fetch('http://localhost:8081/v1/account/create', {
+            fetch('http://localhost:8080/v1/account/create', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
