@@ -3,77 +3,52 @@ import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom"; 
 
 
-export default function ShoppingCart(){
-    const [formData, setFormData] = useState([
-      { id: 1, name: 'Product 1', price: 10, quantity: 2, imageUrl: '../assets/milk.jpeg',},
-      { id: 1, name: 'Product 2', price: 15, quantity: 1, imageUrl: '../assets/milk.jpeg',},
-    ]);
-
-    const handleSubmit = (e) =>{
-      e.preventDefault();
-      console.log("Form submitted with data: ",formData);
-      }
-
-    const calculateTotal = () => {
-      let total = 0;
-      for (const item of formData) {
-        total += item.price * item.quantity;
-      }
-      return total;
+export default function ShoppingCart({cartItems, updateCartItems}){
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+    console.log("Form submitted with data: ",cartItems);
     }
 
-    const handleQuantityChange = (index, amount) => {
-      const updatedData = [...formData];
-      updatedData[index].quantity += amount;
-      setFormData(updatedData);
+  const calculateTotal = () => {
+    let total = 0;
+    for (const item of cartItems) {
+      total += item.price * item.quantity;
     }
+    return total;
+  }
+
+  const handleQuantityChange = (index, amount) => {
+    const updatedData = [...cartItems];
+    updatedData[index].quantity += amount;
+    updateCartItems(updatedData);
+  }
+  
+  const handleRemoveItem = (indexToRemove) => {
+    const updatedFormData = cartItems.filter((_, index) => index !== indexToRemove);
+    updateCartItems(updatedFormData);
+  };    
     
-    const handleRemoveItem = (indexToRemove) => {
-      const updatedFormData = formData.filter((_, index) => index !== indexToRemove);
-      setFormData(updatedFormData);
-    };    
-    
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const handleCheckout = () => {
-      navigate("/checkout");
-    }
-    
-    // const location = useLocation();
-    // console.log(location.state.name);
-
-
-/*
-FYI: the whole code is based on the use of html tables
-- Each row of product has: 
-      ~ cancel button
-      ~ image
-      ~ name
-      ~ unit price
-      ~ - and + buttons for modifying quantity
-      ~ total price = quantity * unit price
-- Total = Sum of all total prices of items
-- Checkout button will lead to check out page
-*/
-
-
-
+  const handleCheckout = () => {
+    navigate("/checkout");
+  }
+  
+  
   return (
-      
         <body className='container' width="50%">
-          {/* <h1>Product template here of :{location.state.productName}</h1> */}
         <form onSubmit={handleSubmit}>
           <td align='left'>
-              <button onClick={() => navigate('/login')}>
+              <button onClick={() => navigate('/item')}>
                 <span >
-                  Back to home page
+                  Back to item details
                 </span>
               </button>
             </td>
           <div className='center'>Shopping cart</div>
           <br/>
         
-        {formData.map((item, index) => (
+        {cartItems.map((item, index) => (
           <div align='center'>
           {/* ---------------  Product row ----------------- */}
           {/*   Cancel Item  */}
@@ -85,7 +60,7 @@ FYI: the whole code is based on the use of html tables
           <td align='center' className='setPadding'><img src="../assets/milk.jpeg" alt="itemImage" width={70} height={70}/> </td>
           
           {/*   Item Name  */}
-          <td className='setPadding'> {item.name} </td> 
+          <td className='setPadding' key={item.id}> {item.name} </td> 
           {/* <td className='setPadding'> {location.state.productName} </td>  */}
 
           {/*   Item Unit Price  */}

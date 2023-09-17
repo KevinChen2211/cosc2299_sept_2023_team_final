@@ -1,36 +1,66 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; 
 import '../styling.css'
 
-export default function Item() {
+export default function Item({addToCart, cartItems, updateCartItems}) {
+  const [clickCount, setCount] = useState(1);
 
-  const [cartItems, setCartItems] = useState([
-    { id: 1, name: "Product 1", price: 12 , image: '../assets/milk.jpeg', avgRating: 2,
-    chain: 'Coles', category: 'dairy-and-eggs'
-  },
-  ]);
+  const cartItem = {
+    id: 1, name: "Product 1", price: 10 , image: '../assets/milk.jpeg', avgRating: 2,
+    chain: 'Coles', category: 'dairy-and-eggs', quantity: clickCount
+  }
+
+  const handleAddToCart = () => {
+    if (!Array.isArray(cartItems)) {
+      cartItems = [];
+    }
+    const itemIndex = cartItems.findIndex((item) => item.id === cartItem.id);
+  
+    if (itemIndex !== -1) {
+      //const updatedCartItems = [...cartItems];
+      //updatedCartItems[itemIndex].quantity += clickCount + 1; 
+      cartItem.quantity++
+      //addToCart(cartItem);
+      //updateCartItems(updatedCartItems);
+      updateCartItems(cartItem);
+    } else {
+      addToCart(cartItem);
+    }
+    setCount(clickCount + 1);
+  };
+  
+  const navigate = useNavigate();  
   
   return (
     <tbody>
-      <table width={'0%'} align="center">
-       <tr >
-        <td><img src="../assets/milk.jpeg" alt="itemImage" width={'350px'} height={'350px'} ></img> </td>
-        <td width={'10px'}></td>
-        <td className="itemInformation" align="center" width={'50%'}>  <br></br><br></br>
-        {cartItems.map((item, index) => (
-            <div>
-              <h3><span className='productName'>{item.name}</span></h3><br></br>
-              <h4><span className='productPrice'>Price ${item.price}</span></h4><br></br>
-              Category: {item.category}<br/>
-              Average Rating: {item.avgRating}<br/>
-              Chain: {item.chain}<br/>
-              <br/><br/>
-              <button> Add to cart</button>
-            </div>
-          ))}
+      <td align='right'>
+          <button onClick={() => navigate('/shoppingCart')}>
+            <span >
+              Shopping Cart
+            </span>
+          </button>
         </td>
-       </tr>
-      </table>
-
+        <br/>
+      <td className="itemInformation" align="center" width={'50%'}>  <br></br><br></br>
+      {/* {cartItems.map((cartItem, index) => ( */}
+          <div style={{display:'flex'}}>
+            <div>
+              <span><img src={cartItem.image} width={'250px'} height={'250px'} ></img> </span>
+              <span width={'10px'}></span>
+            </div>
+            <div>
+              <h3><span className='productName'>{cartItem.name}</span></h3><br></br>
+              <h4><span className='productPrice'>Price ${cartItem.price}</span></h4><br></br>
+              Category: {cartItem.category}<br/>
+              Average Rating: {cartItem.avgRating}<br/>
+              Chain: {cartItem.chain}<br/>
+              <br/>
+              <button onClick={handleAddToCart}> Add to cart</button>
+              <br/><br/>
+            </div>
+          </div>
+        {/* ))} */}
+      </td>
       <br></br>
     </tbody>
   );

@@ -2,13 +2,7 @@ import React, { useState } from "react";
 import '../styling.css';
 import { useNavigate } from "react-router-dom"; 
 
-export default function Checkout() {
-  const [cartItems, setCartItems] = useState([
-    { id: 1, name: "Product 1", price: 10, image: '../assets/milk.jpeg' },
-    { id: 2, name: "Product 2", price: 15, image: '../assets/milk.jpeg' },
-    { id: 3, name: "Product 3", price: 20, image: '../assets/milk.jpeg' },
-  ]);
-
+export default function Checkout({cartItems, updateCartItems}) {
   const [formData, setFormData] = useState({
     email: "",
     firstName: "",
@@ -23,7 +17,7 @@ export default function Checkout() {
 
   const handleRemoveItem = (indexToRemove) => {
     const updatedFormData = cartItems.filter((_, index) => index !== indexToRemove);
-    setCartItems(updatedFormData);
+    updateCartItems(updatedFormData);
   };  
 
   const navigate = useNavigate();
