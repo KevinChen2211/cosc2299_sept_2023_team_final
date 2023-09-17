@@ -19,9 +19,9 @@ function Home(props) {
 
   const navigate = useNavigate();
 
-  const handleImageClick = (product) => {
+  const handleImageClick = (product, productIdentify) => {
     // Replace with the actual URLs with the navigate 
-    navigate("/product/" + product, { state: { productName: product } });
+    navigate("/product/" + product, { state: { productID: productIdentify } });
     return;
   }
 
@@ -75,7 +75,7 @@ function Home(props) {
               <div
                 className="home-popular-items"
                 key={product.productID}
-                onClick={() => handleImageClick(product.name)}
+                onClick={() => handleImageClick(product.name, product.productID)}
               >
                 <img
                   src={product.imageLocation}
