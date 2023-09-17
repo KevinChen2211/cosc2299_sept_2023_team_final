@@ -1,0 +1,103 @@
+/*!*************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[5].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[5].oneOf[12].use[3]!./src/app/checkout/checkout.css ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************/
+.vertical{
+    vertical-align: top;
+}
+
+.container{
+    width: 95%;
+    height: 85%;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0px 25px 40px #1687d933;
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
+    padding: 30px;
+    text-align: center;
+}
+
+.subtitle{
+    font-size: 18px;
+    text-align: center;
+}
+
+.productName{
+    font-size: 15px;
+}
+
+.productPrice{
+    font-size: 15px;
+    color: gray;
+}
+
+.cancelButton{
+    margin: 10;
+}
+.cancelButton:hover{
+    color:red;
+}
+
+.left{
+    padding-left: 15px;
+    text-align: left;
+}
+
+.right{
+    padding-right: 10px;
+    text-align: right;
+}
+
+input{
+    box-sizing: border-box;
+    border: 0.5px solid gray;
+    padding: 2px;
+    width: 90%;
+    border-radius: 3px;
+}
+
+.continueShippingButton {
+    text-align: center;
+    display: flex;
+    padding: 16px 20px 16px 15px;
+    height: 56px;
+    position: relative;
+    font-family: inherit;
+    font-weight: 500;
+    background-color: white;
+    cursor: pointer;
+    border-radius: 32px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    transition-duration: 0.3s;
+    margin-right: 20px;
+}
+
+.continueShippingButton span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+
+.continueShippingButton span:after{
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.continueShippingButton:hover span {
+    padding-right: 20px;
+  }
+
+.continueShippingButton:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+
+.continueShippingButton:hover{
+    background-color: rgb(239, 239, 239);
+}

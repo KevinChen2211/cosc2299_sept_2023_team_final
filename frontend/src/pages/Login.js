@@ -7,45 +7,45 @@ function Login(props) {
   const [errorMessage, setErrorMessage] = useState(null);
   const navigate = useNavigate();
 
-
-  // Generic change handler.
   const handleInputChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
 
-    // Copy fields.
-    const temp = { email: fields.email, password: fields.password };
-    // OR use spread operator.
-    // const temp = { ...fields };
 
-    // Update field and state.
+    const temp = { email: fields.email, password: fields.password };
+  
     temp[name] = value;
     setFields(temp);
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const verified = verifyUser(fields.email, fields.password);
-
-    // If verified login the user.
-    if (verified === true) {
-      props.loginUser(fields.email);
-
-      // Navigate to the home page.
-      navigate("/");
-      return;
+  
+    try {
+      const verified = await verifyUser(fields.email, fields.password);
+  
+      // If verified, login the user.
+      if (verified === true) {
+        props.loginUser(fields.email);
+  
+        // Navigate to the home page.
+        navigate("/");
+        return;
+      }
+  
+      // Reset password field to blank.
+      const temp = { ...fields };
+      temp.password = "";
+      setFields(temp);
+  
+      // Set error message.
+      setErrorMessage("Email and/or password invalid, please try again.");
+    } catch (error) {
+      console.error("Error during form submission:", error);
+      setErrorMessage("An error occurred during verification.");
     }
-
-    // Reset password field to blank.
-    const temp = { ...fields };
-    temp.password = "";
-    setFields(temp);
-
-    // Set error message.
-    setErrorMessage("Email and / or password invalid, please try again.");
-  }
-
+  };
+  
   // Sign In form
   return (
     <div>

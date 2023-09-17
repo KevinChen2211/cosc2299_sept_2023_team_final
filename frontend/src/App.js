@@ -7,7 +7,11 @@ import MyProfile from "./pages/MyProfile";
 import SignUp from "./pages/SignUp";
 import Location from "./pages/Location";
 import Notifications from "./pages/Notifications";
-// import ShoppingCart from "./pages/ShoppingCart";
+import shoppingCart from "./pages/shoppingCart";
+import ProductPage from "./pages/components/ProductPage";
+import Categories from "./pages/Categories";
+import SubCategories from "./pages/SubCategories"
+import SubCategoryProducts from "./pages/SubCategoryProducts"
 import { getUser, removeUser } from "./data/repository";
 import './App.css';
 
@@ -38,12 +42,15 @@ function App() {
               <Route path="/profile" element={<MyProfile email={email} />} />
               <Route path="/location" element={<Location email={email} />} />
               <Route path="/notifications" element={<Notifications email={email} />} />
-              {/* <Route path="/shoppingcart" element={<ShoppingCart email={email} />} /> */}
+              <Route path="/shoppingcart" element={<shoppingCart email={email} />} />
+              <Route path="/product/:productName" element={<ProductPage />} />
+              <Route path="/categories" element={<Categories />} />
+              <Route path="/categories/:subCategories" element={<SubCategories />} />
+              <Route path="/categories/:subCategories/:SubCategoryProducts" element={<SubCategoryProducts />} />
             </Routes>
           </div>
         </main>
         <p></p>
-
       </Router>
     </div>
   );

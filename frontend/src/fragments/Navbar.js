@@ -6,7 +6,7 @@ import logout from "../assets/logout.png";
 import location from "../assets/location.png";
 import notification from "../assets/notification.png";
 import profile from "../assets/profile.png";
-// import shoppingcart from "../assets/shoppingcart.png";
+import shoppingCart from "../assets/shoppingcart.png";
 
 // navigation bar component
 function Navbar(props) {
@@ -39,9 +39,9 @@ function Navbar(props) {
                 <li className="nav-item">
                   <Link className="nav-link" to="/profile"><img src={profile} alt="profile" width="30" height="30" /></Link>
                 </li>
-                {/* <li className="nav-item">
-                  <Link className="nav-link" to="/shoppingcart"><img src={shoppingcart} alt="shoppingcart" width="30" height="30"/></Link>
-                </li> */}
+                <li className="nav-item">
+                  <Link className="nav-link" to="/shoppingcart"><img src={shoppingCart} alt="shoppingcart" width="30" height="30"/></Link>
+                </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/notifications"><img src={notification} alt="notification" width="30" height="30" /></Link>
                 </li>

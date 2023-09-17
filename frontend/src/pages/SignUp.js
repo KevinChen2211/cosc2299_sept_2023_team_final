@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { saveUser } from "../data/repository";
-import { initUsers } from "../data/repository";
 import { verifySignUpUser } from "../data/repository";
+import axios from 'axios';
 
 function SignUp(props) {
     const [fields, setFields] = useState({ firstname: "", lastname: "", mobile: "", email: "", password: "" });
@@ -24,24 +23,77 @@ function SignUp(props) {
         setFields(temp);
     }
 
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
+
+    //     const verified = verifySignUpUser(fields.firstname, fields.lastname, fields.mobile, fields.email, fields.password);
+
+    //     // If verified signup the user.
+    //     if (verified === true) {
+    //         // storing user account
+    //         axios.post('http://localhost:8081/v1/account/create')
+    //             .then(response => {
+    //                 props.loginUser(fields.email);
+    //                 // saveUser(fields.firstname, fields.lastname, fields.mobile, fields.email, fields.password);
+    //                 // initUsers();
+    //                 // Navigate to the home page.
+    //                 navigate("/");
+    //                 setErrorMessage('');
+    //             })
+    //             .catch(error => {
+
+    //                 setErrorMessage(`Error creating account: ${error.message}`);
+    //             });
+
+
+    //         return;
+    //     }
+
+    //     // Set error message.
+    //     setErrorMessage(verified);
+    // }
     const handleSubmit = (event) => {
         event.preventDefault();
 
         const verified = verifySignUpUser(fields.firstname, fields.lastname, fields.mobile, fields.email, fields.password);
-
-        // If verified login the user.
         if (verified === true) {
-            props.loginUser(fields.email);
-            saveUser(fields.firstname, fields.lastname, fields.mobile, fields.email, fields.password);
-            initUsers();
-            // Navigate to the home page.
-            navigate("/");
-            return;
-        }
+            // Prepare the user data to be sent in the POST request
+            const userData = {
+                firstName : fields.firstname,
+                lastName: fields.lastname,
+                address: "123 main st",
+                email: fields.email,
+                password: fields.password,
+                phone: fields.mobile,
+            };
 
-        // Set error message.
-        setErrorMessage(verified);
-    }
+            fetch('http://localhost:8080/v1/account/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData),
+            })
+                .then((response) => {
+                    if (response.ok) {
+
+                        props.loginUser(fields.email);
+                        navigate("/");
+                        setErrorMessage('');
+                    } else {
+
+                        setErrorMessage(`Error creating account: Email already exists.`);
+                    }
+                })
+                .catch((error) => {
+
+                    setErrorMessage(`Error creating account: ${error.message}`);
+                });
+        } else {
+
+            setErrorMessage(verified);
+        }
+    };
 
     // Sign Up form
     return (
