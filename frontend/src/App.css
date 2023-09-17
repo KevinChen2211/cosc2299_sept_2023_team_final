@@ -95,12 +95,12 @@
 }
 
 /* hover effect */
-.specials-container img, .category-item, .products {
+.home-popular-items, .category-item, .products {
   border: 2px solid transparent; 
   cursor: pointer;
   transition: border-color 0.3s; 
 }
 
-.specials-container img:hover, .category-item:hover, .products:hover{
+.home-popular-items:hover, .category-item:hover, .products:hover{
   border-color: black; 
 }

@@ -72,15 +72,18 @@ function Home(props) {
           <h1>Popular Items</h1>
           <div className="specials-container">
             {products.map(product => (
-              <li key={product.productID}>
+              <div
+                className="home-popular-items"
+                key={product.productID}
+                onClick={() => handleImageClick(product.name)}
+              >
                 <img
                   src={product.imageLocation}
                   alt={product.name} width="100"
-                  onClick={() => handleImageClick(product.name)}
                 />
                 <br />
                 <strong>{product.name}</strong> - ${product.price.toFixed(2)}
-              </li>
+              </div>
             ))}
 
           </div>
