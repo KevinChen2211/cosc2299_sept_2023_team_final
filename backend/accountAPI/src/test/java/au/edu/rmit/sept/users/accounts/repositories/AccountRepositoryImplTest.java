@@ -10,6 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.sql.DataSource;
 
+import java.util.Random;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -36,24 +38,22 @@ public class AccountRepositoryImplTest {
 
     @Test
     void create_should_addNewAccountToDB() {
-        //must change email every time until delete method has been created
-        this.repo.create(new AccountModel("name1", "name2", "brisvegas", "name1@name2test2.com", "0987", "026153949"));
-        AccountModel m2 = this.repo.findById("name1@name2test2.com", "0987").get();
-        assertEquals("name1@name2test2.com", m2.email());
-
-        //delete method here
+        Random rand = new Random();
+        String testEmail = "myemail1" + rand.nextInt(100) + "@gmail" + rand.nextInt(100) + ".com";
+        this.repo.create(new AccountModel("name1", "name2", "brisvegas", testEmail, "0987", "026153949"));
+        AccountModel m2 = this.repo.findById(testEmail, "0987").get();
+        assertEquals(testEmail, m2.email());
     }
 
     @Test
     void update_should_updateAccountToDB(){
-        //must change email every time until delete method has been created
-
-        this.repo.create(new AccountModel("name3", "name4", "neuva york", "name3@name5.com", "4567", "016373628"));
-        AccountModel m = new AccountModel("newName1", "newName2", "neuva york", "name3@name5.com", "4567", "016373628");
+        Random rand = new Random();
+        String testEmail = "myemail2" + rand.nextInt(100) + "@gmail" + rand.nextInt(100) + ".com";
+        this.repo.create(new AccountModel("name3", "name4", "neuva york", testEmail, "4567", "016373628"));
+        AccountModel m = new AccountModel("newName1", "newName2", "neuva york", testEmail, "4567", "016373628");
         this.repo.update(m, m.email(), m.password());
-        AccountModel m2 = this.repo.findById("name3@name5.com", "4567").get();
+        AccountModel m2 = this.repo.findById(testEmail, "4567").get();
         assertEquals(m2.firstName(), m.firstName());
-        //delete method here
     }
 
 
