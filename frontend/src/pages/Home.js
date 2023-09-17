@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "./components/SearchBar";
-import supermarket from "../assets/supermarket.png"
+import supermarket from "../assets/supermarket.png";
+import axios from 'axios';
 
 function Home(props) {
-
-  // Get an array of
-  const images = ['apple.png', 'milk.png', 'bread.png', 'water.png'];
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    axios.get(`http://localhost:8080/product/subcate/apples`)
+      .then(response => {
+        setProducts(response.data);
+      })
+      .catch(error => {
+        console.error("There was an error fetching products for the subcategory:", error);
+      });
+  }, []);
 
 
   const navigate = useNavigate();
@@ -16,7 +24,6 @@ function Home(props) {
     navigate("/product/" + product, { state: { productName: product } });
     return;
   }
-
 
 
   const handleSubmit = (event) => {
@@ -59,22 +66,17 @@ function Home(props) {
           />
           <h1>specials</h1>
           <div className="specials-container">
-            {images
-              .map((image, index) => (
-                <div key={index}>
-                  <img
-                    key={index}
-                    // this will need to change into an api call
-                    src={require(`./components/exampleimages/${image}`)}
-                    alt={image}
-                    onClick={() => handleImageClick(image)}
-                    style={{
-                      cursor: 'pointer',
-                    }}
-                  />
-                  <p>{image}</p>
-                </div>
-              ))}
+            {products.map(product => (
+              <li key={product.productID}>
+                <img
+                  src={product.imageLocation}
+                  alt={product.name} width="100"
+                  onClick={() => handleImageClick(product.name)}
+                />
+                <br />
+                <strong>{product.name}</strong> - ${product.price.toFixed(2)}
+              </li>
+            ))}
 
           </div>
         </>
