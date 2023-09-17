@@ -45,14 +45,16 @@ function getFullName(currentEmail){
   }
 }
 
-function getAccount (email){
-  axios.get(`http://localhost:8080/v1/account/${email}`)
+function getAccount (email, password){
+  axios.get(`http://localhost:8081/v1/account/${email}/${password}`)
       .then(response => {
-       return response.data;
+        console.log(response.data);
+        return response.data;
       })
       .catch(error => {
         console.error("There was an error fetching account by email.", error);
       });
+      
 }
 
 function verifySignUpUser(firstname, lastname, mobile, email, password) {

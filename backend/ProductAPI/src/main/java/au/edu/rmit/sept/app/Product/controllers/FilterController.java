@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.Map;  
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +21,7 @@ import au.edu.rmit.sept.app.Product.services.ProductService;
 @RequestMapping(value = "filter")
 public class FilterController {
     private final ProductService service;
+
     @Autowired
     public FilterController(ProductService serv)
     {
@@ -29,7 +30,7 @@ public class FilterController {
     // Return filter options of list of searched product: chain, cat, subcat 
     @GetMapping("name/{search_name}")
     public ResponseEntity<Object> getOptionsByName(@PathVariable("search_name") String name) {
-        Collection<Product> productOptional = service.getByName(name);
+        Collection<Product> productOptional = this.service.getByName(name);
         if (productOptional == null)
             return new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
 
@@ -59,7 +60,7 @@ public class FilterController {
     // Return filter options of chains
     @GetMapping("sub/{sub_name}")
     public ResponseEntity<Object> getOptionsBySubCat(@PathVariable("sub_name") String name){
-        Collection<Product> productOptional = service.getByName(name);
+        Collection<Product> productOptional = this.service.getByName(name);
         if (productOptional == null)
             return new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
             
