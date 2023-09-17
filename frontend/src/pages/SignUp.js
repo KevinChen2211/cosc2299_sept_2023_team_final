@@ -31,7 +31,7 @@ function SignUp(props) {
         // If verified signup the user.
         if (verified === true) {
             // storing user account
-            axios.post('http://localhost:8080/v1/account/create')
+            axios.post('http://localhost:8081/v1/account/create')
                 .then(response => {
                     props.loginUser(fields.email);
                     // saveUser(fields.firstname, fields.lastname, fields.mobile, fields.email, fields.password);
