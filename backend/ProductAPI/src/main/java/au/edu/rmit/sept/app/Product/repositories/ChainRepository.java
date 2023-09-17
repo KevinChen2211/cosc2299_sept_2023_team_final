@@ -1,0 +1,13 @@
+package au.edu.rmit.sept.app.Product.repositories;
+
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
+import au.edu.rmit.sept.app.Product.models.Chain;
+
+@Repository
+public interface ChainRepository {
+    public List<Chain> findAll();
+    public Chain getByName(String name);
+}

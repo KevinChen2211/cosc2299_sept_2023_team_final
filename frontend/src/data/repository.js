@@ -11,8 +11,8 @@ function initUsers() {
   localStorage.setItem(USERS_KEY, JSON.stringify(users));
 }
 
-function saveUser(fullname, email, password, datejoined) {
-  users[users.length] = { fullname, email, password, datejoined };
+function saveUser(firstname, lastname, mobile, email, password, datejoined) {
+  users[users.length] = { firstname, lastname, mobile, email, password, datejoined };
 }
 
 function getUsers() {
@@ -40,7 +40,7 @@ function getFullName(currentEmail){
  let usersname = "";
   for (const user of users){
     if (currentEmail === user.email){
-      usersname = user.fullname;
+      usersname = user.firstname;
     }
    return(usersname);
   }
@@ -48,9 +48,14 @@ function getFullName(currentEmail){
 
 
 
-function verifySignUpUser(fullname, email, password) {
-  if (fullname === "") {
-    return "**Full name is required**";
+function verifySignUpUser(firstname, lastname, mobile, email, password) {
+  if (firstname === "") {
+    return "**First name is required**";
+  }
+  if (lastname === "") {
+    return "**Last name is required**";
+  }if (mobile === "") {
+    return "**Mobile number is required**";
   }
   if (email === "") {
     return "**Email is required**";
@@ -68,12 +73,12 @@ function verifySignUpUser(fullname, email, password) {
   return true;
 }
 
-function setUser(fullname) {
-  localStorage.setItem(USER_KEY, fullname);
+function setUser(firstname) {
+  localStorage.setItem(USER_KEY, firstname);
 }
 
-function getUser(fullname, email, password, datejoined) {
-  return localStorage.getItem(fullname, email, password, datejoined);
+function getUser(firstname, lastname, mobile, email, password, datejoined) {
+  return localStorage.getItem(firstname, lastname, mobile, email, password, datejoined);
 }
 
 function removeUser() {

@@ -9,6 +9,7 @@ import Checkout from "./pages/Checkout";
 import Payment from "./pages/Payment";
 import Item from "./pages/Item";
 import ShoppingCart from './pages/ShoppingCart';
+import ProductPage from "./pages/components/ProductPage";
 import { getUser, removeUser } from "./data/repository";
 import './App.css';
 
@@ -29,7 +30,7 @@ function App() {
       <Router>
         <Navbar email={email} logoutUser={logoutUser} />
         <p></p>
-     
+
         <main role="main">
           <div className="container my-3">
             <Routes>
@@ -42,11 +43,11 @@ function App() {
               <Route path="/shoppingcart" element={<ShoppingCart />} />
               <Route path="/item" element={<Item />} />
         
+              <Route path="/product/:productName" element={<ProductPage />} />
             </Routes>
           </div>
         </main>
         <p></p>
-      
       </Router>
     </div>
   );
