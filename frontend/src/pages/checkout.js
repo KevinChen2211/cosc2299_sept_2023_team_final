@@ -90,8 +90,7 @@ export default function Checkout({cartItems, updateCartItems}) {
             <div key={index} style={{display:'flex'}}>
               {/* Cancel Item */}
               <button className='cancelButton' onClick={() => handleRemoveItem(index)}>
-                X
-              </button>
+                X </button>
               <img src={`../assets/${item.image}`} alt="itemImage" width={70} height={70} />
               <div style={{display:'flex',flexDirection:'column'}}>
                 <span className='productName'>{item.name}</span>

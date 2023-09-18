@@ -29,19 +29,19 @@ export default function Payment() {
       return false;
     }
   
-    const [month, year] = expiryDate.split('/');
-  
-    const monthNum = parseInt(month, 10);
-    if (monthNum < 1 || monthNum > 12) {
-      return false;
-    }
+  const [month, year] = expiryDate.split('/');
 
-    const yearNum = parseInt(year, 10);
-    if (yearNum < 23 || yearNum > 30) {
-      return false;
-    }
-    return true;
-  };
+  const monthNum = parseInt(month, 10);
+  if (monthNum < 1 || monthNum > 12) {
+    return false;
+  }
+
+  const yearNum = parseInt(year, 10);
+  if (yearNum < 23 || yearNum > 30) {
+    return false;
+  }
+  return true;
+};
   
 
   const validateCVC = (cvc) => {
@@ -82,125 +82,69 @@ export default function Payment() {
 
   return (
     
-    <div className="containerPayment" align='center'>
+    <div>
       <div align='left'>
-      <button onClick={() => navigate('/checkout')} >
-          <span>
-            Back to checkout
-          </span>
-      </button>
-    </div>
+        <button onClick={() => navigate('/checkout')} >
+            <span>  Back to checkout  </span>
+        </button>
+      </div>
       <div className="center">Payment</div>
-      <form onSubmit={handleSubmit}>
-        <br></br><br></br>
-        <table align="center" cellPadding={'10px'}>
-          <tbody>
-            <tr>
-              <td align="left"><b>Total Amount</b></td>
-              <td align="right"><b>$ {totalAmount}</b></td>
-            </tr>
-            <tr><i>Credit Card</i></tr>
+        <br/><br/>
 
-            {/* Card Number */}
-            <tr>
-              <td className="left">
-                <label>Card Number</label>
-              </td>
-            </tr>
-            <tr>
-              <td align="left" colSpan={2}>
+          <div align='center'>
+            <span><b>Total Amount: </b></span>
+            <span><b>$ {totalAmount}</b></span>
+            <span><i>  Credit Card</i></span> <br/><br/>
+
+            <label style={{padding: '10px'}}>Card Number</label> 
                 <input
                   type="text"
                   name="cardNumber"
                   value={formData.cardNumber}
                   onChange={handleInputChange}
                   placeholder="Card Number"
-                  width={'100%'}
                 />
-              </td>
-            </tr>
             {validationErrors.cardNumber && (
-              <tr>
-                <td className="left" colSpan={2}>
-                  <div className="error">{validationErrors.cardNumber}</div>
-                </td>
-              </tr>
-            )}
+              <div>{validationErrors.cardNumber}</div>
+            )}<br/>
 
-            {/* Expiry date and CVC / CVV */}
-            <tr>
-              <td className="left">
-                <label>Expiry date</label>
-              </td>
-              <td>
-                <label>CVC/CVV</label>
-              </td>
-            </tr>
-            <tr>
-              <td align="left">
-                <input
-                  type="text"
-                  name="expiryDate"
-                  value={formData.expiryDate}
-                  onChange={handleInputChange}
-                  placeholder="Expiry date"
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  name="CVC"
-                  value={formData.CVC}
-                  onChange={handleInputChange}
-                  placeholder="CVC/CVV"
-                />
-              </td>
-            </tr>
+            <label style={{padding: '10px'}}>Expiry date</label>
+            <input
+              type="text"
+              name="expiryDate"
+              value={formData.expiryDate}
+              onChange={handleInputChange}
+              placeholder="Expiry date"
+            />
             {validationErrors.expiryDate && (
-              <tr>
-                <td className="left" colSpan={2}>
-                  <div className="error">{validationErrors.expiryDate}</div>
-                </td>
-              </tr>
-            )}
+              <div className="error">{validationErrors.expiryDate}</div>
+            )}<br/>
+
+            <label style={{padding: '10px'}}>CVC/CVV</label>
+            <input
+              type="text"
+              name="CVC"
+              value={formData.CVC}
+              onChange={handleInputChange}
+              placeholder="CVC/CVV"
+            />
             {validationErrors.CVC && (
-              <tr>
-                <td className="left" colSpan={2}>
-                  <div className="error">{validationErrors.CVC}</div>
-                </td>
-              </tr>
-            )}
+              <div className="error">{validationErrors.CVC}</div>
+            )}<br/>
 
-            {/* Name on Card */}
-            <tr>
-              <td className="left">
-                <label>Name on card</label>
-              </td>
-            </tr>
-            <tr>
-              <td align="left" colSpan={2}>
-                <input
-                  type="text"
-                  name="nameOnCard"
-                  value={formData.nameOnCard}
-                  onChange={handleInputChange}
-                  placeholder="Name on Card"
-                  width={'100%'}
-                />
-              </td>
-            </tr><br></br>
+            <label style={{padding: '10px'}}>Name on card  </label>
+            <input
+              type="text"
+              name="nameOnCard"
+              value={formData.nameOnCard}
+              onChange={handleInputChange}
+              placeholder="Name on Card"
+            /><br/><br/>
 
-            {/* Pay Button */}
-            <tr>
-              <td align="center" colSpan={2}>
-                <button className="checkoutButton">
-                  <span>Pay $ {totalAmount}</span>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </form>
+            <button className="checkoutButton" onClick={handleSubmit}>
+              <span>Pay $ {totalAmount}</span>
+            </button>
+          </div>
     </div>
   );
 }
