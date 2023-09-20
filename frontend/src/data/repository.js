@@ -36,7 +36,7 @@ function getFullName(currentEmail) {
 
 function getAccount(email, password) {
 
-  return axios.get(`http://localhost:8080/v1/account/${email}/${password}`)
+  return axios.get(`http://localhost:8081/v1/account/${email}/${password}`)
     .then(response => {
       return response.data;
     })
@@ -61,7 +61,7 @@ async function verifyUser(email, password) {
     return false;
   } catch (error) {
     console.error("There was an error verifying the user.", error);
-    return false; 
+    return false;
   }
 }
 
