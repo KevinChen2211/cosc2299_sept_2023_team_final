@@ -65,14 +65,19 @@ docker ps
 docker-compose drop
 ```
 
-## Backend
+> **_NOTE:_** if you have an error about mvmw you will need to convert ./mvnw end of line sequence to LF
+to do so open the ./mvnw file in VSCode and in the bottom right change CRLF to LF
+
+![convert CRLF to LF](LineEnd.png)
+
+## Backend (Not recommended)
 
 - Delete any unused services (i.e. backend/movies). They are there only for an initial reference.
 - Use [Spring initializr](https://start.spring.io/) to create your (micro)services
 - Place any new backend service in its own directory (i.e., backend/<service-name>)
 - Confirm you can run your applicaiton (./mvnw package && java -jar target/[microservice]-0.0.1-SNAPSHOT.jar)
 
-## Frontend
+## Frontend (Not recommended)
 - cd into frontend/
 - Install dependencies "npm install"
 - Run the app with "npm start"
