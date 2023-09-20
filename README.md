@@ -42,10 +42,28 @@ You will need to have in your system
 - Node and npm
 - Apache Maven
 - IDE or Editor
+- Docker 
+    - found here (https://www.docker.com/)
 
 Other tools will be required to complete the project (e.g., Docker)
 
 Branch naming conventions: feature or bug / documentation or backend or frontend or database / task number _ short description
+for more information read the [CONTRIBUTING.md](CONTRIBUTING.md)
+
+## How to run the application? (recommended)
+- Ensure you have docker open, and navigate to the repository root.
+- run the command:
+```
+docker-compose up -d
+```
+- Ensure the containers are running with 
+```
+docker ps
+```
+- to stop the containers run the command:
+```
+docker-compose drop
+```
 
 ## Backend
 
