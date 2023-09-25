@@ -51,5 +51,22 @@ public class AccountRepositoryImpl implements AccountRepository{
                 Void.class);
     }
 
+    @Override
+    public ResponseEntity<HttpStatus> deleteById(String email, String password) {
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/customers/" + email + "/" + password;
+            ResponseEntity<HttpStatus> response = restTemplate.exchange(
+                    url,
+                    HttpMethod.DELETE,
+                    HttpEntity.EMPTY,
+                    HttpStatus.class);
+            return response;
+
+        } catch (HttpClientErrorException e) {
+            throw new HttpClientErrorException(e.getStatusCode(), e.getStatusText());
+        }
+    }
+
 
 }

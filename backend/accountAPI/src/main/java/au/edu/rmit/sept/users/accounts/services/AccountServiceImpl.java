@@ -31,4 +31,9 @@ public class AccountServiceImpl implements AccountService{
         repository.update(updatedDetails, email, password);
     }
 
+    @Override
+    public ResponseEntity deleteAccount(String email, String password) {
+        return repository.deleteById(email, password);
+    }
+
 }

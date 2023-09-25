@@ -7,10 +7,12 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 public interface AccountRepository {
-    public void create(AccountModel account);
+    void create(AccountModel account);
 
     //Find book by ID
-    public Optional<AccountModel> findById(String email, String password);
+    Optional<AccountModel> findById(String email, String password);
 
-    public void update(AccountModel newDetails, String email, String password);
+    void update(AccountModel newDetails, String email, String password);
+
+    ResponseEntity deleteById(String email, String password);
 }

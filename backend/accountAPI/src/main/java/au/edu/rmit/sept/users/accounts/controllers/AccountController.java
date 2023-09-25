@@ -51,4 +51,10 @@ public class AccountController {
         }
     }
 
+    @DeleteMapping("delete/{email}/{password}")
+    public ResponseEntity<HttpStatus> delete (@PathVariable String email, @PathVariable String password) {
+        ResponseEntity deleteResponse = service.deleteAccount(email, password);
+        return deleteResponse;
+    }
+
 }
