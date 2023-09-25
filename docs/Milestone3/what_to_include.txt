@@ -1,0 +1,43 @@
+Update and finalize the SRS document.
+Complete basic User Stories, testing (unit, integration / system / end-to-end, acceptance tests), and any other required artefacts for delivery
+Clean up any remaining feature implementations (e.g., tying front end to backend, or integrating database/datastore)
+Create Docker images for your application.
+using CI tool for IMPLEMENTING CI PIPELINE automated, test and build.
+Use production grade database (e.g., MySQL, Posgress, etc)
+Use Docker compose to boot the services locally (e.g, frontend, backend service(s), db, etc)
+
+
+optional-
+Deploy Docker Images to AWS
+Completed Custom User story – this is a feature that was not present in the initial story.
+Refactoring code --- teams should deliver a "refactoring report".
+Technical Enhancements, researched on your own, that could be considered "further enhancements" include:
+Use of Kubernetes or Kubernetes-like platforms
+Serverless style deployments    
+Other technology additions agreed with your Product Owner
+Note that there will be an associated Final Presentation to describe your project and your application; details to follow.
+
+Submit to your GitHub repository (team), your documents (one or multiple)  attached as an appendix to your SRS document in a section called “Appendix : Milestone 3”, these are the following requirements
+
+
+a list of tasks completed by each member, with a link to each task on your github project board.
+a Peer Review of contribution to the project of each member:
+nominal percentage contribution (e.g., 20% = contributed as much as expected in 5-person team; %s should add up to 100% for team)
+list of tasks/duties performed (e.g., wrote 10/20 tests; wrote code integrating front-end to back-end; etc)
+Backlog must be groomed and being updated, tests for functionalities (e.g., a list of new code/test files, names/numbers of user stories, short description of new functionality)
+Minutes of all meetings, including Spint Planning and Retro and Review plus logs of other communications (e.g., using Slack) --- remember that Module 2 contains suggested templates for minutes for all meeting types
+A report to show the delta between Milestone 1 , 2 and 3 in regards to changes and revisions. Clearly identify the features (epics) you have dropped and provide a detailed explanation.
+User Stories + Product Backlog 
+A README file on how to build, deploy and run your application
+a PROJECT REPORT:
+a "Vision" statement, i.e., a description of the why the product is "valuable" (about 1/2 page)
+a figure showing the final basic system architecture / design --- this does not need to be a UML diagram: a box-and-lines sketch architecture is fine; focus on the tiers : front layers, backend (services and their layers), datastore and what components are in each
+a report describing any refactoring, including refactoring to a Design Pattern, if appropriate, as well as the "smells" that you found (i.e., purpose for refactoring)
+an overview of your Git organisation and how often you committed (include in report)
+a description of your Scrum process: how often you met, who was Scrum Master ( show the velocity of the team through all milestones for all sprints)
+a diagram of your Deployment pipeline setup: i.e,. CI/CD, steps in the pipeline, automation tools in the pipeline
+
+Upload your video to Microsoft Steam (https://www.office.com/launch/stream)
+DO NOT upload your video to your git repository.
+Upload your video. Upload your video. Name your video with “GROUP-PX-YY COSC2299-23s2 Milestone 3"
+Add “COSC2299-23s2 SEPT Members”. This is the teaching team group, and it is required to mark your assessment. Click on “Share” (red button) > Select “Share” > Add “COSC2299-23s2 SEPT Members” > Copy the link and save it in your README.md file in the repository.
