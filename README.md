@@ -62,7 +62,7 @@ docker ps
 ```
 - to stop the containers run the command:
 ```
-docker-compose drop
+docker-compose down
 ```
 
 > **_NOTE:_** if you have an error about mvmw you will need to convert ./mvnw end of line sequence to LF
