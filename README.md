@@ -82,6 +82,3 @@ to do so open the ./mvnw file in VSCode and in the bottom right change CRLF to L
 - Install dependencies "npm install"
 - Run the app with "npm start"
 
-
-
-
