@@ -17,13 +17,15 @@ export default function Item({addToCart, cartItems, updateCartItems}) {
     const itemIndex = cartItems.findIndex((item) => item.id === cartItem.id);
   
     if (itemIndex !== -1) {
-      //const updatedCartItems = [...cartItems];
-      //updatedCartItems[itemIndex].quantity += clickCount + 1; 
-      cartItem.quantity++
+      //cartItem.quantity++
+      const updatedCartItems = [...cartItems];
+      updatedCartItems[itemIndex].quantity += clickCount + 1; 
       //addToCart(cartItem);
       //updateCartItems(updatedCartItems);
-      updateCartItems(cartItem);
-    } else {
+      addToCart (updateCartItems); 
+      //updateCartItems(cartItem);
+    }
+    else if (itemIndex == -1) {
       addToCart(cartItem);
     }
     setCount(clickCount + 1);

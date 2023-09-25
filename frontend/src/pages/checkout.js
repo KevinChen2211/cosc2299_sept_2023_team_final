@@ -62,7 +62,7 @@ export default function Checkout({cartItems, updateCartItems}) {
   const calculateTotal = () => {
     let total = 0;
     for (const item of cartItems) {
-      total += item.price;
+      total += (item.price * item.quantity);
     }
     return total;
   }
@@ -95,7 +95,7 @@ export default function Checkout({cartItems, updateCartItems}) {
               <img src={`../assets/${item.image}`} alt="itemImage" width={70} height={70} />
               <div style={{display:'flex',flexDirection:'column'}}>
                 <span className='productName'>{item.name}</span>
-                <span className='productPrice'>Price ${item.price}</span>
+                <span className='productPrice'>Price ${item.price * item.quantity}</span>
               </div>
             </div>
           ))}

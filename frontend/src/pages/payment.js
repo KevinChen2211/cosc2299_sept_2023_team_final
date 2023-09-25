@@ -3,12 +3,14 @@ import '../styling.css';
 import { useNavigate } from "react-router-dom"; 
 
 export default function Payment() {
+  
   const [formData, setFormData] = useState({
     cardNumber: "",
     expiryDate: "",
     CVC: "",
     nameOnCard: "",
   });
+
   const [validationErrors, setValidationErrors] = useState({});
   const navigate = useNavigate();
 

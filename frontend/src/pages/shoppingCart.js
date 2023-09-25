@@ -1,6 +1,6 @@
 import '../styling.css';
-import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom"; 
+import React from "react";
+import { useNavigate } from "react-router-dom"; 
 
 
 export default function ShoppingCart({cartItems, updateCartItems}){
@@ -35,15 +35,10 @@ export default function ShoppingCart({cartItems, updateCartItems}){
   }
   
   return (
-        <body className='container' width="50%">
-        <form onSubmit={handleSubmit}>
-          <td align='left'>
-              <button onClick={() => navigate('/item')}>
-                <span >
-                  Back to item details
-                </span>
-              </button>
-            </td>
+        <div>
+          <button onClick={() => navigate('/item')}>
+              Back to item details
+          </button>
           <div className='center'>Shopping cart</div>
           <br/>
         
