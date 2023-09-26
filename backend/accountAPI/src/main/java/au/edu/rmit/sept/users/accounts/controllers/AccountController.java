@@ -4,6 +4,7 @@ import au.edu.rmit.sept.users.accounts.repositories.AccountRepository;
 import au.edu.rmit.sept.users.accounts.repositories.AccountRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import au.edu.rmit.sept.users.accounts.services.AccountService;
 import org.springframework.web.client.RestTemplate;
 
 import javax.security.auth.login.AccountNotFoundException;
+import java.net.http.HttpResponse;
 import java.util.Optional;
 
 @RestController
@@ -52,8 +54,8 @@ public class AccountController {
     }
 
     @DeleteMapping("delete/{email}/{password}")
-    public ResponseEntity<HttpStatus> delete (@PathVariable String email, @PathVariable String password) {
-        ResponseEntity deleteResponse = service.deleteAccount(email, password);
+    public ResponseEntity<String> delete (@PathVariable String email, @PathVariable String password) {
+        ResponseEntity<String> deleteResponse = service.deleteAccount(email, password);
         return deleteResponse;
     }
 
