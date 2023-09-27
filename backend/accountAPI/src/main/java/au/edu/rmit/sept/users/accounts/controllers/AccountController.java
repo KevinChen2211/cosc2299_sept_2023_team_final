@@ -43,7 +43,7 @@ public class AccountController {
     }
 
     @PutMapping("/update/{email}/{password}")
-    public ResponseEntity<HttpStatus> update(@PathVariable String email, @PathVariable String password, @RequestBody AccountModel accountDetails) {
+    public ResponseEntity<String> update(@PathVariable String email, @PathVariable String password, @RequestBody AccountModel accountDetails) {
         Optional<AccountModel> result = get(email, password);
         if (result.isPresent()) {
             this.service.updateAccount(accountDetails, email, password);

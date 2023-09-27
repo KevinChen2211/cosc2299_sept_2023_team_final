@@ -12,12 +12,12 @@ import org.springframework.http.ResponseEntity;
 public interface AccountService {
 
     //Declare createBook
-    void createAccount(AccountModel account);
+    ResponseEntity<String> createAccount(AccountModel account);
 
     //Declare getBook
     Optional<AccountModel> getAccount(String email, String password);
 
-    ResponseEntity<HttpStatus> updateAccount(AccountModel updatedDetails, String email, String password);
+    ResponseEntity<String> updateAccount(AccountModel updatedDetails, String email, String password);
 
     ResponseEntity<String> deleteAccount(String email, String password);
 }
