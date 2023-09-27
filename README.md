@@ -54,7 +54,7 @@ for more information read the [CONTRIBUTING.md](CONTRIBUTING.md)
 - Ensure you have docker open, and navigate to the repository root.
 - run the command:
 ```
-docker-compose up -d
+docker-compose up -d --build
 ```
 - Ensure the containers are running with 
 ```
