@@ -1,17 +1,23 @@
 package au.edu.rmit.sept.users.accounts.services;
 
+import java.net.http.HttpResponse;
 import java.util.Optional;
 
 import au.edu.rmit.sept.users.accounts.models.AccountModel;
+import org.springframework.http.HttpOutputMessage;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 
 public interface AccountService {
 
     //Declare createBook
-    public void createAccount(AccountModel account);
+    void createAccount(AccountModel account);
 
     //Declare getBook
-    public Optional<AccountModel> getAccount(String email, String password);
+    Optional<AccountModel> getAccount(String email, String password);
 
-    public void updateAccount(AccountModel updatedDetails, String email, String password);
+    ResponseEntity<HttpStatus> updateAccount(AccountModel updatedDetails, String email, String password);
+
+    ResponseEntity<String> deleteAccount(String email, String password);
 }
