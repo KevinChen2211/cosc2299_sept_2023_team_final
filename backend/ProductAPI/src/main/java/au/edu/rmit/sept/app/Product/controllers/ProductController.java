@@ -101,4 +101,12 @@ public class ProductController {
          return new ResponseEntity<>(stores, HttpStatus.OK);
      }
 
+    @GetMapping("promotion")
+    public ResponseEntity<Object> getProductOnPromotion(){
+        Collection<Product> productOptional = service.getByPromotion();
+        if (productOptional == null)
+            return new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(productOptional,HttpStatus.OK);
+    }
+
 }

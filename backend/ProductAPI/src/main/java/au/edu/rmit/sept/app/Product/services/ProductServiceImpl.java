@@ -53,4 +53,9 @@ public class ProductServiceImpl implements ProductService{
             List<String> chains) {
         return repository.getSearch(name, categories, subcategories, chains);
     }
+
+    @Override
+    public Collection<Product> getByPromotion() {
+        return repository.getByPromotion();
+    }
 }

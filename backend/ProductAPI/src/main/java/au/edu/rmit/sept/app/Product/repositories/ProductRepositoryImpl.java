@@ -160,5 +160,18 @@ public class ProductRepositoryImpl implements ProductRepository {
                 }
         }
 
-
+        @Override
+        public List<Product> getByPromotion() {
+                RestTemplate restTemplate = new RestTemplate();
+                        String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/products?isPromoted=true";
+                        try {
+                                Product[] productsArray = restTemplate.getForObject(url, Product[].class);
+                                if (productsArray != null && productsArray.length > 0) {
+                                        return Arrays.asList(productsArray);
+                                }
+                        } catch (HttpClientErrorException.NotFound e) {
+                                return null;
+                        }
+                        return null;
+        }
 }

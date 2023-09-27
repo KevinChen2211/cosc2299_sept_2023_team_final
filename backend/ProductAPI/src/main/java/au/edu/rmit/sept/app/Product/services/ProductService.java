@@ -20,5 +20,5 @@ public interface ProductService
     public Collection<Product> getBySubCategory( String name);
     public List<Product> getSearchProducts(String name, List<String> categories, List<String> subcategories,
             List<String> chains);
-
+    public Collection<Product> getByPromotion();
 }
