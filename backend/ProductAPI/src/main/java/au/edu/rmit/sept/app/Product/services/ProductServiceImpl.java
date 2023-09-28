@@ -50,8 +50,8 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public List<Product> getSearchProducts(String name, List<String> categories, List<String> subcategories,
-            List<String> chains) {
-        return repository.getSearch(name, categories, subcategories, chains);
+            List<String> chains, String promo) {
+        return repository.getSearch(name, categories, subcategories, chains, promo);
     }
 
     @Override

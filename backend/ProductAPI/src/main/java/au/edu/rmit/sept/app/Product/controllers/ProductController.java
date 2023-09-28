@@ -93,9 +93,10 @@ public class ProductController {
              @RequestParam(required = false) String name,
              @RequestParam(required = false) List<String> cat,
              @RequestParam(required = false) List<String> subcat,
-             @RequestParam(required = false) List<String> chain) {
+             @RequestParam(required = false) List<String> chain,
+             @RequestParam(required = false) String promoted) {
 
-         List<Product> stores = service.getSearchProducts(name,cat,subcat,chain);
+         List<Product> stores = service.getSearchProducts(name,cat,subcat,chain,promoted);
          if (stores == null || stores.isEmpty())
              return new ResponseEntity<>("Products not found", HttpStatus.NOT_FOUND);
          return new ResponseEntity<>(stores, HttpStatus.OK);
