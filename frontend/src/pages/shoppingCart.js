@@ -4,10 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 
 export default function ShoppingCart({cartItems, updateCartItems}){
-  const handleSubmit = (e) =>{
-    e.preventDefault();
-    console.log("Form submitted with data: ",cartItems);
-    }
 
   const calculateTotal = () => {
     let total = 0;
@@ -51,7 +47,8 @@ export default function ShoppingCart({cartItems, updateCartItems}){
             X </button> </td>  
 
           {/*   Item Image  */}
-          <td align='center' className='setPadding'><img src="../assets/milk.jpeg" alt="itemImage" width={70} height={70}/> </td>
+          <td align='center' className='setPadding'><img src= {item.image} 
+              alt="itemImage" width={70} height={70}/> </td>
           
           {/*   Item Name  */}
           <td className='setPadding' key={item.id}> {item.name} </td> 
@@ -90,7 +87,6 @@ export default function ShoppingCart({cartItems, updateCartItems}){
           </div>
           <br></br><br></br>
           {/* ---------------  Check out button ----------------- */}
-
           <div className='button'>
             <table align='center'>
               <td align='right'>
@@ -102,7 +98,6 @@ export default function ShoppingCart({cartItems, updateCartItems}){
               </td>
             </table>
           </div>
-          </form>
-        </body>
+          </div>
       );
 }

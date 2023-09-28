@@ -17,16 +17,13 @@ export default function Item({addToCart, cartItems, updateCartItems}) {
     const itemIndex = cartItems.findIndex((item) => item.id === cartItem.id);
   
     if (itemIndex !== -1) {
-      //cartItem.quantity++
       const updatedCartItems = [...cartItems];
-      updatedCartItems[itemIndex].quantity += clickCount + 1; 
-      //addToCart(cartItem);
-      //updateCartItems(updatedCartItems);
-      addToCart (updateCartItems); 
-      //updateCartItems(cartItem);
+      updatedCartItems[itemIndex].quantity ++;
+      updateCartItems(updatedCartItems);
     }
-    else if (itemIndex == -1) {
-      addToCart(cartItem);
+    else {
+      const updatedCartItems = [...cartItems, { ...cartItem }];
+      updateCartItems(updatedCartItems);
     }
     setCount(clickCount + 1);
   };
@@ -44,7 +41,6 @@ export default function Item({addToCart, cartItems, updateCartItems}) {
         </td>
         <br/>
       <td className="itemInformation" align="center" width={'50%'}>  <br></br><br></br>
-      {/* {cartItems.map((cartItem, index) => ( */}
           <div style={{display:'flex'}}>
             <div>
               <span><img src={cartItem.image} width={'250px'} height={'250px'} ></img> </span>
@@ -61,7 +57,6 @@ export default function Item({addToCart, cartItems, updateCartItems}) {
               <br/><br/>
             </div>
           </div>
-        {/* ))} */}
       </td>
       <br></br>
     </tbody>

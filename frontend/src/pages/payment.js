@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import '../styling.css';
-import { useNavigate } from "react-router-dom"; 
+import { useLocation, useNavigate } from "react-router-dom"; 
 
 export default function Payment() {
-  
+  const location = useLocation();
+  const totalAmount = location.state.totalAmount;
+
   const [formData, setFormData] = useState({
     cardNumber: "",
     expiryDate: "",
@@ -69,8 +71,6 @@ export default function Payment() {
 
     return Object.keys(errors).length === 0;
   };
-
-  const totalAmount = 100;
 
   const handleSubmit = (e) => {
     e.preventDefault();

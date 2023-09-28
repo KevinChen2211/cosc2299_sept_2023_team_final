@@ -48,14 +48,14 @@ export default function Checkout({cartItems, updateCartItems}) {
     }
     if (!formData.phone) {
       errors.phone = "Phone is required";
+    }else if (!/^04\d{8}$/.test(formData.phone)) {
+      errors.phone = "Invalid phone number";
     }
 
-    // If there are validation errors, set them in the state and prevent navigation
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
     } else {
-      // If there are no validation errors, navigate to the payment page
-      navigate("/payment");
+      navigate("/payment", { state: { totalAmount: calculateTotal() + shippingFee } });
     }
   };
 
