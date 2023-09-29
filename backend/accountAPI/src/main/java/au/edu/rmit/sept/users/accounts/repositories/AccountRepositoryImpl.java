@@ -6,6 +6,7 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
@@ -29,7 +30,7 @@ public class AccountRepositoryImpl implements AccountRepository{
             Optional<AccountModel> account = Optional.of(restTemplate.getForObject(url, AccountModel.class));
             return account;
         } catch (HttpClientErrorException e) {
-            throw new HttpClientErrorException(e.getStatusCode());
+            throw new ResponseStatusException(e.getStatusCode());
         }
     }
     @Override
@@ -40,7 +41,7 @@ public class AccountRepositoryImpl implements AccountRepository{
             restTemplate.postForObject(url, account, String.class);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (HttpClientErrorException e) {
-            return new ResponseEntity<>(e.getStatusCode());
+            throw new ResponseStatusException(e.getStatusCode());
         }
     }
 
@@ -56,7 +57,7 @@ public class AccountRepositoryImpl implements AccountRepository{
                     String.class);
             return response;
         } catch (HttpClientErrorException e) {
-            return new ResponseEntity<>(e.getStatusCode());
+            throw new ResponseStatusException(e.getStatusCode());
         }
     }
 
@@ -72,7 +73,7 @@ public class AccountRepositoryImpl implements AccountRepository{
                     String.class);
             return response;
         } catch (HttpClientErrorException e) {
-            throw new HttpClientErrorException(e.getStatusCode());
+            throw new ResponseStatusException(e.getStatusCode());
         }
     }
 
