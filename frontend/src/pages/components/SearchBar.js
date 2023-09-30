@@ -8,9 +8,8 @@ function SearchBar() {
 
 
     const handleSearch = () => {
-        // You can perform filtering or searching logic here based on the searchTerm
-        // For simplicity, we'll just display the search term as text.
-        navigate("/product/" + searchTerm, { state: { productName: searchTerm } });
+        navigate("/productsearch/" + searchTerm, { state: { productName: searchTerm } });
+
     };
 
     return (

@@ -14,6 +14,7 @@ import Delivery from "./pages/Delivery";
 import Payment from "./pages/Payment";
 import ShoppingCart from "./pages/ShoppingCart";
 import { getUser, removeUser } from "./data/repository";
+import ProductSearch from "./pages/components/ProductSearch"
 import './App.css';
 
 function App() {
@@ -52,13 +53,14 @@ function App() {
               <Route path="/login" element={<Login loginUser={loginUser} />} />
               <Route path="/profile" element={<MyProfile email={email} />} />
               <Route path="/checkout" element={<Checkout cartItems={cartItems} updateCartItems={updateCartItems} />} />
-              <Route path="/payment" element={<Payment cartItems={cartItems}  />} />
+              <Route path="/payment" element={<Payment cartItems={cartItems} />} />
               <Route path="/shoppingcart" element={<ShoppingCart cartItems={cartItems} updateCartItems={updateCartItems} />} />
-              <Route path="/delivery" element={<Delivery  cartItems={cartItems}/>} />
+              <Route path="/delivery" element={<Delivery cartItems={cartItems} />} />
               <Route path="/categories" element={<Categories />} />
               <Route path="/categories/:subCategories" element={<SubCategories />} />
               <Route path="/categories/:subCategories/:SubCategoryProducts" element={<SubCategoryProducts />} />
-              <Route path="/product/:productName" element={<ProductPage cartItems={cartItems} updateCartItems={updateCartItems}/>} />
+              <Route path="/product/:productName" element={<ProductPage cartItems={cartItems} updateCartItems={updateCartItems} />} />
+              <Route path="/ProductSearch/:searchTerm" element={<ProductSearch />} />
             </Routes>
           </div>
         </main>
