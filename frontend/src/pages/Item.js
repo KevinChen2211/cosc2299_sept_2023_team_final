@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; 
 import '../styling.css'
 
-export default function Item({addToCart, cartItems, updateCartItems}) {
+export default function Item({cartItems, updateCartItems}) {
   const [clickCount, setCount] = useState(1);
 
   const cartItem = {

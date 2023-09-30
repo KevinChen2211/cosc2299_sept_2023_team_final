@@ -54,11 +54,11 @@ function App() {
               <Route path="/checkout" element={<Checkout cartItems={cartItems} updateCartItems={updateCartItems} />} />
               <Route path="/payment" element={<Payment />} />
               <Route path="/shoppingcart" element={<ShoppingCart cartItems={cartItems} updateCartItems={updateCartItems} />} />
-              <Route path="/item" element={<Item addToCart={addToCart} cartItems={cartItems} updateCartItems={updateCartItems}/>} />
+              <Route path="/item" element={<Item cartItems={cartItems} updateCartItems={updateCartItems}/>} />
               <Route path="/categories" element={<Categories />} />
               <Route path="/categories/:subCategories" element={<SubCategories />} />
               <Route path="/categories/:subCategories/:SubCategoryProducts" element={<SubCategoryProducts />} />
-              <Route path="/product/:productName" element={<ProductPage addToCart={addToCart} />} />
+              <Route path="/product/:productName" element={<ProductPage cartItems={cartItems} updateCartItems={updateCartItems}/>} />
             </Routes>
           </div>
         </main>
