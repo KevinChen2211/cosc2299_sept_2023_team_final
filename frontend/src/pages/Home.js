@@ -1,34 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import SearchBar from "./components/SearchBar";
-import supermarket from "../assets/supermarket.png";
-import axios from 'axios';
+import LoggedIn from "./LoggedIn";
 
 function Home(props) {
-  const [products, setProducts] = useState([]);
-  useEffect(() => {
-    axios.get(`http://localhost:8080/product/subcate/apples`)
-      .then(response => {
-        setProducts(response.data);
-      })
-      .catch(error => {
-        console.error("There was an error fetching products for the subcategory:", error);
-      });
-  }, []);
-
 
   const navigate = useNavigate();
 
-  const handleImageClick = (product, productIdentify) => {
-    // Replace with the actual URLs with the navigate 
-    navigate("/product/" + product, { state: { productID: productIdentify } });
-    return;
-  }
-
-  const routeChange = () => {
-    let path = `/categories`;
-    navigate(path);
-  }
 
   const handleSubmit = (event) => {
     navigate("/signup");
@@ -60,33 +37,7 @@ function Home(props) {
         </>
         :
         <>
-          <div className="home-page-search-categories">
-            {/* TODO: add feature to broswe tab */}
-            <button onClick={routeChange}>Categories</button>
-            <SearchBar />
-          </div>
-          <img
-            src={supermarket}
-            className="main-page-image"
-          />
-          <h1>Popular Items</h1>
-          <div className="specials-container">
-            {products.map(product => (
-              <div
-                className="home-popular-items"
-                key={product.productID}
-                onClick={() => handleImageClick(product.name, product.productID)}
-              >
-                <img
-                  src={product.imageLocation}
-                  alt={product.name} width="100"
-                />
-                <br />
-                <strong>{product.name}</strong> - ${product.price.toFixed(2)}
-              </div>
-            ))}
-
-          </div>
+          <LoggedIn />
         </>
       }
 
