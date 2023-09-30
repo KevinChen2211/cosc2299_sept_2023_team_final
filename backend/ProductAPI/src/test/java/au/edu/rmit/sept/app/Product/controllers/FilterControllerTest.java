@@ -44,19 +44,19 @@
 //         mockResponse.put("chains", Arrays.asList("Aldi", "Woolworths", "Coles"));
 //         mockResponse.put("subcategories", Arrays.asList("apples", "pineapples", "eggs"));
 
-//         List<Product> mockProductsChains = mockResponse.get("chains").stream().map(chain -> new Product("dummyID",
-//                 "dummyName", "dummyImage", "fruit-and-veg", "apples", chain, BigDecimal.ZERO, 0, null, 0.0))
-//                 .collect(Collectors.toList());
+//         // List<Product> mockProductsChains = mockResponse.get("chains").stream().map(chain -> new Product("dummyID",
+//         //         "dummyName", "dummyImage", "fruit-and-veg", "apples", chain, BigDecimal.ZERO, 0, null, 0.0))
+//         //         .collect(Collectors.toList());
 
-//         List<Product> mockProductsCategories = mockResponse.get("categories").stream()
-//                 .map(category -> new Product("dummyID", "dummyName", "dummyImage", category, "apples", "Aldi",
-//                         BigDecimal.ZERO, 0, null, 0.0))
-//                 .collect(Collectors.toList());
+//         // List<Product> mockProductsCategories = mockResponse.get("categories").stream()
+//         //         .map(category -> new Product("dummyID", "dummyName", "dummyImage", category, "apples", "Aldi",
+//         //                 BigDecimal.ZERO, 0, null, 0.0))
+//         //         .collect(Collectors.toList());
 
-//         List<Product> mockProductsSubcategories = mockResponse
-//                 .get("subcategories").stream().map(subcategory -> new Product("dummyID", "dummyName", "dummyImage",
-//                         "fruit-and-veg", subcategory, "Aldi", BigDecimal.ZERO, 0, null, 0.0))
-//                 .collect(Collectors.toList());
+//         // List<Product> mockProductsSubcategories = mockResponse
+//         //         .get("subcategories").stream().map(subcategory -> new Product("dummyID", "dummyName", "dummyImage",
+//         //                 "fruit-and-veg", subcategory, "Aldi", BigDecimal.ZERO, 0, null, 0.0))
+//         //         .collect(Collectors.toList());
 
 //         when(productService.getByName(filter))
 //                 .thenReturn(Stream.of(mockProductsChains, mockProductsCategories, mockProductsSubcategories)
