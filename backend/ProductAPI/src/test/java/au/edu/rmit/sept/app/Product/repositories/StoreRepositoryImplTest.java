@@ -32,7 +32,9 @@ public class StoreRepositoryImplTest {
 
     @Test
     public void testFindAll_SuccessWithStores() {
-
+        // Setup
+        doReturn(new ArrayList<>()).when(storeRepository).executeGetForObject(anyString(), eq(Store[].class));
+        
         // Execute
         List<Store> result = storeRepository.findAll();
 
@@ -47,6 +49,8 @@ public class StoreRepositoryImplTest {
 
     @Test
     public void testFindStoresByPostcodesAndChains_SinglePostcode1000() {
+        // Setup
+        doReturn(new ArrayList<>()).when(storeRepository).executeGetForObject(anyString(), eq(Store[].class));
 
         // Execute
         List<Store> result = storeRepository.findStoresByPostcodesAndChains(Arrays.asList("1000"), null);
