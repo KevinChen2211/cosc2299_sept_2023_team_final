@@ -41,7 +41,7 @@ public class AccountRepositoryImplTest {
         this.repo.create(new AccountModel("name1", "name2", "brisvegas", "testCreate@db.com", "0987", "026153949"));
         AccountModel m2 = this.repo.findById("testCreate@db.com", "0987").get();
         assertEquals("testCreate@db.com", m2.email());
-        this.repo.deleteById("testCreate@db.com", "4567");
+        this.repo.deleteById("testCreate@db.com", "0987");
     }
 
     @Test
