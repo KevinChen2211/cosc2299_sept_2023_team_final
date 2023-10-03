@@ -7,12 +7,21 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.sql.DataSource;
 
+import java.util.Optional;
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 public class AccountRepositoryImplTest {
@@ -22,6 +31,8 @@ public class AccountRepositoryImplTest {
 
     @Autowired
     DataSource source;
+
+    private RestTemplate restTemplate = mock(RestTemplate.class);
 
     AccountRepository repo;
 
@@ -55,6 +66,14 @@ public class AccountRepositoryImplTest {
         this.repo.deleteById("testUpdate@db.com", "4567");
     }
 
-
+    @Test
+    void findById_should_returnEmpty_when_notFound() {
+        when(restTemplate.getForObject(anyString(), eq(AccountModel.class)))
+            .thenThrow(new HttpClientErrorException(HttpStatus.NOT_FOUND));
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
+            repo.findById("missing@test.com", "nopass");
+        });
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
+    }
 
 }
