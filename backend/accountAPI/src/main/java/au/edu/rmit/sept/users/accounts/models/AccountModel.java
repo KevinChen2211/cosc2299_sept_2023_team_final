@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-public record AccountModel (String firstName, String lastName, String address, String email, String password, String phone) implements Serializable{
+public record AccountModel (String firstName, String lastName, String address, String email, String password, String phone, Boolean isNotified) implements Serializable{
 
 }

@@ -8,7 +8,7 @@
 ## Group-P5-01
 
 ## Members
-* Kelly Smith (s3898340)
+* Keely Smith (s3898340)
 * Myat Theingi Nwe (Gigi) (s3963447)
 * Tanya Tran (s3843142)
 * Huy Do (s3894502)
@@ -54,7 +54,7 @@ for more information read the [CONTRIBUTING.md](CONTRIBUTING.md)
 - Ensure you have docker open, and navigate to the repository root.
 - run the command:
 ```
-docker-compose up -d
+docker-compose up -d --build
 ```
 - Ensure the containers are running with 
 ```

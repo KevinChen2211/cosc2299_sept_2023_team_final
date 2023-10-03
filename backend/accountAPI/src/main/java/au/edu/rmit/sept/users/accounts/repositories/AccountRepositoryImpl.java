@@ -6,6 +6,7 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
@@ -23,38 +24,40 @@ public class AccountRepositoryImpl implements AccountRepository{
 
 
     public Optional<AccountModel> findById(String email, String password) {
-        RestTemplate restTemplate = new RestTemplate();
-        String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/customers/" + email + "/" + password;
-        Optional<AccountModel> account = Optional.of(restTemplate.getForObject(url, AccountModel.class));
         try {
-            if (account.get().email().equals(email)) {
-                return account;
-            }
-        } catch (HttpClientErrorException.NotFound e) {
-
+            RestTemplate restTemplate = new RestTemplate();
+            String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/customers/" + email + "/" + password;
+            Optional<AccountModel> account = Optional.of(restTemplate.getForObject(url, AccountModel.class));
+            return account;
+        } catch (HttpClientErrorException e) {
+            throw new ResponseStatusException(e.getStatusCode());
         }
-        return null;
     }
     @Override
-    public void create(AccountModel account) {
-        RestTemplate restTemplate = new RestTemplate();
-        String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/customers";
-        restTemplate.postForObject(url, account, String.class);
+    public ResponseEntity<String> create(AccountModel account) {
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/customers";
+            restTemplate.postForObject(url, account, String.class);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (HttpClientErrorException e) {
+            throw new ResponseStatusException(e.getStatusCode());
+        }
     }
 
     @Override
-    public ResponseEntity<HttpStatus> update(AccountModel newDetails, String email, String password) {
+    public ResponseEntity<String> update(AccountModel newDetails, String email, String password) {
         try{
             RestTemplate restTemplate = new RestTemplate();
-            String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/customers/" + email + "/" + password + "?lastName= " + newDetails.lastName() + "&password=" + newDetails.password() + "&phone= " + newDetails.phone() + "&firstName=" + newDetails.firstName() +"&address=" + newDetails.address();
-            ResponseEntity<HttpStatus> response = restTemplate.exchange(
+            String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/customers/" + email + "/" + password + "?lastName= " + newDetails.lastName() + "&password=" + newDetails.password() + "&phone= " + newDetails.phone() + "&firstName=" + newDetails.firstName() +"&address=" + newDetails.address() + "&isNotified=" + newDetails.isNotified();
+            ResponseEntity<String> response = restTemplate.exchange(
                     url,
                     HttpMethod.PUT,
                     HttpEntity.EMPTY,
-                    HttpStatus.class);
+                    String.class);
             return response;
         } catch (HttpClientErrorException e) {
-            return new ResponseEntity<>(e.getStatusCode());
+            throw new ResponseStatusException(e.getStatusCode());
         }
     }
 
@@ -70,9 +73,8 @@ public class AccountRepositoryImpl implements AccountRepository{
                     String.class);
             return response;
         } catch (HttpClientErrorException e) {
-            throw new HttpClientErrorException(e.getStatusCode());
+            throw new ResponseStatusException(e.getStatusCode());
         }
     }
-
 
 }

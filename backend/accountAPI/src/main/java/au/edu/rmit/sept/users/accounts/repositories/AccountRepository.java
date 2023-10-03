@@ -11,12 +11,12 @@ import java.net.http.HttpResponse;
 import java.util.Optional;
 
 public interface AccountRepository {
-    void create(AccountModel account);
+    ResponseEntity<String> create(AccountModel account);
 
     //Find book by ID
     Optional<AccountModel> findById(String email, String password);
 
-    ResponseEntity<HttpStatus> update(AccountModel newDetails, String email, String password);
+    ResponseEntity<String> update(AccountModel newDetails, String email, String password);
 
     ResponseEntity<String> deleteById(String email, String password);
 }
