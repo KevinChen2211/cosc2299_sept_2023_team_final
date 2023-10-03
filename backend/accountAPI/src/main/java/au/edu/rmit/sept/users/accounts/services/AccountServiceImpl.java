@@ -23,7 +23,7 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public void createAccount(AccountModel account){repository.create(account);}
+    public ResponseEntity<String> createAccount(AccountModel account){return repository.create(account);}
 
     @Override
     public Optional<AccountModel> getAccount(String email, String password) {
@@ -31,7 +31,7 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public ResponseEntity<HttpStatus> updateAccount(AccountModel updatedDetails, String email, String password) {
+    public ResponseEntity<String> updateAccount(AccountModel updatedDetails, String email, String password) {
         return repository.update(updatedDetails, email, password);
     }
 

@@ -38,22 +38,20 @@ public class AccountRepositoryImplTest {
 
     @Test
     void create_should_addNewAccountToDB() {
-        Random rand = new Random();
-        String testEmail = "myemail1" + rand.nextInt(100) + "@gmail" + rand.nextInt(100) + ".com";
-        this.repo.create(new AccountModel("name1", "name2", "brisvegas", testEmail, "0987", "026153949"));
-        AccountModel m2 = this.repo.findById(testEmail, "0987").get();
-        assertEquals(testEmail, m2.email());
+        this.repo.create(new AccountModel("name1", "name2", "brisvegas", "testCreate@db.com", "0987", "026153949"));
+        AccountModel m2 = this.repo.findById("testCreate@db.com", "0987").get();
+        assertEquals("testCreate@db.com", m2.email());
+        this.repo.deleteById("testCreate@db.com", "0987");
     }
 
     @Test
     void update_should_updateAccountToDB(){
-        Random rand = new Random();
-        String testEmail = "myemail2" + rand.nextInt(100) + "@gmail" + rand.nextInt(100) + ".com";
-        this.repo.create(new AccountModel("name3", "name4", "neuva york", testEmail, "4567", "016373628"));
-        AccountModel m = new AccountModel("newName1", "newName2", "neuva york", testEmail, "4567", "016373628");
+        this.repo.create(new AccountModel("name3", "name4", "neuva york", "testUpdate@db.com", "4567", "016373628"));
+        AccountModel m = new AccountModel("newName1", "newName2", "neuva york", "testUpdate@db.com", "4567", "016373628");
         this.repo.update(m, m.email(), m.password());
-        AccountModel m2 = this.repo.findById(testEmail, "4567").get();
+        AccountModel m2 = this.repo.findById("testUpdate@db.com", "4567").get();
         assertEquals(m2.firstName(), m.firstName());
+        this.repo.deleteById("testUpdate@db.com", "4567");
     }
 
 
