@@ -29,9 +29,9 @@
 
 //     @Test
 //     public void testGetAllProducts_SuccessWithProducts() {
-//         Product mockProduct1 = new Product("1", "Apples 300g", "www.google.com/apples", "fruit-and-veg", "apples", "Aldi", new BigDecimal("47.65"), 53, null, 2.8);
-//         Product mockProduct2 = new Product("2", "Bananas 1kg", "www.google.com/bananas", "fruit-and-veg", "bananas", "Woolworths", new BigDecimal("32.15"), 76, null, 3.5);
-//         List<Product> mockProducts = Arrays.asList(mockProduct1, mockProduct2);
+//         // Product mockProduct1 = new Product("1", "Apples 300g", "www.google.com/apples", "fruit-and-veg", "apples", "Aldi", new BigDecimal("47.65"), 53, null, 2.8);
+//         // Product mockProduct2 = new Product("2", "Bananas 1kg", "www.google.com/bananas", "fruit-and-veg", "bananas", "Woolworths", new BigDecimal("32.15"), 76, null, 3.5);
+//         List<Product> mockProducts = Arrays.asList();
 
 //         when(productService.getProducts()).thenReturn(mockProducts);
 
@@ -42,7 +42,8 @@
 
 //     @Test
 //     public void testGetProductById_SuccessWithProduct() {
-//         Product mockProduct = new Product("60852124", "Apples 300g", "www.google.com/apples", "fruit-and-veg", "apples", "Aldi", new BigDecimal("47.65"), 53, null, 2.8);
+//         // Product mockProduct = new Product("60852124", "Apples 300g", "www.google.com/apples", "fruit-and-veg", "apples", "Aldi", new BigDecimal("47.65"), 53, null, 2.8);
+//         List<Product> mockProducts = Arrays.asList();
 //         when(productService.getById("60852124")).thenReturn(mockProduct);
 
 //         ResponseEntity<Object> response = productController.getProductById("60852124");
