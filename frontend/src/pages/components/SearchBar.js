@@ -8,7 +8,9 @@ function SearchBar() {
 
 
     const handleSearch = () => {
-        navigate("/productsearch/" + searchTerm, { state: { productName: searchTerm } });
+        if (!searchTerm.length == 0) {
+            navigate("/productsearch/" + searchTerm, { state: { productName: searchTerm } });
+        }
 
     };
 
