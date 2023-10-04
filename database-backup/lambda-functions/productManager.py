@@ -42,6 +42,11 @@ def lambda_handler(event, context):
                 chains = query_parameters.get('chain', '').split(',')
                 chains = [item for item in chains if item != '']
                 print(chains)
+                
+                isPromotedStr = query_parameters.get('isPromoted', '')
+                isPromoted = True if isPromotedStr.lower() == 'true' else None
+                isPromoted = False if isPromotedStr.lower() == 'false' else isPromoted
+                print(isPromoted)
             
                 # Filter items in DynamoDB based on the specified categories
                 filtered_items = []
@@ -81,6 +86,12 @@ def lambda_handler(event, context):
                         filter_expression &= Attr('lower_name').contains(search)
                     else:
                         filter_expression = Attr('lower_name').contains(search)
+                        
+                if isPromoted is not None:
+                    if filter_expression:
+                        filter_expression &= Attr('isPromoted').eq(isPromoted)
+                    else:
+                        filter_expression = Attr('isPromoted').eq(isPromoted)
             
                 # Check if filter_expression is still None, meaning no attribute checks were added
                 if filter_expression is None:
@@ -133,9 +144,10 @@ def lambda_handler(event, context):
                 imageLocation = request_body.get('imageLocation')
                 price = Decimal(str(request_body.get('price')))
                 quantity = Decimal(str(request_body.get('quantity')))
+                isPromoted = request_body.get('isPromoted')
     
                 # Perform validation of required attributes here if needed
-                if not (productID and name and chain and avgRating and category and subcategory and imageLocation and price and quantity):
+                if not (productID and name and chain and avgRating and category and subcategory and imageLocation and price and quantity and isPromoted is not None):
                     return {
                         'statusCode': 400,
                         'headers': {
@@ -155,7 +167,8 @@ def lambda_handler(event, context):
                     'subcategory': subcategory,
                     'imageLocation': imageLocation,
                     'price': price,
-                    'quantity': quantity
+                    'quantity': quantity,
+                    'isPromoted': isPromoted
                 }
     
                 # Insert the new item into the DynamoDB table

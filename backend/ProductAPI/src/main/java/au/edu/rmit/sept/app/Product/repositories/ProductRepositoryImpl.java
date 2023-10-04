@@ -108,7 +108,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
         @Override
         public List<Product> getSearch(String name, List<String> categories, List<String> subcategories,
-                        List<String> chains) {
+                        List<String> chains, String promoted) {
                 RestTemplate restTemplate = new RestTemplate();
                 String baseUrl = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/products";
 
@@ -145,6 +145,22 @@ public class ProductRepositoryImpl implements ProductRepository {
                         }
                         urlBuilder.append("chain=").append(String.join(",", chains));
                 }
+
+                //promotion
+                if (promoted != null && !promoted.isEmpty()) {
+                        String promotedLower = promoted.toLowerCase();
+                        if (promotedLower.equals("true") || promotedLower.equals("false")) {
+                                if (urlBuilder.toString().contains("?")) {
+                                        urlBuilder.append("&");
+                                } else {
+                                        urlBuilder.append("?");
+                                }
+                                urlBuilder.append("isPromoted=").append(promotedLower);
+                        } else {
+                                // Handle invalid promoted value
+                                return new ArrayList<>();
+                        }
+                }
                 try {
                         Product[] ProductArray = restTemplate.getForObject(urlBuilder.toString(), Product[].class);
                         if (ProductArray != null) {
@@ -160,5 +176,18 @@ public class ProductRepositoryImpl implements ProductRepository {
                 }
         }
 
-
+        @Override
+        public List<Product> getByPromotion() {
+                RestTemplate restTemplate = new RestTemplate();
+                        String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/products?isPromoted=true";
+                        try {
+                                Product[] productsArray = restTemplate.getForObject(url, Product[].class);
+                                if (productsArray != null && productsArray.length > 0) {
+                                        return Arrays.asList(productsArray);
+                                }
+                        } catch (HttpClientErrorException.NotFound e) {
+                                return null;
+                        }
+                        return null;
+        }
 }

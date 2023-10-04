@@ -10,7 +10,7 @@ export default function ShoppingCart({cartItems, updateCartItems}){
     for (const item of cartItems) {
       total += item.price * item.boughtQuantity;
     }
-    return total;
+    return total.toFixed(2);
   }
 
   const handleQuantityChange = (index, amount) => {
@@ -44,8 +44,8 @@ export default function ShoppingCart({cartItems, updateCartItems}){
             X </button> </td>  
 
           {/*   Item Image  */}
-          <td align='center' className='setPadding'><img src= {item.image} 
-              alt="itemImage" width={70} height={70}/> </td>
+          <td align='center' className='setPadding'>
+            <img src={item.imageLocation} alt={item.name} width={70} height={70}/> </td>
           
           {/*   Item Name  */}
           <td className='setPadding' key={item.id}> {item.name} </td> 
@@ -70,7 +70,7 @@ export default function ShoppingCart({cartItems, updateCartItems}){
             </div>
           </td>
           {/*   Item total price  */}
-          <td width="100px" align='center'> <span>$ {item.price * item.boughtQuantity}</span> </td>
+          <td width="100px" align='center'> <span>$ {(item.price * item.boughtQuantity).toFixed(2)}</span> </td>
           </div>
           ))}
           

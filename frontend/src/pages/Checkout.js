@@ -62,12 +62,9 @@ export default function Checkout({cartItems, updateCartItems}) {
     let total = 0;
     for (const item of cartItems) {
       total += (item.price * item.boughtQuantity);
-      //total += (item.price * item.quantity)
     }
-    return total;
+    return total.toFixed(2);
   }
-
- // const shippingFee = 7;
 
   return (  
     <main>

@@ -13,7 +13,7 @@ export default function Payment({cartItems}) {
       for (const item of cartItems) {
         total += (item.price * item.boughtQuantity);
       }
-      return total;
+      return total.toFixed(2);
     }
   const [formData, setFormData] = useState({
     cardNumber: "",
@@ -64,7 +64,7 @@ export default function Payment({cartItems}) {
     const errors = {};
 
     if (!validateCardNumber(formData.cardNumber)) {
-      errors.cardNumber = "Invalid card number";
+      errors.cardNumber = "Invalid card number. Enter between 9 and 12 digits.";
     }
 
     if (!validateExpiryDate(formData.expiryDate)) {
@@ -84,7 +84,7 @@ export default function Payment({cartItems}) {
     e.preventDefault();
 
     if (validateForm()) {
-      navigate("/login");
+      navigate("/categories");
     } else {
       console.log("Form has validation errors:", validationErrors);
     }
@@ -107,7 +107,7 @@ export default function Payment({cartItems}) {
           <tbody>
             <tr>
               <td align="left"><b>Total Amount</b></td>
-              <td align="right"><b>$ {calculateTotal() + deliveryFee}</b></td>
+              <td align="right"><b>Pay $ {(parseFloat(calculateTotal()) + deliveryFee).toFixed(2)}</b></td>
             </tr>
             <tr><i>Credit Card</i></tr>
 
@@ -204,7 +204,7 @@ export default function Payment({cartItems}) {
             <tr>
               <td align="center" colSpan={2}>
                 <button className="checkoutButton">
-                  <span>Pay $ {calculateTotal() + deliveryFee}</span>
+                  <span>Pay $ {(parseFloat(calculateTotal()) + deliveryFee).toFixed(2)}</span>
                 </button>
               </td>
             </tr>

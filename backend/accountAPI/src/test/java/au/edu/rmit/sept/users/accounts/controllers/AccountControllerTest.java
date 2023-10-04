@@ -36,6 +36,7 @@ public class AccountControllerTest {
                 .thenReturn(Optional.of(new AccountModel("howard", "duck", "space", "howard@duck.com", "password", "2034", false)));
         Optional<AccountModel> m = this.controller.get("howard@duck.com", "password");
         assertNotNull(m);
+        assertTrue(m.get() instanceof AccountModel);
         assertEquals("howard@duck.com", m.get().email());
         assertEquals(false, m.get().isNotified());
     }

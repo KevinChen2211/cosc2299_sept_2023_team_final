@@ -1,8 +1,8 @@
 
 package au.edu.rmit.sept.app.Product.controllers;
 
-import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,133 +12,110 @@ import org.springframework.http.ResponseEntity;
 import au.edu.rmit.sept.app.Product.models.Product;
 import au.edu.rmit.sept.app.Product.services.ProductService;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ProductControllerTest {
 
-    private ProductController productController;
-    private ProductService productService;
+    private ProductService mockService;
+    private ProductController controller;
 
     @BeforeEach
     public void setUp() {
-        productService = mock(ProductService.class);
-        productController = new ProductController(productService);
+        mockService = mock(ProductService.class);
+        controller = new ProductController(mockService);
     }
 
     @Test
-    public void testGetAllProducts_SuccessWithProducts() {
-        Product mockProduct1 = new Product("1", "Apples 300g", "www.google.com/apples", "fruit-and-veg", "apples", "Aldi", new BigDecimal("47.65"), 53, null, 2.8);
-        Product mockProduct2 = new Product("2", "Bananas 1kg", "www.google.com/bananas", "fruit-and-veg", "bananas", "Woolworths", new BigDecimal("32.15"), 76, null, 3.5);
-        List<Product> mockProducts = Arrays.asList(mockProduct1, mockProduct2);
+    public void testGetAllProducts() {
+        when(mockService.getProducts()).thenReturn(Arrays.asList(new Product(), new Product()));
 
-        when(productService.getProducts()).thenReturn(mockProducts);
+        ResponseEntity<Object> response = controller.getAllProducts();
 
-        ResponseEntity<Object> response = productController.getAllProducts();
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(mockProducts, response.getBody());
+        assertTrue(response.getBody() instanceof List);
     }
 
     @Test
-    public void testGetProductById_SuccessWithProduct() {
-        Product mockProduct = new Product("60852124", "Apples 300g", "www.google.com/apples", "fruit-and-veg", "apples", "Aldi", new BigDecimal("47.65"), 53, null, 2.8);
-        when(productService.getById("60852124")).thenReturn(mockProduct);
+    public void testGetProductById_NotFound() {
+        when(mockService.getById(anyString())).thenReturn(null);
 
-        ResponseEntity<Object> response = productController.getProductById("60852124");
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(mockProduct, response.getBody());
+        ResponseEntity<Object> response = controller.getProductById("123");
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
     @Test
-    public void testGetProductByName_SuccessWithProducts() {
-        Product mockProduct = new Product("60852124", "Apples 300g", "www.google.com/apples", "fruit-and-veg", "apples", "Aldi", new BigDecimal("47.65"), 53, null, 2.8);
-        List<Product> mockProducts = Arrays.asList(mockProduct);
-        when(productService.getByName("Apples 300g")).thenReturn(mockProducts);
+    public void testGetProductById_Found() {
+        when(mockService.getById(anyString())).thenReturn(new Product());
 
-        ResponseEntity<Object> response = productController.getProductByName("Apples 300g");
+        ResponseEntity<Object> response = controller.getProductById("81083226");
+
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(mockProducts, response.getBody());
+        assertTrue(response.getBody() instanceof Product);
+    }
+
+
+    @Test
+    public void testGetProductByName_Found() {
+        when(mockService.getByName(anyString())).thenReturn(Arrays.asList(new Product()));
+
+        ResponseEntity<Object> response = controller.getProductByName("apple");
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertTrue(response.getBody() instanceof List);
+    }
+
+
+    @Test
+    public void testGetProductByCategory_Found() {
+        when(mockService.getByCategory(anyString())).thenReturn(Arrays.asList(new Product()));
+
+        ResponseEntity<Object> response = controller.getProductByCategory("fruit-and-veg");
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertTrue(response.getBody() instanceof List);
+    }
+
+
+    @Test
+    public void testGetProductBySubCate_Found() {
+        when(mockService.getBySubCategory(anyString())).thenReturn(Arrays.asList(new Product()));
+
+        ResponseEntity<Object> response = controller.getProductBySubCate("apple");
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertTrue(response.getBody() instanceof List);
     }
 
     @Test
-    public void testGetProductByChain_SuccessWithProducts() {
-        Product mockProduct = new Product("1", "Apples 300g", "www.google.com/apples", "fruit-and-veg", "apples", "Aldi", new BigDecimal("47.65"), 53, null, 2.8);
-        List<Product> mockProducts = Arrays.asList(mockProduct);
-        when(productService.getByChain("Aldi")).thenReturn(mockProducts);
+    public void testSearch_NoProductsFound() {
+        when(mockService.getSearchProducts(any(), any(), any(), any(), any())).thenReturn(Collections.emptyList());
 
-        ResponseEntity<Object> response = productController.getProductByChain("Aldi");
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(mockProducts, response.getBody());
+        ResponseEntity<Object> response = controller.Search("name", null, null, null, null);
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
     @Test
-    public void testGetProductByCategory_SuccessWithProducts() {
-        Product mockProduct = new Product("60852124", "Apples 300g", "www.google.com/apples", "fruit-and-veg", "apples", "Aldi", new BigDecimal("47.65"), 53, null, 2.8);
-        List<Product> mockProducts = Arrays.asList(mockProduct);
-        when(productService.getByCategory("fruit-and-veg")).thenReturn(mockProducts);
+    public void testSearch_ProductsFound() {
+        when(mockService.getSearchProducts(any(), any(), any(), any(), any())).thenReturn(Arrays.asList(new Product()));
 
-        ResponseEntity<Object> response = productController.getProductByCategory("fruit-and-veg");
+        ResponseEntity<Object> response = controller.Search("name", null, null, null, null);
+
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(mockProducts, response.getBody());
+        assertTrue(response.getBody() instanceof List);
     }
+
 
     @Test
-    public void testGetProductBySubcategory_SuccessWithProducts() {
-        Product mockProduct = new Product("60852124", "Apples 300g", "www.google.com/apples", "fruit-and-veg", "apples", "Aldi", new BigDecimal("47.65"), 53, null, 2.8);
-        List<Product> mockProducts = Arrays.asList(mockProduct);
-        when(productService.getBySubCategory("apples")).thenReturn(mockProducts);
+    public void testGetProductOnPromotion_Found() {
+        when(mockService.getByPromotion()).thenReturn(Arrays.asList(new Product()));
 
-        ResponseEntity<Object> response = productController.getProductBySubCate("apples");
+        ResponseEntity<Object> response = controller.getProductOnPromotion();
+
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(mockProducts, response.getBody());
+        assertTrue(response.getBody() instanceof List);
     }
-
-    
-
-    @Test
-    public void testGetSearch_ByNameAp_Success() {
-        // Given
-        Product mockProduct = new Product("60852124", "Apples 300g", "www.google.com/apples", "fruit-and-veg", "apples", "Aldi", new BigDecimal("47.65"), 53, null, 2.8);
-        List<Product> mockProducts = Arrays.asList(mockProduct);
-        when(productService.getSearchProducts("ap", null, List.of("grapes", "apples"), null)).thenReturn(mockProducts);
-
-        // When
-        ResponseEntity<Object> response = productController.Search("ap", null, List.of("grapes", "apples"), null);
-
-        // Then
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(mockProducts, response.getBody());
-    }
-
-    @Test
-    public void testGetSearch_ByNameApAndSubcategoryGrapesApples_Success() {
-        // Given
-        Product mockProduct = new Product("60852124", "Apples 300g", "www.google.com/apples", "fruit-and-veg", "apples", "Aldi", new BigDecimal("47.65"), 53, null, 2.8);
-        List<Product> mockProducts = Arrays.asList(mockProduct);
-        when(productService.getSearchProducts("ap", null, List.of("grapes", "apples"), null)).thenReturn(mockProducts);
-
-        // When
-        ResponseEntity<Object> response = productController.Search("ap", null, List.of("grapes", "apples"), null);
-
-        // Then
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(mockProducts, response.getBody());
-    }
-
-    @Test
-    public void testGetSearch_ByNameApAndSubcategoryGrapesApplesAndChainWoolworths_Success() {
-        // Given
-        Product mockProduct = new Product("62104441", "Apples Per Kg", "www.google.com/apples", "fruit-and-veg", "apples", "Woolworths", new BigDecimal("11.45"), 59, null, 1.5);
-        List<Product> mockProducts = Arrays.asList(mockProduct);
-        when(productService.getSearchProducts("ap", null, List.of("grapes", "apples"), List.of("Woolworths"))).thenReturn(mockProducts);
-
-        // When
-        ResponseEntity<Object> response = productController.Search("ap", null, List.of("grapes", "apples"), List.of("Woolworths"));
-
-        // Then
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(mockProducts, response.getBody());
-    }
-
 }

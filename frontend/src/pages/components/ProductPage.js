@@ -4,7 +4,9 @@ import '../../styling.css'
 import axios from "axios";
 
 export default function ProductPage({cartItems, updateCartItems}) {
-    const [cartItem, setCartItem] = useState([]);
+    const [cartItem, setCartItem] = useState([{
+      boughtQuantity: 0,
+    }]);
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -14,7 +16,7 @@ export default function ProductPage({cartItems, updateCartItems}) {
         // Fetch products for the given subcategory from the backend
         axios.get(`http://localhost:8080/product/id/${location.state.productID}`)
             .then(response => {
-                setCartItem(response.data);
+                setCartItem({...response.data, boughtQuantity: 0});
             })
             .catch(error => {
                 console.error("There was an error fetching products for the subcategory:", error);
@@ -35,7 +37,6 @@ export default function ProductPage({cartItems, updateCartItems}) {
       setCount(clickCount + 1);
     };    
     
-
       return (
         <tbody>
           <td align='right'>
@@ -49,7 +50,8 @@ export default function ProductPage({cartItems, updateCartItems}) {
           <td className="itemInformation" align="center" width={'50%'}>  <br></br><br></br>
               <div style={{display:'flex'}}>
                 <div>
-                  <span><img src={cartItem.image} width={'250px'} height={'250px'} ></img> </span>
+                  <span><img src={cartItem.imageLocation} alt={cartItem.name} 
+                              width={'250px'} height={'250px'} ></img> </span>
                   <span width={'10px'}></span>
                 </div>
                 <div>
