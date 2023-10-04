@@ -22,23 +22,19 @@ export default function ProductPage({cartItems, updateCartItems}) {
     }, []);
 
     const handleAddToCart = () => {
-        if (!Array.isArray(cartItems)) {
-          cartItems = [];
-        }
-        const itemIndex = cartItems.findIndex((item) => item.id === cartItem.id);
-      
-        if (itemIndex !== -1) {
-          const updatedCartItems = [...cartItems];
-          updatedCartItems[itemIndex].quantity ++;
-          updateCartItems(updatedCartItems);
-        }
-        else {
-          const updatedCartItems = [...cartItems, { ...cartItem }];
-          updateCartItems(updatedCartItems);
-        }
-        setCount(clickCount + 1);
-      };
-
+      let updatedCartItems = [...cartItems]; 
+    
+      const itemIndex = updatedCartItems.findIndex((item) => item.productID === cartItem.productID);
+    
+      if (itemIndex !== -1) {
+        updatedCartItems[itemIndex].boughtQuantity++;
+      } else {
+        updatedCartItems.push({ ...cartItem, boughtQuantity: 1 });
+      }
+      updateCartItems(updatedCartItems);
+      setCount(clickCount + 1);
+    };    
+    
 
       return (
         <tbody>

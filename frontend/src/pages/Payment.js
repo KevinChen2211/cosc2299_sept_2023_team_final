@@ -2,10 +2,19 @@ import React, { useState } from "react";
 import '../styling.css';
 import { useLocation, useNavigate } from "react-router-dom"; 
 
-export default function Payment() {
-  const location = useLocation();
-  const totalAmount = location.state.totalAmount;
+export default function Payment({cartItems}) {
 
+  const navigate = useNavigate();
+  const location = useLocation();
+  const deliveryFee = location.state.deliveryFee;
+
+  const calculateTotal = () => {
+      let total = 0;
+      for (const item of cartItems) {
+        total += (item.price * item.boughtQuantity);
+      }
+      return total;
+    }
   const [formData, setFormData] = useState({
     cardNumber: "",
     expiryDate: "",
@@ -14,7 +23,6 @@ export default function Payment() {
   });
 
   const [validationErrors, setValidationErrors] = useState({});
-  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -86,9 +94,9 @@ export default function Payment() {
     
     <div className="containerPayment" align='center'>
       <div align='left'>
-      <button onClick={() => navigate('/checkout')} >
+      <button onClick={() => navigate('/delivery')} >
           <span>
-            Back to checkout
+            Back to delivery
           </span>
       </button>
     </div>
@@ -99,7 +107,7 @@ export default function Payment() {
           <tbody>
             <tr>
               <td align="left"><b>Total Amount</b></td>
-              <td align="right"><b>$ {totalAmount}</b></td>
+              <td align="right"><b>$ {calculateTotal() + deliveryFee}</b></td>
             </tr>
             <tr><i>Credit Card</i></tr>
 
@@ -190,13 +198,13 @@ export default function Payment() {
                   width={'100%'}
                 />
               </td>
-            </tr><br></br>
+            </tr><br/>
 
             {/* Pay Button */}
             <tr>
               <td align="center" colSpan={2}>
                 <button className="checkoutButton">
-                  <span>Pay $ {totalAmount}</span>
+                  <span>Pay $ {calculateTotal() + deliveryFee}</span>
                 </button>
               </td>
             </tr>

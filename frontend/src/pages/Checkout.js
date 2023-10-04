@@ -23,7 +23,6 @@ export default function Checkout({cartItems, updateCartItems}) {
   const navigate = useNavigate();
 
   const handleCheckout = () => {
-    // Validate the contact information inputs
     const errors = {};
     if (!formData.email || !/^\S+@\S+\.\S+$/.test(formData.email)) {
       errors.email = "Invalid email format";
@@ -55,19 +54,20 @@ export default function Checkout({cartItems, updateCartItems}) {
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
     } else {
-      navigate("/payment", { state: { totalAmount: calculateTotal() + shippingFee } });
+      navigate("/delivery", { state: { totalAmount: calculateTotal() } });
     }
   };
 
   const calculateTotal = () => {
     let total = 0;
     for (const item of cartItems) {
-      total += (item.price * item.quantity);
+      total += (item.price * item.boughtQuantity);
+      //total += (item.price * item.quantity)
     }
     return total;
   }
 
-  const shippingFee = 7;
+ // const shippingFee = 7;
 
   return (  
     <main>
@@ -100,27 +100,11 @@ export default function Checkout({cartItems, updateCartItems}) {
             </div>
           ))}
           <hr />
-          {/* Subtotal */}
-          <div className="textColumn">
-            <div>
-              <span className="textColumnLeft" ><i>Subtotal: </i></span>
-              <span className="textColumnRight">$ {calculateTotal()}</span>
-            </div>
-          </div>
-          <div className="textColumn">
-            {/* Shipping fee */}
-            <div>
-              <span className="textColumnLeft"><i>Shipping fee:</i></span>
-              <span className="textColumnRight">$ {shippingFee}</span>
-            </div>
-            <br></br>
-          </div>
-          <hr />
           <div className="textColumn">
             {/* Grand Total */}
             <div>
               <span className="textColumnLeft"><b><i>Total Amount:</i></b></span>
-              <span className="textColumnRight"><b>$ {calculateTotal() + shippingFee}</b></span>
+              <span className="textColumnRight"><b>$ {calculateTotal()}</b></span>
             </div>
             <br/>
           </div>
@@ -189,7 +173,7 @@ export default function Checkout({cartItems, updateCartItems}) {
           {/* Button for continue shipping */}
           <div className='form-group'>
             <button className='checkoutButton' onClick={handleCheckout}>
-              Continue to Payment
+              Continue Shipping
             </button>
           </div>
         </div>

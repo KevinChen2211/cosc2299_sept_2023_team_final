@@ -10,8 +10,8 @@ import Categories from "./pages/Categories";
 import SubCategories from "./pages/SubCategories"
 import SubCategoryProducts from "./pages/SubCategoryProducts";
 import Checkout from "./pages/Checkout";
+import Delivery from "./pages/Delivery";
 import Payment from "./pages/Payment";
-import Item from "./pages/Item";
 import ShoppingCart from "./pages/ShoppingCart";
 import { getUser, removeUser } from "./data/repository";
 import './App.css';
@@ -52,9 +52,9 @@ function App() {
               <Route path="/login" element={<Login loginUser={loginUser} />} />
               <Route path="/profile" element={<MyProfile email={email} />} />
               <Route path="/checkout" element={<Checkout cartItems={cartItems} updateCartItems={updateCartItems} />} />
-              <Route path="/payment" element={<Payment />} />
+              <Route path="/payment" element={<Payment cartItems={cartItems}  />} />
               <Route path="/shoppingcart" element={<ShoppingCart cartItems={cartItems} updateCartItems={updateCartItems} />} />
-              <Route path="/item" element={<Item cartItems={cartItems} updateCartItems={updateCartItems}/>} />
+              <Route path="/delivery" element={<Delivery  cartItems={cartItems}/>} />
               <Route path="/categories" element={<Categories />} />
               <Route path="/categories/:subCategories" element={<SubCategories />} />
               <Route path="/categories/:subCategories/:SubCategoryProducts" element={<SubCategoryProducts />} />

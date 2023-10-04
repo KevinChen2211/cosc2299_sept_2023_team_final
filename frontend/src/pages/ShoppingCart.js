@@ -1,6 +1,6 @@
 import '../styling.css';
-import React from "react";
 import { useNavigate } from "react-router-dom"; 
+import React, {useState } from "react";
 
 
 export default function ShoppingCart({cartItems, updateCartItems}){
@@ -8,14 +8,14 @@ export default function ShoppingCart({cartItems, updateCartItems}){
   const calculateTotal = () => {
     let total = 0;
     for (const item of cartItems) {
-      total += item.price * item.quantity;
+      total += item.price * item.boughtQuantity;
     }
     return total;
   }
 
   const handleQuantityChange = (index, amount) => {
     const updatedData = [...cartItems];
-    updatedData[index].quantity += amount;
+    updatedData[index].boughtQuantity += amount;
     updateCartItems(updatedData);
   }
   
@@ -23,18 +23,15 @@ export default function ShoppingCart({cartItems, updateCartItems}){
     const updatedFormData = cartItems.filter((_, index) => index !== indexToRemove);
     updateCartItems(updatedFormData);
   };    
-    
+
   const navigate = useNavigate();
 
   const handleCheckout = () => {
-    navigate("/checkout");
+    navigate("/delivery");
   }
   
   return (
         <div>
-          <button onClick={() => navigate('/item')}>
-              Back to item details
-          </button>
           <div className='center'>Shopping cart</div>
           <br/>
         
@@ -52,7 +49,6 @@ export default function ShoppingCart({cartItems, updateCartItems}){
           
           {/*   Item Name  */}
           <td className='setPadding' key={item.id}> {item.name} </td> 
-          {/* <td className='setPadding'> {location.state.productName} </td>  */}
 
           {/*   Item Unit Price  */}
           <td> $ {item.price} </td> 
@@ -64,14 +60,17 @@ export default function ShoppingCart({cartItems, updateCartItems}){
                   className='quantityButton'
                   onClick={() => handleQuantityChange(index, -1)}> 
               - </button>
-              <span className='quantityContainer'>{item.quantity}</span>
+              <span className='quantityContainer'>
+                {/* {item.quantity} */}
+                {item.boughtQuantity}
+              </span>
               <button className='quantityButton'
                   onClick={() => handleQuantityChange(index, 1)}> 
               + </button>
             </div>
           </td>
           {/*   Item total price  */}
-          <td width="100px" align='center'> <span>$ {item.price * item.quantity}</span> </td>
+          <td width="100px" align='center'> <span>$ {item.price * item.boughtQuantity}</span> </td>
           </div>
           ))}
           
@@ -92,7 +91,7 @@ export default function ShoppingCart({cartItems, updateCartItems}){
               <td align='right'>
                 <button className='checkoutButton'  onClick={handleCheckout} >
                   <span >
-                    Continue to checkout
+                    Continue to delivery options
                   </span>
                 </button>
               </td>
