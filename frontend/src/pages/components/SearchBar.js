@@ -8,7 +8,7 @@ function SearchBar() {
 
 
     const handleSearch = () => {
-        if (!searchTerm.length == 0) {
+        if (searchTerm.length > 0) {
             navigate("/productsearch/" + searchTerm, { state: { productName: searchTerm } });
         }
 
