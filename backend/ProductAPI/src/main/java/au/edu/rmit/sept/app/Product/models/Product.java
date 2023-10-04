@@ -19,7 +19,6 @@ public class Product implements Serializable {
     private String chain; // New field
     private BigDecimal price;
     private Integer quantity;
-    private Integer boughtQuantity=0;
     private List<String> reviews; // New field
     private Double avgRating; // New field
 }
