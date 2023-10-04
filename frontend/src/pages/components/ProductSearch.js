@@ -10,6 +10,7 @@ export default function ProductSearch() {
     const [sortedResults, setSortedResults] = useState([]);
     const [sortOrder, setSortOrder] = useState('asc');
     const [selectedCategory, setSelectedCategory] = useState('all');
+    const [selectedChain, setSelectedChain] = useState('all');
 
     const navigate = useNavigate();
 
@@ -33,13 +34,17 @@ export default function ProductSearch() {
     const handleCategorySelect = (event) => {
         const category = event.target.value;
         setSelectedCategory(category);
+        const filteredByCategory = category === 'all' ? searchResults : searchResults.filter(product => product.category === category);
+        const filteredByChain = selectedChain === 'all' ? filteredByCategory : filteredByCategory.filter(product => product.chain === selectedChain);
+        setSortedResults(filteredByChain);
+    };
 
-        if (category === 'all') {
-            setSortedResults(searchResults);
-        } else {
-            const filteredProducts = searchResults.filter(product => product.category === category);
-            setSortedResults(filteredProducts);
-        }
+    const handleChainChange = (event) => {
+        const chain = event.target.value;
+        setSelectedChain(chain);
+        const filteredByChain = chain === 'all' ? searchResults : searchResults.filter(product => product.chain === chain);
+        const filteredByCategory = selectedCategory === 'all' ? filteredByChain : filteredByChain.filter(product => product.category === selectedCategory);
+        setSortedResults(filteredByCategory);
     };
 
     useEffect(() => {
@@ -65,11 +70,14 @@ export default function ProductSearch() {
     const uniqueCategories = new Set();
     searchResults.forEach(product => uniqueCategories.add(product.category));
 
+    const uniqueChains = new Set();
+    searchResults.forEach(product => uniqueChains.add(product.chain));
+
     return (
         <div>
             <SearchBar />
             <h1>Search Results for: {searchTerm}</h1>
-            <div>
+            <div className='filter-bar'>
                 <button onClick={handleSort} sortOrder={sortOrder}>
                     Sort by Price ({sortOrder === 'asc' ? 'High to Low' : 'Low to High'})
                 </button>
@@ -81,11 +89,21 @@ export default function ProductSearch() {
                         </option>
                     ))}
                 </select>
+                <select value={selectedChain} onChange={handleChainChange}>
+                    <option value="all">All Chains</option>
+                    {[...uniqueChains].map(chain => (
+                        <option key={chain} value={chain}>
+                            {chain}
+                        </option>
+                    ))}
+                </select>
             </div>
             {noProductsFound ? (
                 <div>No products found for the given search term.</div>
+            ) : sortedResults.length == 0 ? (
+                <div>No products found with the category {selectedCategory} and chain {selectedChain}.</div>
             ) : (
-                <div className='productList'>
+                <div className='product-list'>
                     {sortedResults.map(product => (
                         <div
                             key={product.productID}

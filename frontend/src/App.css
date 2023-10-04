@@ -84,7 +84,7 @@
 
 /* Subcategories */
 
-.productList{
+.product-list{
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
