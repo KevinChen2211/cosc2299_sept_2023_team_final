@@ -51,6 +51,7 @@ public class AccountRepositoryImplTest {
     void create_should_addNewAccountToDB() {
         this.repo.create(new AccountModel("name1", "name2", "brisvegas", "testCreate@db.com", "0987", "026153949", false));
         AccountModel m2 = this.repo.findById("testCreate@db.com", "0987").get();
+        assertTrue(m2 instanceof AccountModel);
         assertEquals("testCreate@db.com", m2.email());
         assertEquals(false, m2.isNotified());
         this.repo.deleteById("testCreate@db.com", "0987");
@@ -63,6 +64,7 @@ public class AccountRepositoryImplTest {
         this.repo.update(m, m.email(), m.password());
         AccountModel m2 = this.repo.findById("testUpdate@db.com", "4567").get();
         assertEquals(m2.firstName(), m.firstName());
+        assertTrue(m2 instanceof AccountModel);
         this.repo.deleteById("testUpdate@db.com", "4567");
     }
 

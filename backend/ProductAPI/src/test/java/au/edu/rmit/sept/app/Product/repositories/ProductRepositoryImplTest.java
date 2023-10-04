@@ -28,7 +28,6 @@ public class ProductRepositoryImplTest {
             return new RestTemplate().getForObject(url, responseType);
         }
 
-        // Override any other methods that use RestTemplate as needed
     }
 
     @BeforeEach
@@ -38,59 +37,25 @@ public class ProductRepositoryImplTest {
 
     @Test
     public void testFindAll_SuccessWithProducts() {
-        // Product[] products = new Product[81];  // Simulate 81 products from the database
-        // Initialize the products array here...
+
 
         doReturn(new ArrayList<>()).when(productRepository).executeGetForObject(anyString(), eq(Product[].class));
 
         List<Product> result = productRepository.findAll();
 
         assertNotNull(result);
-        // assertEquals(81, result.size());
         for (Object obj : result) {
             assertTrue(obj instanceof Product, "Every element in the list should be an instance of Product");
         }
     }
 
-    // @Test
-    // public void testFindAll_SuccessWithNoProducts() {
-    //     Product[] products = new Product[0];
-
-    //     doReturn(products).when(productRepository).executeGetForObject(anyString(), eq(Product[].class));
-
-    //     List<Product> result = productRepository.findAll();
-
-    //     assertNotNull(result);
-    //     assertTrue(result.isEmpty());
-    // }
-
-    // @Test
-    // public void testFindAll_FailureDueToInternalError() {
-    //     doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR, "Missing Authentication Token"))
-    //         .when(productRepository).executeGetForObject(anyString(), eq(Product[].class));
-
-    //     List<Product> result = productRepository.findAll();
-
-    //     assertNotNull(result);
-    //     assertTrue(result.isEmpty());
-    // }
 
     @Test
     public void testGetById_SuccessWithProductInfo() {
-        // Product product = new Product();
-        // product.setProductID("15186775");
-        // product.setQuantity(38);
-        // product.setAvgRating(2.0);
-        // product.setImageLocation("www.google.com/milk");
-        // product.setChain("Woolworths");
-        // product.setCategory("dairy-and-eggs");
-        // product.setPrice(new BigDecimal("10.45"));
-        // product.setName("4L home brand milk");
-        
 
         doReturn(new ArrayList<>()).when(productRepository).executeGetForObject(anyString(), eq(Product[].class));
 
-        Product result = productRepository.getById("91012874");
+        Product result = productRepository.getById("25870763");
 
         assertNotNull(result);
         assertTrue(result instanceof Product, "Every element in the list should be an instance of Product");
@@ -106,15 +71,6 @@ public class ProductRepositoryImplTest {
         assertNull(result);
     }
 
-    // @Test
-    // public void testGetById_FailureDueToInternalError() {
-    //     doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR))
-    //         .when(productRepository).executeGetForObject(anyString(), eq(Product[].class));
-
-    //     Product result = productRepository.getById("15186775");
-
-    //     assertNull(result);
-    // }
 
     @Test
     public void testGetByName_SuccessWithProducts() {
