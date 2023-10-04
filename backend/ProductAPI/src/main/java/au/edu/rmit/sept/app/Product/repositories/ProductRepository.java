@@ -16,5 +16,6 @@ public interface ProductRepository {
     public List<Product> getByCategory(String category);
     public List<Product> getBySubCategory(String subCategory);
     public List<Product> getSearch(String name, List<String> categories, List<String> subcategories,
-            List<String> chains);
+            List<String> chains, String promoted);
+    public List<Product> getByPromotion();
 }
