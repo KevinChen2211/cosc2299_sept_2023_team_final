@@ -49,7 +49,7 @@ public class AccountRepositoryImpl implements AccountRepository{
     public ResponseEntity<String> update(AccountModel newDetails, String email, String password) {
         try{
             RestTemplate restTemplate = new RestTemplate();
-            String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/customers/" + email + "/" + password + "?lastName= " + newDetails.lastName() + "&password=" + newDetails.password() + "&phone= " + newDetails.phone() + "&firstName=" + newDetails.firstName() +"&address=" + newDetails.address();
+            String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/customers/" + email + "/" + password + "?lastName= " + newDetails.lastName() + "&password=" + newDetails.password() + "&phone= " + newDetails.phone() + "&firstName=" + newDetails.firstName() +"&address=" + newDetails.address() + "&isNotified=" + newDetails.isNotified();
             ResponseEntity<String> response = restTemplate.exchange(
                     url,
                     HttpMethod.PUT,
