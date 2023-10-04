@@ -106,7 +106,8 @@ for product in productList:
         "chain": {"S": chainList[randint(0,2)]},
         "quantity": {"N": str(randint(1,60))},
         "price": {"N": str(round((random()*9+1)**2,2))},
-        "imageLocation": {"S": 'www.google.com/' + product[2]}
+        "imageLocation": {"S": 'www.google.com/' + product[2]},
+        "isPromoted": {"BOOL": True if randint(1,10) == 1 else False}
     }
 
     # Insert the data into the DynamoDB table
