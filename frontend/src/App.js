@@ -12,8 +12,13 @@ import Notifications from "./pages/Notifications";
 import ProductPage from "./pages/components/ProductPage";
 import Categories from "./pages/Categories";
 import SubCategories from "./pages/SubCategories"
-import SubCategoryProducts from "./pages/SubCategoryProducts"
+import SubCategoryProducts from "./pages/SubCategoryProducts";
+import Checkout from "./pages/Checkout";
+import Delivery from "./pages/Delivery";
+import Payment from "./pages/Payment";
+import ShoppingCart from "./pages/ShoppingCart";
 import { getUser, removeUser } from "./data/repository";
+import ProductSearch from "./pages/components/ProductSearch"
 import './App.css';
 
 function App() {
@@ -26,6 +31,16 @@ function App() {
   const logoutUser = () => {
     removeUser();
     setEmail(null);
+  }
+
+  const [cartItems, setCartItems] = useState([]);
+
+  const addToCart = (item) => {
+    setCartItems((prevCartItems) => [...prevCartItems, item]);
+  };
+
+  const updateCartItems = (updatedCartItems) => {
+    setCartItems(updatedCartItems);
   }
 
   return (
@@ -41,13 +56,18 @@ function App() {
               <Route path="/signup" element={<SignUp loginUser={loginUser} />} />
               <Route path="/login" element={<Login loginUser={loginUser} />} />
               <Route path="/profile" element={<MyProfile email={email} />} />
-              <Route path="/location" element={<Location email={email} />} />
               <Route path="/notifications" element={<Notifications email={email} />} />
-              <Route path="/shoppingcart" element={<shoppingCart email={email} />} />
               <Route path="/product/:productName" element={<ProductPage />} />
+              <Route path="/checkout" element={<Checkout cartItems={cartItems} updateCartItems={updateCartItems} />} />
+              <Route path="/payment" element={<Payment cartItems={cartItems} />} />
+              <Route path="/shoppingcart" element={<ShoppingCart cartItems={cartItems} updateCartItems={updateCartItems} />} />
+              <Route path="/delivery" element={<Delivery cartItems={cartItems} />} />
               <Route path="/categories" element={<Categories />} />
               <Route path="/categories/:subCategories" element={<SubCategories />} />
               <Route path="/categories/:subCategories/:SubCategoryProducts" element={<SubCategoryProducts />} />
+              <Route path="/product/:productName" element={<ProductPage cartItems={cartItems} updateCartItems={updateCartItems} />} />
+              <Route path="/ProductSearch/:searchTerm" element={<ProductSearch />} />
+
             </Routes>
           </div>
         </main>
@@ -56,5 +76,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;

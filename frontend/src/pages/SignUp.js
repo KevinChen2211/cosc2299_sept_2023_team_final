@@ -59,7 +59,7 @@ function SignUp(props) {
         if (verified === true) {
             // Prepare the user data to be sent in the POST request
             const userData = {
-                firstName : fields.firstname,
+                firstName: fields.firstname,
                 lastName: fields.lastname,
                 address: "123 main st",
                 email: fields.email,
@@ -67,7 +67,7 @@ function SignUp(props) {
                 phone: fields.mobile,
             };
 
-            fetch('http://localhost:8080/v1/account/create', {
+            fetch('http://localhost:8081/v1/account/create', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

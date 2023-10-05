@@ -52,8 +52,13 @@ public class FilterController {
                 .map(Product::getSubcategory)
                 .distinct()
                 .collect(Collectors.toList());
+        
+        List<Boolean> promotion = Arrays.stream(productArray)
+                .map(Product::getIsPromoted)
+                .distinct()
+                .collect(Collectors.toList());
 
-        return new ResponseEntity<>(Map.of("chains", chains, "categories", categories, "subcategories", subcategories),
+        return new ResponseEntity<>(Map.of("chains", chains, "categories", categories, "subcategories", subcategories, "promotion", promotion),
                 HttpStatus.OK);
     }
 

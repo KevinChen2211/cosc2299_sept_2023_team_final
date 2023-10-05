@@ -21,4 +21,5 @@ public class Product implements Serializable {
     private Integer quantity;
     private List<String> reviews; // New field
     private Double avgRating; // New field
+    private Boolean isPromoted;
 }

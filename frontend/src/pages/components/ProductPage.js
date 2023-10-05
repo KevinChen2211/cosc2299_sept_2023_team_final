@@ -1,11 +1,72 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import '../../styling.css'
+import axios from "axios";
 
-export default function ProductPage() {
-
+export default function ProductPage({cartItems, updateCartItems}) {
+    const [cartItem, setCartItem] = useState([{
+      boughtQuantity: 0,
+    }]);
     const location = useLocation();
+    const navigate = useNavigate();
 
-    return (
-        <h1>Product template here of :{location.state.productID}</h1>
-    )
+    const [clickCount, setCount] = useState(1);
+
+    useEffect(() => {
+        // Fetch products for the given subcategory from the backend
+        axios.get(`http://localhost:8080/product/id/${location.state.productID}`)
+            .then(response => {
+                setCartItem({...response.data, boughtQuantity: 0});
+            })
+            .catch(error => {
+                console.error("There was an error fetching products for the subcategory:", error);
+            });
+    }, []);
+
+    const handleAddToCart = () => {
+      let updatedCartItems = [...cartItems]; 
+    
+      const itemIndex = updatedCartItems.findIndex((item) => item.productID === cartItem.productID);
+    
+      if (itemIndex !== -1) {
+        updatedCartItems[itemIndex].boughtQuantity++;
+      } else {
+        updatedCartItems.push({ ...cartItem, boughtQuantity: 1 });
+      }
+      updateCartItems(updatedCartItems);
+      setCount(clickCount + 1);
+    };    
+    
+      return (
+        <tbody>
+          <td align='right'>
+              <button onClick={() => navigate('/shoppingCart')}>
+                <span >
+                  Shopping Cart
+                </span>
+              </button>
+            </td>
+            <br/>
+          <td className="itemInformation" align="center" width={'50%'}>  <br></br><br></br>
+              <div style={{display:'flex'}}>
+                <div>
+                  <span><img src={cartItem.imageLocation} alt={cartItem.name} 
+                              width={'250px'} height={'250px'} ></img> </span>
+                  <span width={'10px'}></span>
+                </div>
+                <div>
+                  <h3><span className='productName'>{cartItem.name}</span></h3><br></br>
+                  <h4><span className='productPrice'>Price ${cartItem.price}</span></h4><br></br>
+                  Category: {cartItem.category}<br/>
+                  Average Rating: {cartItem.avgRating}<br/>
+                  Chain: {cartItem.chain}<br/>
+                  <br/>
+                  <button onClick={handleAddToCart}> Add to cart</button>
+                  <br/><br/>
+                </div>
+              </div>
+          </td>
+          <br></br>
+        </tbody>
+      );
 }

@@ -8,7 +8,7 @@
 ## Group-P5-01
 
 ## Members
-* Kelly Smith (s3898340)
+* Keely Smith (s3898340)
 * Myat Theingi Nwe (Gigi) (s3963447)
 * Tanya Tran (s3843142)
 * Huy Do (s3894502)
@@ -42,23 +42,43 @@ You will need to have in your system
 - Node and npm
 - Apache Maven
 - IDE or Editor
+- Docker 
+    - found here (https://www.docker.com/)
 
 Other tools will be required to complete the project (e.g., Docker)
 
 Branch naming conventions: feature or bug / documentation or backend or frontend or database / task number _ short description
+for more information read the [CONTRIBUTING.md](CONTRIBUTING.md)
 
-## Backend
+## How to run the application? (recommended)
+- Ensure you have docker open, and navigate to the repository root.
+- run the command:
+```
+docker-compose up -d --build
+```
+- Ensure the containers are running with 
+```
+docker ps
+```
+- to stop the containers run the command:
+```
+docker-compose down
+```
+
+> **_NOTE:_** if you have an error about mvmw you will need to convert ./mvnw end of line sequence to LF
+to do so open the ./mvnw file in VSCode and in the bottom right change CRLF to LF
+
+![convert CRLF to LF](LineEnd.png)
+
+## Backend (Not recommended)
 
 - Delete any unused services (i.e. backend/movies). They are there only for an initial reference.
 - Use [Spring initializr](https://start.spring.io/) to create your (micro)services
 - Place any new backend service in its own directory (i.e., backend/<service-name>)
 - Confirm you can run your applicaiton (./mvnw package && java -jar target/[microservice]-0.0.1-SNAPSHOT.jar)
 
-## Frontend
+## Frontend (Not recommended)
 - cd into frontend/
 - Install dependencies "npm install"
 - Run the app with "npm start"
-
-
-
 

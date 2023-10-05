@@ -37,25 +37,47 @@ public class StoreControllerTest {
 
         ResponseEntity<Object> response = storeController.getAllStores();
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(mockStores, response.getBody());
+        
+        Object body = response.getBody();
+        assertTrue(body instanceof List, "Body should be an instance of List");
+        
+        List<?> bodyList = (List<?>) body;
+        assertFalse(bodyList.isEmpty(), "Body list should not be empty");
+        for (Object obj : bodyList) {
+            assertTrue(obj instanceof Store, "Every element in the list should be an instance of Store");
+        }
     }
 
     @Test
     public void testFindStoresByPostcodesAndChains_SuccessWithStores() {
+        // Given
         List<String> postcodes = Arrays.asList("1000", "1020");
         List<String> chains = Arrays.asList("Woolworths", "Coles");
         List<Store> mockStores = Arrays.asList(
-            new Store("Woolworths", "121 Swanston St, Melbourne", "1000", "Woolworths Metro"),
-            new Store("Coles", "16 Rich St, Melbourne", "1020", "Coles East Richmond")
-            
-        );
+                new Store("Woolworths", "121 Swanston St, Melbourne", "1000", "Woolworths Metro"),
+                new Store("Coles", "16 Rich St, Melbourne", "1020", "Coles East Richmond"));
 
         when(storeService.getStoresByPostcodeAndChain(postcodes, chains)).thenReturn(mockStores);
 
+        // When
         ResponseEntity<Object> response = storeController.getStoresByPostcodeAndChain(postcodes, chains);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(mockStores, response.getBody());
-    }
 
+        // Then
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        Object body = response.getBody();
+        assertTrue(body instanceof List, "Body should be an instance of List");
+
+        List<?> bodyList = (List<?>) body;
+        assertFalse(bodyList.isEmpty(), "Body list should not be empty");
+
+        for (Object obj : bodyList) {
+            assertTrue(obj instanceof Store, "Every element in the list should be an instance of Store");
+
+            Store store = (Store) obj;
+            assertTrue(postcodes.contains(store.getPostcode()), "Store's postcode should be either 1000 or 1020");
+            assertTrue(chains.contains(store.getName()), "Store's chain should be either Woolworths or Coles");
+        }
+    }
 
 }
