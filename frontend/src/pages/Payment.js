@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import '../styling.css';
 import { useLocation, useNavigate } from "react-router-dom";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
 
 export default function Payment({ cartItems }) {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const deliveryFee = location.state.deliveryFee;
 
   const calculateTotal = () => {
@@ -84,12 +87,18 @@ export default function Payment({ cartItems }) {
     e.preventDefault();
 
     if (validateForm()) {
-      navigate("/");
-      cartItems = "";
+      setIsModalOpen(true);
     } else {
       console.log("Form has validation errors:", validationErrors);
     }
   };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    navigate("/");
+    // Reset cartItems if needed: cartItems = [];
+  };
+
 
   return (
 
@@ -204,9 +213,18 @@ export default function Payment({ cartItems }) {
             {/* Pay Button */}
             <tr>
               <td align="center" colSpan={2}>
-                <button className="checkoutButton">
+                <button className="checkoutButton" onClick={handleSubmit}>
                   <span>Pay $ {(parseFloat(calculateTotal()) + deliveryFee).toFixed(2)}</span>
                 </button>
+
+                <Popup open={isModalOpen} closeOnDocumentClick onClose={handleModalClose}>
+                  <div className="popup">
+                    <p>Payment successful!</p>
+                    <button className="close" onClick={handleModalClose}>
+                      Close
+                    </button>
+                  </div>
+                </Popup>
               </td>
             </tr>
           </tbody>

@@ -106,7 +106,7 @@ export default function ShoppingCart({ cartItems, updateCartItems }) {
         </table>
       </div>
       <Popup open={isPopupOpen} closeOnDocumentClick onClose={() => setIsPopupOpen(false)}>
-        <div className="popup-content">
+        <div className="popup">
           <h2>Zero Total Warning</h2>
           <p>Your total is $0.00. You cannot proceed to checkout with an empty cart.</p>
           <button onClick={() => setIsPopupOpen(false)}>Close</button>
