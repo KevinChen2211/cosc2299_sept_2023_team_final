@@ -11,6 +11,8 @@ export default function ProductSearch() {
     const [sortOrder, setSortOrder] = useState('asc');
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [selectedChain, setSelectedChain] = useState('all');
+    const [selectedSubCategory, setSelectedSubCategory] = useState('all');
+    const [showSubCategory, setShowSubCategory] = useState(false);
 
     const navigate = useNavigate();
 
@@ -31,12 +33,27 @@ export default function ProductSearch() {
         setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
     };
 
+    const handleResetFilter = () => {
+        setSelectedChain('all');
+        setSelectedSubCategory('all');
+        setSelectedCategory('all');
+        setSortedResults(searchResults);
+    };
+
     const handleCategorySelect = (event) => {
         const category = event.target.value;
+        setSelectedChain('all');
+        setSelectedSubCategory('all');
         setSelectedCategory(category);
         const filteredByCategory = category === 'all' ? searchResults : searchResults.filter(product => product.category === category);
         const filteredByChain = selectedChain === 'all' ? filteredByCategory : filteredByCategory.filter(product => product.chain === selectedChain);
         setSortedResults(filteredByChain);
+        // Check if the selected category is not 'all', then set a flag to display the additional dropdown menu
+        if (category !== 'all') {
+            setShowSubCategory(true);
+        } else {
+            setShowSubCategory(false);
+        }
     };
 
     const handleChainChange = (event) => {
@@ -44,7 +61,18 @@ export default function ProductSearch() {
         setSelectedChain(chain);
         const filteredByChain = chain === 'all' ? searchResults : searchResults.filter(product => product.chain === chain);
         const filteredByCategory = selectedCategory === 'all' ? filteredByChain : filteredByChain.filter(product => product.category === selectedCategory);
-        setSortedResults(filteredByCategory);
+        const filteredBySubCategory = selectedSubCategory === 'all' ? filteredByCategory : filteredByCategory.filter(product => product.subcategory === selectedSubCategory);
+        setSortedResults(filteredBySubCategory);
+    };
+
+    const handleSubCategoryChange = (event) => {
+        const subCategory = event.target.value;
+        setSelectedSubCategory(subCategory);
+        const filteredByCategory = selectedCategory === 'all' ? searchResults : searchResults.filter(product => product.category === selectedCategory);
+        const filteredByChain = selectedChain === 'all' ? filteredByCategory : filteredByCategory.filter(product => product.chain === selectedChain);
+        const filteredBySubCategory = subCategory === 'all' ? filteredByChain : filteredByChain.filter(product => product.subcategory === subCategory);
+        setSortedResults(filteredBySubCategory)
+
     };
 
     useEffect(() => {
@@ -52,6 +80,9 @@ export default function ProductSearch() {
         axios.get(`http://localhost:8080/product?name=${searchTerm}`)
             .then(response => {
                 if (response.data.length > 0) {
+                    setSelectedChain('all');
+                    setSelectedSubCategory('all');
+                    setSelectedCategory('all');
                     setSearchResults(response.data);
                     setSortedResults(response.data);
                     setNoProductsFound(false);
@@ -71,7 +102,10 @@ export default function ProductSearch() {
     searchResults.forEach(product => uniqueCategories.add(product.category));
 
     const uniqueChains = new Set();
-    searchResults.forEach(product => uniqueChains.add(product.chain));
+    sortedResults.forEach(product => uniqueChains.add(product.chain));
+
+    const uniqueSubCategory = new Set();
+    sortedResults.forEach(product => uniqueSubCategory.add(product.subcategory));
 
     return (
         <div>
@@ -89,6 +123,16 @@ export default function ProductSearch() {
                         </option>
                     ))}
                 </select>
+                {showSubCategory && (
+                    <select value={selectedSubCategory} onChange={handleSubCategoryChange}>
+                        <option value="all">All Subcategories</option>
+                        {[...uniqueSubCategory].map(subcategory => (
+                            <option key={subcategory} value={subcategory}>
+                                {subcategory}
+                            </option>
+                        ))}
+                    </select>
+                )}
                 <select value={selectedChain} onChange={handleChainChange}>
                     <option value="all">All Chains</option>
                     {[...uniqueChains].map(chain => (
@@ -97,10 +141,13 @@ export default function ProductSearch() {
                         </option>
                     ))}
                 </select>
+                <button onClick={handleResetFilter}>
+                    Reset filter
+                </button>
             </div>
             {noProductsFound ? (
                 <div>No products found for the given search term.</div>
-            ) : sortedResults.length == 0 ? (
+            ) : sortedResults.length === 0 ? (
                 <div>No products found with the category {selectedCategory} and chain {selectedChain}.</div>
             ) : (
                 <div className='product-list'>
@@ -115,8 +162,6 @@ export default function ProductSearch() {
                             <strong>{product.name}</strong> - ${product.price.toFixed(2)}
                             <br />
                             Sold by: {product.chain}
-                            <br />
-                            Average Rating: {product.avgRating}
                         </div>
                     ))}
                 </div>
