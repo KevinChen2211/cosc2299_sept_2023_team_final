@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import SearchBar from "./SearchBar";
+import BackButton from './BackButton';
 
 export default function ProductSearch() {
     const { searchTerm } = useParams();
@@ -110,6 +111,7 @@ export default function ProductSearch() {
 
     return (
         <div>
+            <BackButton />
             <SearchBar />
             <h1>Search Results for: {searchTerm}</h1>
             <div className='filter-bar'>

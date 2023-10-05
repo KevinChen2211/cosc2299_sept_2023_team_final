@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import BackButton from './components/BackButton';
 
 const SubCategory = (props) => {
     const [subCategories, setSubCategories] = useState([]);
@@ -26,6 +27,7 @@ const SubCategory = (props) => {
 
     return (
         <div>
+            <BackButton />
             <h2>Sub Categories for {location.state.subCategories} :</h2>
             <div className="sub-category-list">
                 {subCategories.map((subcategory) => (

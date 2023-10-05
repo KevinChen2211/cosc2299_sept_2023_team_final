@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import supermarket from "../assets/supermarket.png";
+import BackButton from "./components/BackButton";
 
 
 export default function Categories() {
@@ -34,6 +35,7 @@ export default function Categories() {
 
     return (
         <div>
+            <BackButton />
             <h1>Categories</h1>
             <div className="category-list">
                 {categories.map((category) => (
