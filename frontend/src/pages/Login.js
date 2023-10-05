@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { verifyUser } from "../data/repository";
+import { verifyUser, setEmail, setPassword } from "../data/repository";
 
 function Login(props) {
   const [fields, setFields] = useState({ email: "", password: "" });
@@ -27,7 +27,8 @@ function Login(props) {
       // If verified, login the user.
       if (verified === true) {
         props.loginUser(fields.email);
-  
+        setEmail(fields.email);
+        setPassword(fields.password);
         // Navigate to the home page.
         navigate("/");
         return;

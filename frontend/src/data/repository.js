@@ -1,42 +1,53 @@
 import axios from 'axios';
-const USERS_KEY = "users";
-const USER_KEY = "user";
+const PASSWORD = "password";
+const EMAIL = "email";
 
-let users = [];
+// let users = [];
 
-// Initialise local storage "users" with data, if the data is already set this function returns immediately.
+// // Initialise local storage "users" with data, if the data is already set this function returns immediately.
 function initUsers() {
-  localStorage.clear();
-
-  // Set data into local storage.
-  localStorage.setItem(USERS_KEY, JSON.stringify(users));
 }
 
-function saveUser(firstname, lastname, mobile, email, password, datejoined) {
-  users[users.length] = { firstname, lastname, mobile, email, password, datejoined };
-}
-
-function getUsers() {
-  // Extract user data from local storage.
-  const data = localStorage.getItem(USERS_KEY);
-
-  // Convert data to objects.
-  return JSON.parse(data);
-}
-// loop finds user's name
-function getFullName(currentEmail) {
-  let usersname = "";
-  for (const user of users) {
-    if (currentEmail === user.email) {
-      usersname = user.firstname;
-    }
-    return (usersname);
-  }
-}
+// function saveUser(firstname, lastname, mobile, email, password, datejoined) {
+//   users[users.length] = { firstname, lastname, mobile, email, password, datejoined };
+// }
 
 function getAccount(email, password) {
-
+  console.log(email + "Hello WORLD" + password);
   return axios.get(`http://localhost:8081/v1/account/${email}/${password}`)
+    .then(response => {
+      return response.data;
+    })
+    .catch(error => {
+      if (error.response && error.response.status === 404) {
+        return null; // Email not found
+      }
+      console.error("There was an error fetching account by email.", error);
+      throw error;
+    });
+}
+
+async function getLastName(email, password){
+  const user = await getAccount(email, password);
+  console.log("LASTNAME" + user.lastName);
+  return user.lastName;
+}
+
+async function getFirstName(email, password){
+  const user = await getAccount(email, password);
+  console.log("FIRSTNAME" + user.firstName);
+  return user.firstName;
+}
+
+async function getPhone(email, password){
+  const user = await getAccount(email, password);
+  console.log("PHONE" + user.phone);
+  return user.phone;
+}
+
+function getAccountByEmail(email) {
+  console.log("Hello WORLD" + email)
+  return axios.get(`http://localhost:8081/v1/account/${email}`)
     .then(response => {
       return response.data;
     })
@@ -53,7 +64,7 @@ async function verifyUser(email, password) {
   try {
     const user = await getAccount(email, password);
     if (email === user.email && password === user.password) {
-      setUser(email);
+      // setUser(email);
 
       return true;
     }
@@ -95,25 +106,47 @@ function verifySignUpUser(firstname, lastname, mobile, email, password) {
   return true;
 }
 
-function setUser(firstname) {
-  localStorage.setItem(USER_KEY, firstname);
+// function setUser(firstname) {
+//   localStorage.setItem(USER_KEY, firstname);
+// }
+
+function setEmail(email) {
+  localStorage.setItem(EMAIL, email);
 }
 
-function getUser(firstname, lastname, mobile, email, password, datejoined) {
-  return localStorage.getItem(firstname, lastname, mobile, email, password, datejoined);
+
+function setPassword(password) {
+  localStorage.setItem(PASSWORD, password);
+}
+
+function getEmail() {
+  return localStorage.getItem(EMAIL);
+}
+
+function getPassword() {
+  var password = localStorage.getItem(PASSWORD);
+  return password;
 }
 
 function removeUser() {
-  localStorage.removeItem(USER_KEY);
+  localStorage.removeItem(EMAIL);
+  localStorage.removeItem(PASSWORD);
 }
 
 export {
   initUsers,
   verifyUser,
-  getUser,
+  getEmail,
+  getPassword,
+  setEmail,
+  setPassword,
   removeUser,
-  saveUser,
+  getAccountByEmail,
+  // saveUser,
   verifySignUpUser,
-  getFullName,
-  getAccount
+  // getFullName,
+  getAccount,
+  getFirstName,
+  getPhone,
+  getLastName
 }
