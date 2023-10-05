@@ -54,7 +54,6 @@ function App() {
               <Route path="/login" element={<Login loginUser={loginUser} />} />
               <Route path="/profile" element={<MyProfile email={email} />} />
               <Route path="/notifications" element={<Notifications email={email} />} />
-              <Route path="/product/:productName" element={<ProductPage />} />
               <Route path="/checkout" element={<Checkout cartItems={cartItems} updateCartItems={updateCartItems} />} />
               <Route path="/payment" element={<Payment cartItems={cartItems} />} />
               <Route path="/shoppingcart" element={<ShoppingCart cartItems={cartItems} updateCartItems={updateCartItems} />} />
