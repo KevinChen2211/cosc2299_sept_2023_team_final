@@ -108,10 +108,6 @@ function verifySignUpUser(firstname, lastname, mobile, email, password) {
   return true;
 }
 
-// function setUser(firstname) {
-//   localStorage.setItem(USER_KEY, firstname);
-// }
-
 function setEmail(email) {
   localStorage.setItem(EMAIL, email);
 }
@@ -135,6 +131,25 @@ function removeUser() {
   localStorage.removeItem(PASSWORD);
 }
 
+const deleteAccount = async (email, password) => {
+  try {
+    // Make an API request to delete the user account
+    const response = await fetch(`/delete/${email}/${password}`, {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
+      // If the deletion was successful, you can handle further actions here
+      console.log("User account deleted successfully");
+    } else {
+      console.error("Failed to delete user account");
+    }
+  } catch (error) {
+    console.error("Error deleting user account:", error);
+  }
+};
+
+
 export {
   initUsers,
   verifyUser,
@@ -147,5 +162,6 @@ export {
   getAccount,
   getFirstName,
   getPhone,
-  getLastName
+  getLastName,
+  deleteAccount
 }

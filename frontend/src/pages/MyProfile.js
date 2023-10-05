@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { getFirstName, getLastName, getPhone } from "../data/repository";
-import { getAccount } from "../data/repository";
+import { getAccount, deleteAccount } from "../data/repository";
 
-function MyProfile({email, password}) {
+function MyProfile({ email, password }) {
+  // const history = useHistory();
   const [isEditing, setIsEditing] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const [fields, setFields] = useState({ firstname: "", lastname: "", mobile: "", email: "", password: "" });
 
   const handleInputChange = (event) => {
@@ -32,6 +34,16 @@ function MyProfile({email, password}) {
     setIsEditing(false);
   }
 
+  const handleDelete = () => {
+    setShowConfirmation(true);
+  };
+
+  const handleDeleteConfirmed = async () => {
+    deleteAccount(email, password);
+    setShowConfirmation(false); 
+  };
+
+ 
   const [firstName, setFirstName] = useState('');
 
   const [lastName, setLastName] = useState('');
@@ -55,8 +67,8 @@ function MyProfile({email, password}) {
     fetchData();
   }, [email, password]);
 
-    return (
-      <div className="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+  return (
+    <div className="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
       <div className="card h-100">
         <div className="card-body">
           <div className="row gutters">
@@ -130,7 +142,6 @@ function MyProfile({email, password}) {
                       name="firstname"
                       id="firstname"
                       className="form-control"
-                      value={firstName}
                       onChange={handleInputChange}
                     />
                   </div>
@@ -141,7 +152,6 @@ function MyProfile({email, password}) {
                       name="lastname"
                       id="lastname"
                       className="form-control"
-                      value={lastName}
                       onChange={handleInputChange}
                     />
                   </div>
@@ -152,7 +162,6 @@ function MyProfile({email, password}) {
                       name="phone"
                       id="phone"
                       className="form-control"
-                      value={phone}
                       onChange={handleInputChange}
                     />
                   </div>
@@ -163,7 +172,6 @@ function MyProfile({email, password}) {
                       name="email"
                       id="email"
                       className="form-control"
-                      value={email}
                       onChange={handleInputChange}
                     />
                   </div>
@@ -172,9 +180,18 @@ function MyProfile({email, password}) {
             </div>
           </div>
           {isEditing && (
-            // "Cancel" and "Update" buttons
+            // "Cancel", "Update", and "Delete" buttons
             <div className="row gutters">
-              <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-right">
+              <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={handleDelete}
+                >
+                  Delete Account
+                </button>
+              </div>
+              <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 text-right">
                 <button
                   type="button"
                   className="btn btn-secondary mr-2"
@@ -194,8 +211,52 @@ function MyProfile({email, password}) {
           )}
         </div>
       </div>
-    </div>
+      
+      {showConfirmation && (
+        // Delete confirmation dialog
+        <div className="modal fade show" style={{ display: "block" }}>
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Confirm Deletion</h5>
+                <button
+                  type="button"
+                    className="close"
+                    onClick={() => setShowConfirmation(false)} // Close the dialog when the close button is clicked
+                  >
+                    <span>&times;</span>
+                  </button>
+                </div>
+                <div className="modal-body">
+                  <p>Are you sure you want to delete your account?</p>
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={() => setShowConfirmation(false)} // Close the dialog when "Cancel" is clicked
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    onClick={handleDeleteConfirmed} // Trigger the delete action when "Delete" is clicked
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+ 
   );
 }
 
 export default MyProfile;
+
+
+
+
