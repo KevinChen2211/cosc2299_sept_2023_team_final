@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import '../styling.css';
-import { useLocation, useNavigate } from "react-router-dom"; 
+import { useLocation, useNavigate } from "react-router-dom";
 
-export default function Payment({cartItems}) {
+export default function Payment({ cartItems }) {
 
   const navigate = useNavigate();
   const location = useLocation();
   const deliveryFee = location.state.deliveryFee;
 
   const calculateTotal = () => {
-      let total = 0;
-      for (const item of cartItems) {
-        total += (item.price * item.boughtQuantity);
-      }
-      return total.toFixed(2);
+    let total = 0;
+    for (const item of cartItems) {
+      total += (item.price * item.boughtQuantity);
     }
+    return total.toFixed(2);
+  }
   const [formData, setFormData] = useState({
     cardNumber: "",
     expiryDate: "",
@@ -40,9 +40,9 @@ export default function Payment({cartItems}) {
     if (!/^\d{2}\/\d{2}$/.test(expiryDate)) {
       return false;
     }
-  
+
     const [month, year] = expiryDate.split('/');
-  
+
     const monthNum = parseInt(month, 10);
     if (monthNum < 1 || monthNum > 12) {
       return false;
@@ -54,7 +54,7 @@ export default function Payment({cartItems}) {
     }
     return true;
   };
-  
+
 
   const validateCVC = (cvc) => {
     return /^\d{3,4}$/.test(cvc);
@@ -84,22 +84,23 @@ export default function Payment({cartItems}) {
     e.preventDefault();
 
     if (validateForm()) {
-      navigate("/categories");
+      navigate("/");
+      cartItems = "";
     } else {
       console.log("Form has validation errors:", validationErrors);
     }
   };
 
   return (
-    
+
     <div className="containerPayment" align='center'>
       <div align='left'>
-      <button onClick={() => navigate('/delivery')} >
+        <button onClick={() => navigate('/delivery')} >
           <span>
             Back to delivery
           </span>
-      </button>
-    </div>
+        </button>
+      </div>
       <div className="center">Payment</div>
       <form onSubmit={handleSubmit}>
         <br></br><br></br>
@@ -198,7 +199,7 @@ export default function Payment({cartItems}) {
                   width={'100%'}
                 />
               </td>
-            </tr><br/>
+            </tr><br />
 
             {/* Pay Button */}
             <tr>
