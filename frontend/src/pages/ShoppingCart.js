@@ -1,9 +1,13 @@
 import '../styling.css';
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
 
 
 export default function ShoppingCart({ cartItems, updateCartItems }) {
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const calculateTotal = () => {
     let total = 0;
@@ -27,8 +31,12 @@ export default function ShoppingCart({ cartItems, updateCartItems }) {
   const navigate = useNavigate();
 
   const handleCheckout = () => {
-    navigate("/Checkout");
-  }
+    if (calculateTotal() === "0.00") {
+      setIsPopupOpen(true);
+    } else {
+      navigate("/Checkout");
+    }
+  };
 
   return (
     <div>
@@ -97,6 +105,13 @@ export default function ShoppingCart({ cartItems, updateCartItems }) {
           </td>
         </table>
       </div>
+      <Popup open={isPopupOpen} closeOnDocumentClick onClose={() => setIsPopupOpen(false)}>
+        <div className="popup-content">
+          <h2>Zero Total Warning</h2>
+          <p>Your total is $0.00. You cannot proceed to checkout with an empty cart.</p>
+          <button onClick={() => setIsPopupOpen(false)}>Close</button>
+        </div>
+      </Popup>
     </div>
   );
 }
