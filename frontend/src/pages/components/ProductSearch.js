@@ -93,6 +93,7 @@ export default function ProductSearch() {
                 }
             })
             .catch(error => {
+                console.log(error);
                 setNoProductsFound(true);
             });
     }, [searchTerm]);
@@ -159,7 +160,9 @@ export default function ProductSearch() {
                         >
                             <img src={product.imageLocation} alt={product.name} width="100" />
                             <br />
-                            <strong>{product.name}</strong> - ${product.price.toFixed(2)}
+                            <strong>{product.name}</strong>
+                            <br />
+                            ${product.price.toFixed(2)} AUD
                             <br />
                             Sold by: {product.chain}
                         </div>
