@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import MyProfile from "./pages/MyProfile";
 import SignUp from "./pages/SignUp";
+import Notifications from "./pages/Notifications";
 import ProductPage from "./pages/components/ProductPage";
 import Categories from "./pages/Categories";
 import SubCategories from "./pages/SubCategories"
@@ -52,6 +53,8 @@ function App() {
               <Route path="/signup" element={<SignUp loginUser={loginUser} />} />
               <Route path="/login" element={<Login loginUser={loginUser} />} />
               <Route path="/profile" element={<MyProfile email={email} />} />
+              <Route path="/notifications" element={<Notifications email={email} />} />
+              <Route path="/product/:productName" element={<ProductPage />} />
               <Route path="/checkout" element={<Checkout cartItems={cartItems} updateCartItems={updateCartItems} />} />
               <Route path="/payment" element={<Payment cartItems={cartItems} />} />
               <Route path="/shoppingcart" element={<ShoppingCart cartItems={cartItems} updateCartItems={updateCartItems} />} />
