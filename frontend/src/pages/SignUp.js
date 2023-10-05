@@ -61,7 +61,7 @@ function SignUp(props) {
             const userData = {
                 firstName: fields.firstname,
                 lastName: fields.lastname,
-                address: "123 main st",
+                // address: "123 main st",
                 email: fields.email,
                 password: fields.password,
                 phone: fields.mobile,

@@ -12,8 +12,25 @@ function initUsers() {
 //   users[users.length] = { firstname, lastname, mobile, email, password, datejoined };
 // }
 
+function update(firstName, lastName, phone, email, password){
+  const userData = {
+    firstName: firstName,
+    lastName: lastName,
+    phone: phone,
+    email: email,
+    password: password,
+  };
+  return axios.put(`http://localhost:8081/v1/account/update/${email}/${password}`, userData)
+  .then(response => {
+    return response.data;
+  })
+  .catch(error => {
+    console.error("There was an error updating the account information.", error);
+    throw error;
+  });
+}
+
 function getAccount(email, password) {
-  console.log(email + "Hello WORLD" + password);
   return axios.get(`http://localhost:8081/v1/account/${email}/${password}`)
     .then(response => {
       return response.data;
@@ -43,21 +60,6 @@ async function getPhone(email, password){
   const user = await getAccount(email, password);
   console.log("PHONE" + user.phone);
   return user.phone;
-}
-
-function getAccountByEmail(email) {
-  console.log("Hello WORLD" + email)
-  return axios.get(`http://localhost:8081/v1/account/${email}`)
-    .then(response => {
-      return response.data;
-    })
-    .catch(error => {
-      if (error.response && error.response.status === 404) {
-        return null; // Email not found
-      }
-      console.error("There was an error fetching account by email.", error);
-      throw error;
-    });
 }
 
 async function verifyUser(email, password) {
@@ -141,10 +143,7 @@ export {
   setEmail,
   setPassword,
   removeUser,
-  getAccountByEmail,
-  // saveUser,
   verifySignUpUser,
-  // getFullName,
   getAccount,
   getFirstName,
   getPhone,

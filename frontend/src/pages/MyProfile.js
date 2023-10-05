@@ -3,7 +3,7 @@ import { getFirstName, getLastName, getPhone } from "../data/repository";
 import { getAccount } from "../data/repository";
 
 function MyProfile({email, password}) {
-
+  const [isEditing, setIsEditing] = useState(false);
   const [fields, setFields] = useState({ firstname: "", lastname: "", mobile: "", email: "", password: "" });
 
   const handleInputChange = (event) => {
@@ -18,6 +18,18 @@ function MyProfile({email, password}) {
     // Update field and state.
     temp[name] = value;
     setFields(temp);
+  }
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleCancelClick = () => {
+    setIsEditing(false);
+  };
+
+  const handleUpdate = (event) => {
+    setIsEditing(false);
   }
 
   const [firstName, setFirstName] = useState('');
@@ -43,74 +55,143 @@ function MyProfile({email, password}) {
     fetchData();
   }, [email, password]);
 
-  return (
-    // <div
-    //   style={{
-    //     display: "flex",
-    //     justifyContent: 'center',
-    //     alignItems: "center"
-    //   }}
-    // >
-
-    //   <div>
-    //     <p></p>
-    //     <h1>My Profile</h1>
-    //     <p></p>
-
-    //     <hr />
-    //     <p></p>
-    //     <p>Name: {getFullName(props.firstname)}</p>
-    //     <p>Email: {props.email}</p>
-    //   </div>
-    // </div>
-
-
-    <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-      <div class="card h-100">
-        <div class="card-body">
-          <div class="row gutters">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <h6 class="mb-2 text-primary">Personal Details</h6>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="firstName">First Name</label>
-                <input name="firstname" id="firstname" className="form-control"
-                  value={firstName} onChange={handleInputChange} />
+    return (
+      <div className="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+      <div className="card h-100">
+        <div className="card-body">
+          <div className="row gutters">
+            <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <div className="d-flex justify-content-between align-items-center">
+                <h2>Profile Settings</h2>
+                {!isEditing ? (
+                  <button
+                    className="btn btn-primary"
+                    onClick={handleEditClick}
+                  >
+                    Edit
+                  </button>
+                ) : null}
               </div>
             </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="lastName">Last Name</label>
-                <input name="lastname" id="lastname" className="form-control"
-                // const user = await getAccount(email, password);
-                  value={lastName} onChange={handleInputChange} />
-              </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input name="email" id="email" className="form-control"
-                  value={email} onChange={handleInputChange} />
-              </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label for="phone">Phone</label>
-                <input name="mobile" id="mobile" className="form-control"
-                  value={phone} onChange={handleInputChange} />
-              </div>
-            </div>
+            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              {!isEditing ? (
+                // Display User Information
+                <>
+                  <div className="form-group">
+                    <label htmlFor="firstName">First Name</label>
+                    <input
+                      name="firstname"
+                      id="firstname"
+                      className="form-control"
+                      value={firstName}
+                      readOnly
+                    />
+                  </div>
 
+                  <div className="form-group">
+                    <label htmlFor="lastname">Last Name</label>
+                    <input
+                      name="lastname"
+                      id="lastname"
+                      className="form-control"
+                      value={lastName}
+                      readOnly
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="phone">Phone</label>
+                    <input
+                      name="phone"
+                      id="phone"
+                      className="form-control"
+                      value={phone}
+                      readOnly
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input
+                      name="email"
+                      id="email"
+                      className="form-control"
+                      value={email}
+                      readOnly
+                    />
+                  </div>
+                </>
+              ) : (
+                // Edit Form
+                <>
+                  <div className="form-group">
+                    <label htmlFor="firstName">First Name</label>
+                    <input
+                      name="firstname"
+                      id="firstname"
+                      className="form-control"
+                      value={firstName}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  {/* Add more fields for lastName, email, mobile, and password */}
+                  <div className="form-group">
+                    <label htmlFor="lastName">Last Name</label>
+                    <input
+                      name="lastname"
+                      id="lastname"
+                      className="form-control"
+                      value={lastName}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="phone">Mobile Number</label>
+                    <input
+                      name="phone"
+                      id="phone"
+                      className="form-control"
+                      value={phone}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input
+                      name="email"
+                      id="email"
+                      className="form-control"
+                      value={email}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </>
+              )}
+            </div>
           </div>
-          <div class="row gutters">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <div class="text-right">
-                <button type="button" id="submit" name="submit" class="btn btn-secondary">Cancel</button>
-                <button type="button" id="submit" name="submit" class="btn btn-primary">Update</button>
+          {isEditing && (
+            // "Cancel" and "Update" buttons
+            <div className="row gutters">
+              <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-right">
+                <button
+                  type="button"
+                  className="btn btn-secondary mr-2"
+                  onClick={handleCancelClick}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={handleUpdate}
+                >
+                  Update
+                </button>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
