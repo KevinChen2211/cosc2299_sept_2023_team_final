@@ -5,10 +5,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import MyProfile from "./pages/MyProfile";
 import SignUp from "./pages/SignUp";
-import Location from "./pages/Location";
 import Notifications from "./pages/Notifications";
-// import shoppingCart from "./pages/shoppingCart";
-// import shoppingCart from "./pages/shoppingCart"
 import ProductPage from "./pages/components/ProductPage";
 import Categories from "./pages/Categories";
 import SubCategories from "./pages/SubCategories"
@@ -67,7 +64,6 @@ function App() {
               <Route path="/categories/:subCategories/:SubCategoryProducts" element={<SubCategoryProducts />} />
               <Route path="/product/:productName" element={<ProductPage cartItems={cartItems} updateCartItems={updateCartItems} />} />
               <Route path="/ProductSearch/:searchTerm" element={<ProductSearch />} />
-
             </Routes>
           </div>
         </main>
