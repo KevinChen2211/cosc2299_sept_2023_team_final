@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { verifySignUpUser } from "../data/repository";
+import { setEmail, setPassword, verifySignUpUser } from "../data/repository";
 import axios from 'axios';
 
 function SignUp(props) {
@@ -78,7 +78,9 @@ function SignUp(props) {
                 .then((response) => {
                     if (response.ok) {
 
-                        props.loginUser(fields.email);
+                        props.loginUser(fields.email, fields.password);
+                        setEmail(fields.email);
+                        setPassword(fields.password);
                         navigate("/");
                         setErrorMessage('');
                     } else {
