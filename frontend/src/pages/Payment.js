@@ -219,7 +219,9 @@ export default function Payment({ cartItems }) {
 
                 <Popup open={isModalOpen} closeOnDocumentClick onClose={handleModalClose}>
                   <div className="popup">
-                    <p>Payment successful!</p>
+                    <h1>Payment successful!</h1>
+                    <h2>Thank you {location.state.firstName} {location.state.lastName} for purchasing</h2>
+                    <h2>your order of ${(parseFloat(calculateTotal()) + deliveryFee).toFixed(2)} has gone through</h2>
                     <button className="close" onClick={handleModalClose}>
                       Close
                     </button>
