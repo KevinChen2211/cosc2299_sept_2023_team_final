@@ -20,14 +20,11 @@ export default function ShoppingCart({ cartItems }) {
     function addDaysToDate(days) {
         let today = new Date();
         today.setDate(today.getDate() + days);
-
         let date = today.getDate() + "-" + (today.getMonth() + 1) + "-" + today.getFullYear();
-
         return date;
     }
 
     const handleFeeChange = (fee) => {
-        // Set the global variable to the input value
         setDeliveryFee(fee);
     };
 
@@ -84,7 +81,7 @@ export default function ShoppingCart({ cartItems }) {
                 <br />
                 <button
                     className="checkoutButton"
-                    onClick={() => navigate('/payment', { state: { deliveryFee } })}
+                    onClick={() => navigate('/payment', { state: { deliveryFee, firstName: location.state.firstName, lastName: location.state.lastName, address: location.state.address } })}
                 >
                     Continue to Payment
                 </button>
