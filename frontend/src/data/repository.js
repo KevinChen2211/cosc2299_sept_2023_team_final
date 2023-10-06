@@ -12,7 +12,7 @@ function initUsers() {
 //   users[users.length] = { firstname, lastname, mobile, email, password, datejoined };
 // }
 
-function update(firstName, lastName, phone, email, password){
+function update(firstName, lastName, phone, email, password) {
   const userData = {
     firstName: firstName,
     lastName: lastName,
@@ -21,13 +21,13 @@ function update(firstName, lastName, phone, email, password){
     password: password,
   };
   return axios.put(`http://localhost:8081/v1/account/update/${email}/${password}`, userData)
-  .then(response => {
-    return response.data;
-  })
-  .catch(error => {
-    console.error("There was an error updating the account information.", error);
-    throw error;
-  });
+    .then(response => {
+      return response.data;
+    })
+    .catch(error => {
+      console.error("There was an error updating the account information.", error);
+      throw error;
+    });
 }
 
 function getAccount(email, password) {
@@ -44,19 +44,25 @@ function getAccount(email, password) {
     });
 }
 
-async function getLastName(email, password){
+async function getLastName(email, password) {
   const user = await getAccount(email, password);
   console.log("LASTNAME" + user.lastName);
   return user.lastName;
 }
 
-async function getFirstName(email, password){
+async function getIsNotified(email, password) {
+  const user = await getAccount(email, password);
+  console.log("ISNOTIFIED" + user.isNotified);
+  return user.isNotified;
+}
+
+async function getFirstName(email, password) {
   const user = await getAccount(email, password);
   console.log("FIRSTNAME" + user.firstName);
   return user.firstName;
 }
 
-async function getPhone(email, password){
+async function getPhone(email, password) {
   const user = await getAccount(email, password);
   console.log("PHONE" + user.phone);
   return user.phone;
@@ -79,11 +85,12 @@ async function verifyUser(email, password) {
 }
 
 
-function verifySignUpUser(firstname, lastname, mobile, email, password, isNotfied) {
+function verifySignUpUser(firstname, lastname, mobile, email, password) {
   if (firstname === "") {
     return "**First name is required**";
   }
   if (lastname === "") {
+    console.log(lastname);
     return "**Last name is required**";
   } if (mobile === "") {
     return "**Mobile number is required**";
@@ -163,5 +170,6 @@ export {
   getFirstName,
   getPhone,
   getLastName,
-  deleteAccount
+  deleteAccount,
+  getIsNotified
 }

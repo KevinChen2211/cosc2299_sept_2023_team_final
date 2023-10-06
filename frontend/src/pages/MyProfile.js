@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { getFirstName, getLastName, getPhone } from "../data/repository";
-import { getAccount, deleteAccount } from "../data/repository";
+import { getFirstName, getIsNotified, getLastName, getPhone } from "../data/repository";
+import { getAccount, deleteAccount, verifySignUpUser } from "../data/repository";
 
 function MyProfile({ email, password }) {
   // const history = useHistory();
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [isNotified, setIsNotified] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
-  const [fields, setFields] = useState({ firstname: "", lastname: "", mobile: "", email: "", password: "" });
+  const [fields, setFields] = useState({ firstname: '', lastname: '', mobile: '' });
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const handleInputChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
 
-    // Copy fields.
-    const temp = { firstname: fields.firstname, lastname: fields.lastname, mobile: fields.mobile, email: fields.email, password: fields.password };
-    // OR use spread operator.
-    // const temp = { ...fields };
-
     // Update field and state.
-    temp[name] = value;
-    setFields(temp);
+    setFields(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
   }
 
   const handleEditClick = () => {
@@ -30,40 +32,83 @@ function MyProfile({ email, password }) {
     setIsEditing(false);
   };
 
-  const handleUpdate = (event) => {
-    setIsEditing(false);
-  }
-
   const handleDelete = () => {
     setShowConfirmation(true);
   };
 
   const handleDeleteConfirmed = async () => {
     deleteAccount(email, password);
-    setShowConfirmation(false); 
+    setShowConfirmation(false);
   };
 
- 
-  const [firstName, setFirstName] = useState('');
 
-  const [lastName, setLastName] = useState('');
+  const handleUpdate = (event) => {
 
-  const [phone, setPhone] = useState('');
+    event.preventDefault();
+
+    const verified = verifySignUpUser(fields.firstname, fields.lastname, fields.mobile, email, password);
+    console.log(verified);
+    if (verified === true) {
+      // Prepare the user data to be sent in the POST request
+
+      const userData = {
+        firstName: fields.firstname,
+        lastName: fields.lastname,
+        address: "123 main st",
+        email: email,
+        password: password,
+        phone: fields.mobile,
+        isNotified: isNotified // Use isNotified state directly
+      };
+
+      fetch(`http://localhost:8081/v1/account/update/${email}/${password}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      })
+        .then((response) => {
+          if (response.ok) {
+            console.log(response.ok);
+            setErrorMessage('');
+            setIsEditing(false);
+            setFirstName(fields.firstname);
+            setLastName(fields.lastname);
+            setPhone(fields.mobile);
+          } else {
+            setErrorMessage(`Error updating account: ${response.statusText}`);
+          }
+        })
+        .catch((error) => {
+          setErrorMessage(`Error updating account: ${error.message}`);
+        });
+    } else {
+      setErrorMessage(verified);
+    }
+  };
 
   // Fetch user data and set the last name when the component mounts
   useEffect(() => {
     async function fetchData() {
       try {
         const userFirstName = await getFirstName(email, password);
-        setFirstName(userFirstName);
         const userLastName = await getLastName(email, password);
-        setLastName(userLastName);
         const userPhone = await getPhone(email, password);
+        const userIsNotified = await getIsNotified(email, password);
+
+        setFirstName(userFirstName);
+        setLastName(userLastName);
         setPhone(userPhone);
+        setIsNotified(userIsNotified);
+
+        // Initialize fields state after fetching data
+        setFields({ firstname: userFirstName, lastname: userLastName, mobile: userPhone });
       } catch (error) {
-        console.error("Error fetching last name:", error);
+        console.error("Error fetching user data:", error);
       }
     }
+
     fetchData();
   }, [email, password]);
 
@@ -121,17 +166,6 @@ function MyProfile({ email, password }) {
                       readOnly
                     />
                   </div>
-
-                  <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input
-                      name="email"
-                      id="email"
-                      className="form-control"
-                      value={email}
-                      readOnly
-                    />
-                  </div>
                 </>
               ) : (
                 // Edit Form
@@ -142,16 +176,19 @@ function MyProfile({ email, password }) {
                       name="firstname"
                       id="firstname"
                       className="form-control"
+
+
                       onChange={handleInputChange}
                     />
                   </div>
-                  {/* Add more fields for lastName, email, mobile, and password */}
+
                   <div className="form-group">
                     <label htmlFor="lastName">Last Name</label>
                     <input
                       name="lastname"
                       id="lastname"
                       className="form-control"
+
                       onChange={handleInputChange}
                     />
                   </div>
@@ -159,19 +196,10 @@ function MyProfile({ email, password }) {
                   <div className="form-group">
                     <label htmlFor="phone">Mobile Number</label>
                     <input
-                      name="phone"
-                      id="phone"
+                      name="mobile"
+                      id="mobile"
                       className="form-control"
-                      onChange={handleInputChange}
-                    />
-                  </div>
 
-                  <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input
-                      name="email"
-                      id="email"
-                      className="form-control"
                       onChange={handleInputChange}
                     />
                   </div>
@@ -211,7 +239,7 @@ function MyProfile({ email, password }) {
           )}
         </div>
       </div>
-      
+
       {showConfirmation && (
         // Delete confirmation dialog
         <div className="modal fade show" style={{ display: "block" }}>
@@ -221,37 +249,38 @@ function MyProfile({ email, password }) {
                 <h5 className="modal-title">Confirm Deletion</h5>
                 <button
                   type="button"
-                    className="close"
-                    onClick={() => setShowConfirmation(false)} // Close the dialog when the close button is clicked
-                  >
-                    <span>&times;</span>
-                  </button>
-                </div>
-                <div className="modal-body">
-                  <p>Are you sure you want to delete your account?</p>
-                </div>
-                <div className="modal-footer">
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    onClick={() => setShowConfirmation(false)} // Close the dialog when "Cancel" is clicked
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-danger"
-                    onClick={handleDeleteConfirmed} // Trigger the delete action when "Delete" is clicked
-                  >
-                    Delete
-                  </button>
-                </div>
+                  className="close"
+                  onClick={() => setShowConfirmation(false)} // Close the dialog when the close button is clicked
+                >
+                  <span>&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <p>Are you sure you want to delete your account?</p>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() => setShowConfirmation(false)} // Close the dialog when "Cancel" is clicked
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={handleDeleteConfirmed} // Trigger the delete action when "Delete" is clicked
+                >
+                  Delete
+                </button>
               </div>
             </div>
           </div>
-        )}
-      </div>
- 
+        </div>
+      )}
+      <div>{errorMessage}</div>
+    </div>
+
   );
 }
 
