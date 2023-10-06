@@ -1,19 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { getFirstName, getLastName, getPhone } from "../data/repository";
-import { getAccount, deleteAccount } from "../data/repository";
+import { getAccount, deleteAccount, verifySignUpUser } from "../data/repository";
 
 function MyProfile({ email, password }) {
   // const history = useHistory();
+  const [firstName, setFirstName] = useState('');
+
+  const [lastName, setLastName] = useState('');
+
+  const [phone, setPhone] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
-  const [fields, setFields] = useState({ firstname: "", lastname: "", mobile: "", email: "", password: "" });
+  const [fields, setFields] = useState({ firstname: firstName, lastname: lastName, mobile: phone, email: email});
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const handleInputChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
 
     // Copy fields.
-    const temp = { firstname: fields.firstname, lastname: fields.lastname, mobile: fields.mobile, email: fields.email, password: fields.password };
+    const temp = { firstname: fields.firstname, lastname: fields.lastname, mobile: fields.mobile, email: fields.email };
     // OR use spread operator.
     // const temp = { ...fields };
 
@@ -30,10 +36,6 @@ function MyProfile({ email, password }) {
     setIsEditing(false);
   };
 
-  const handleUpdate = (event) => {
-    setIsEditing(false);
-  }
-
   const handleDelete = () => {
     setShowConfirmation(true);
   };
@@ -44,11 +46,54 @@ function MyProfile({ email, password }) {
   };
 
  
-  const [firstName, setFirstName] = useState('');
 
-  const [lastName, setLastName] = useState('');
 
-  const [phone, setPhone] = useState('');
+  const handleUpdate = (event) => {
+    
+    event.preventDefault();
+
+    const verified = verifySignUpUser(fields.firstname, fields.lastname, fields.mobile, fields.email, password);
+    console.log(verified);
+    if (verified === true) {
+        // Prepare the user data to be sent in the POST request
+        
+        const userData = {
+          email: fields.email,
+            firstName: fields.firstname,
+            lastName: fields.lastname,
+            // address: "123 main st",
+            
+            password: password,
+            phone: fields.mobile,
+            isNotified: fields.isNotified
+        };
+
+        fetch('http://localhost:8081/v1/account/update/{email}/{password}', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData),
+        })
+            .then((response) => {
+                if (response.ok) {
+
+                    setErrorMessage('');
+                } else {
+
+                    setErrorMessage(`Error creating account: Email already exists.`);
+                }
+            })
+            .catch((error) => {
+
+                setErrorMessage(`Error creating account: ${error.message}`);
+            });
+    } else {
+
+        setErrorMessage(verified);
+    }
+    setIsEditing(false);
+};
 
   // Fetch user data and set the last name when the component mounts
   useEffect(() => {
@@ -142,16 +187,19 @@ function MyProfile({ email, password }) {
                       name="firstname"
                       id="firstname"
                       className="form-control"
+                      
+
                       onChange={handleInputChange}
                     />
                   </div>
-                  {/* Add more fields for lastName, email, mobile, and password */}
+
                   <div className="form-group">
                     <label htmlFor="lastName">Last Name</label>
                     <input
                       name="lastname"
                       id="lastname"
                       className="form-control"
+                      
                       onChange={handleInputChange}
                     />
                   </div>
@@ -159,9 +207,10 @@ function MyProfile({ email, password }) {
                   <div className="form-group">
                     <label htmlFor="phone">Mobile Number</label>
                     <input
-                      name="phone"
-                      id="phone"
+                      name="mobile"
+                      id="mobile"
                       className="form-control"
+                      
                       onChange={handleInputChange}
                     />
                   </div>
@@ -172,6 +221,7 @@ function MyProfile({ email, password }) {
                       name="email"
                       id="email"
                       className="form-control"
+                      
                       onChange={handleInputChange}
                     />
                   </div>
