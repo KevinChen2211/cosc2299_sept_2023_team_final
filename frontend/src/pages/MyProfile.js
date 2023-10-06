@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { getFirstName, getIsNotified, getLastName, getPhone } from "../data/repository";
+import { getFirstName, getIsNotified, getLastName, getPhone, removeUser, setEmail } from "../data/repository";
 import { getAccount, deleteAccount, verifySignUpUser } from "../data/repository";
+import { useNavigate } from "react-router-dom";
 
 function MyProfile({ email, password }) {
   // const history = useHistory();
@@ -12,6 +13,7 @@ function MyProfile({ email, password }) {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [fields, setFields] = useState({ firstname: '', lastname: '', mobile: '' });
   const [errorMessage, setErrorMessage] = useState(null);
+  const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     const name = event.target.name;
@@ -39,6 +41,9 @@ function MyProfile({ email, password }) {
   const handleDeleteConfirmed = async () => {
     deleteAccount(email, password);
     setShowConfirmation(false);
+    removeUser();
+    setEmail(null);
+    navigate("/login");
   };
 
 

@@ -141,7 +141,7 @@ function removeUser() {
 const deleteAccount = async (email, password) => {
   try {
     // Make an API request to delete the user account
-    const response = await fetch(`/delete/${email}/${password}`, {
+    const response = await fetch(`http://localhost:8081/v1/account/delete/${email}/${password}`, {
       method: "DELETE",
     });
 
