@@ -4,17 +4,17 @@ import { verifySignUpUser } from "../data/repository";
 import axios from 'axios';
 
 function SignUp(props) {
-    const [fields, setFields] = useState({ firstname: "", lastname: "", mobile: "", email: "", password: "" });
+    const [fields, setFields] = useState({ firstname: "", lastname: "", mobile: "", email: "", password: "", isNotified: "false"});
     const [errorMessage, setErrorMessage] = useState(null);
     const navigate = useNavigate();
-
+    
 
     const handleInputChange = (event) => {
         const name = event.target.name;
-        const value = event.target.value;
+        const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
 
         // Copy fields.
-        const temp = { firstname: fields.firstname, lastname: fields.lastname, mobile: fields.mobile, email: fields.email, password: fields.password };
+        const temp = { firstname: fields.firstname, lastname: fields.lastname, mobile: fields.mobile, email: fields.email, password: fields.password, isNotfied: fields.isNotified };
         // OR use spread operator.
         // const temp = { ...fields };
 
@@ -55,7 +55,7 @@ function SignUp(props) {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        const verified = verifySignUpUser(fields.firstname, fields.lastname, fields.mobile, fields.email, fields.password);
+        const verified = verifySignUpUser(fields.firstname, fields.lastname, fields.mobile, fields.email, fields.password, fields.isNotfied);
         if (verified === true) {
             // Prepare the user data to be sent in the POST request
             const userData = {
@@ -65,6 +65,7 @@ function SignUp(props) {
                 email: fields.email,
                 password: fields.password,
                 phone: fields.mobile,
+                isNotified: fields.isNotified
             };
 
             fetch('http://localhost:8081/v1/account/create', {
@@ -135,7 +136,7 @@ function SignUp(props) {
 
                         <div className="form-group">
                             <label for="notifications">
-                                <input type="checkbox" value={fields.checkbox} onChange={handleInputChange} /> I would like to receive notifications from SuperPrice
+                                <input type="checkbox" name= "isNotified" value={fields.isNotified} onChange={handleInputChange} /> I would like to receive notifications from SuperPrice
                             </label>
                         </div>
                         <div className="form-group">

@@ -55,7 +55,7 @@ function App() {
               <Route path="/signup" element={<SignUp loginUser={loginUser} />} />
               <Route path="/login" element={<Login loginUser={loginUser} />} />
               <Route path="/profile" element={<MyProfile email={email} password={getPassword()}/>} />
-              <Route path="/notifications" element={<Notifications email={email} />} />
+              <Route path="/notifications" element={<Notifications email={email} password={getPassword()}/>} />
               <Route path="/checkout" element={<Checkout cartItems={cartItems} updateCartItems={updateCartItems} />} />
               <Route path="/payment" element={<Payment cartItems={cartItems} />} />
               <Route path="/shoppingcart" element={<ShoppingCart cartItems={cartItems} updateCartItems={updateCartItems} />} />

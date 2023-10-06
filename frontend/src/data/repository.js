@@ -79,7 +79,7 @@ async function verifyUser(email, password) {
 }
 
 
-function verifySignUpUser(firstname, lastname, mobile, email, password) {
+function verifySignUpUser(firstname, lastname, mobile, email, password, isNotfied) {
   if (firstname === "") {
     return "**First name is required**";
   }
