@@ -4,10 +4,10 @@ import { verifySignUpUser } from "../data/repository";
 import axios from 'axios';
 
 function SignUp(props) {
-    const [fields, setFields] = useState({ firstname: "", lastname: "", mobile: "", email: "", password: "", isNotified: "false"});
+    const [fields, setFields] = useState({ firstname: "", lastname: "", mobile: "", email: "", password: "", isNotified: "false" });
     const [errorMessage, setErrorMessage] = useState(null);
     const navigate = useNavigate();
-    
+
 
     const handleInputChange = (event) => {
         const name = event.target.name;
@@ -68,7 +68,7 @@ function SignUp(props) {
                 isNotified: fields.isNotified
             };
 
-            fetch('http://localhost:8081/v1/account/create', {
+            fetch(`http://localhost:8081/v1/account/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -136,7 +136,7 @@ function SignUp(props) {
 
                         <div className="form-group">
                             <label for="notifications">
-                                <input type="checkbox" name= "isNotified" value={fields.isNotified} onChange={handleInputChange} /> I would like to receive notifications from SuperPrice
+                                <input type="checkbox" name="isNotified" value={fields.isNotified} onChange={handleInputChange} /> I would like to receive notifications from SuperPrice
                             </label>
                         </div>
                         <div className="form-group">
