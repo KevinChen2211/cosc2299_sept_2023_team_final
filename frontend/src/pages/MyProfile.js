@@ -182,7 +182,6 @@ function MyProfile({ email, password }) {
                       id="firstname"
                       className="form-control"
 
-
                       onChange={handleInputChange}
                     />
                   </div>
@@ -193,7 +192,6 @@ function MyProfile({ email, password }) {
                       name="lastname"
                       id="lastname"
                       className="form-control"
-
                       onChange={handleInputChange}
                     />
                   </div>
@@ -204,7 +202,6 @@ function MyProfile({ email, password }) {
                       name="mobile"
                       id="mobile"
                       className="form-control"
-
                       onChange={handleInputChange}
                     />
                   </div>
