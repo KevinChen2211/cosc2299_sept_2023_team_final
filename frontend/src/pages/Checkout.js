@@ -54,7 +54,7 @@ export default function Checkout({ cartItems, updateCartItems }) {
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
     } else {
-      navigate("/delivery", { state: { totalAmount: calculateTotal() } });
+      navigate("/delivery", { state: { totalAmount: calculateTotal(), firstName: formData.firstName, lastName: formData.lastName, address: formData.address } });
     }
   };
 
