@@ -14,25 +14,26 @@ import java.net.http.HttpResponse;
 import java.util.Optional;
 
 @Repository
-public class AccountRepositoryImpl implements AccountRepository{
+public class AccountRepositoryImpl implements AccountRepository {
     private final DataSource source;
 
     @Autowired
-    public AccountRepositoryImpl(DataSource source){
+    public AccountRepositoryImpl(DataSource source) {
         this.source = source;
     }
-
 
     public Optional<AccountModel> findById(String email, String password) {
         try {
             RestTemplate restTemplate = new RestTemplate();
-            String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/customers/" + email + "/" + password;
+            String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/customers/" + email + "/"
+                    + password;
             Optional<AccountModel> account = Optional.of(restTemplate.getForObject(url, AccountModel.class));
             return account;
         } catch (HttpClientErrorException e) {
             throw new ResponseStatusException(e.getStatusCode());
         }
     }
+
     @Override
     public ResponseEntity<String> create(AccountModel account) {
         try {
@@ -47,9 +48,12 @@ public class AccountRepositoryImpl implements AccountRepository{
 
     @Override
     public ResponseEntity<String> update(AccountModel newDetails, String email, String password) {
-        try{
+        try {
             RestTemplate restTemplate = new RestTemplate();
-            String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/customers/" + email + "/" + password + "?lastName= " + newDetails.lastName() + "&password=" + newDetails.password() + "&phone= " + newDetails.phone() + "&firstName=" + newDetails.firstName() +"&address=" + newDetails.address() + "&isNotified=" + newDetails.isNotified();
+            String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/customers/" + email + "/"
+                    + password + "?lastName=" + newDetails.lastName() + "&password=" + newDetails.password() + "&phone="
+                    + newDetails.phone() + "&firstName=" + newDetails.firstName() + "&address=" + newDetails.address()
+                    + "&isNotified=" + newDetails.isNotified();
             ResponseEntity<String> response = restTemplate.exchange(
                     url,
                     HttpMethod.PUT,
@@ -65,7 +69,8 @@ public class AccountRepositoryImpl implements AccountRepository{
     public ResponseEntity<String> deleteById(String email, String password) {
         try {
             RestTemplate restTemplate = new RestTemplate();
-            String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/customers/" + email + "/" + password;
+            String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/customers/" + email + "/"
+                    + password;
             ResponseEntity<String> response = restTemplate.exchange(
                     url,
                     HttpMethod.DELETE,

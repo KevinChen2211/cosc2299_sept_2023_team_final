@@ -1,76 +1,80 @@
 import axios from 'axios';
-const USERS_KEY = "users";
-const USER_KEY = "user";
 
-let users = [];
+// constants for local storage keys
+const PASSWORD = "password";
+const EMAIL = "email";
 
-// Initialise local storage "users" with data, if the data is already set this function returns immediately.
+// function to initialize local storage 'users' with data
 function initUsers() {
-  localStorage.clear();
-
-  // Set data into local storage.
-  localStorage.setItem(USERS_KEY, JSON.stringify(users));
 }
 
-function saveUser(firstname, lastname, mobile, email, password, datejoined) {
-  users[users.length] = { firstname, lastname, mobile, email, password, datejoined };
-}
-
-function getUsers() {
-  // Extract user data from local storage.
-  const data = localStorage.getItem(USERS_KEY);
-
-  // Convert data to objects.
-  return JSON.parse(data);
-}
-// loop finds user's name
-function getFullName(currentEmail) {
-  let usersname = "";
-  for (const user of users) {
-    if (currentEmail === user.email) {
-      usersname = user.firstname;
-    }
-    return (usersname);
-  }
-}
-
+// function to fetch user account information from server
 function getAccount(email, password) {
-
+  // HTTP GET request to retrieve user data based on email and password
   return axios.get(`http://localhost:8081/v1/account/${email}/${password}`)
     .then(response => {
       return response.data;
     })
     .catch(error => {
       if (error.response && error.response.status === 404) {
-        return null; // Email not found
+        return null; // email not found
       }
       console.error("There was an error fetching account by email.", error);
       throw error;
     });
 }
 
+// function to fetch user last name
+async function getLastName(email, password) {
+  const user = await getAccount(email, password);
+  console.log("LASTNAME" + user.lastName);
+  return user.lastName;
+}
+
+// function to fetch whether user receives notifications or not
+async function getIsNotified(email, password) {
+  const user = await getAccount(email, password);
+  console.log("ISNOTIFIED" + user.isNotified);
+  return user.isNotified;
+}
+
+// function to fetch user first name
+async function getFirstName(email, password) {
+  const user = await getAccount(email, password);
+  console.log("FIRSTNAME" + user.firstName);
+  return user.firstName;
+}
+
+// function to fetch user phone number
+async function getPhone(email, password) {
+  const user = await getAccount(email, password);
+  console.log("PHONE" + user.phone);
+  return user.phone;
+}
+
+// function to verify user's email and password
 async function verifyUser(email, password) {
   try {
     const user = await getAccount(email, password);
     if (email === user.email && password === user.password) {
-      setUser(email);
 
-      return true;
+      return true; // user is verified
     }
 
-    return false;
+    return false; // user is NOT verified
   } catch (error) {
     console.error("There was an error verifying the user.", error);
     return false;
   }
 }
 
-
+// function to verify user input during signup
 function verifySignUpUser(firstname, lastname, mobile, email, password) {
   if (firstname === "") {
     return "**First name is required**";
   }
   if (lastname === "") {
+    console.log(lastname);
     return "**Last name is required**";
   } if (mobile === "") {
     return "**Mobile number is required**";
@@ -83,37 +87,69 @@ function verifySignUpUser(firstname, lastname, mobile, email, password) {
   } else if (!/\S+@\S+\.\S+/.test(email)) {
     return "**Email is invalid**";
   }
-  // if (getAccount(email)) {
-  //   return "**Email already exist**";
-  // }
   if (password === "") {
     return "**Password is required**";
   }
 
-
-
-  return true;
+  return true; // input is valid
 }
 
-function setUser(firstname) {
-  localStorage.setItem(USER_KEY, firstname);
+function setEmail(email) {
+  localStorage.setItem(EMAIL, email);
 }
 
-function getUser(firstname, lastname, mobile, email, password, datejoined) {
-  return localStorage.getItem(firstname, lastname, mobile, email, password, datejoined);
+
+function setPassword(password) {
+  localStorage.setItem(PASSWORD, password);
 }
 
+function getEmail() {
+  return localStorage.getItem(EMAIL);
+}
+
+function getPassword() {
+  var password = localStorage.getItem(PASSWORD);
+  return password;
+}
+
+// function to remove user data from local storage when logging out
 function removeUser() {
-  localStorage.removeItem(USER_KEY);
+  localStorage.removeItem(EMAIL);
+  localStorage.removeItem(PASSWORD);
 }
+
+// function to delete user account
+const deleteAccount = async (email, password) => {
+  try {
+    // make an API request to delete the user account
+    const response = await fetch(`http://localhost:8081/v1/account/delete/${email}/${password}`, {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
+      console.log("User account deleted successfully");
+    } else {
+      console.error("Failed to delete user account");
+    }
+  } catch (error) {
+    console.error("Error deleting user account:", error);
+  }
+};
+
 
 export {
   initUsers,
   verifyUser,
-  getUser,
+  getEmail,
+  getPassword,
+  setEmail,
+  setPassword,
   removeUser,
-  saveUser,
   verifySignUpUser,
-  getFullName,
-  getAccount
+  getAccount,
+  getFirstName,
+  getPhone,
+  getLastName,
+  deleteAccount,
+  getIsNotified
 }
