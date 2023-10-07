@@ -23,7 +23,19 @@ public class OpenTimeController {
     public OpenTimeController(OpenTimeService serv){
         this.service = serv;
     }
-
+    
+    /**
+     * Fetches opening times for a specific store by its name.
+     * 
+     * @param name The name of the store for which the opening times are to be
+     *             retrieved.
+     * 
+     * @return ResponseEntity<Object> Returns the opening times of the specified
+     *         store with a status
+     *         code of 200 (OK).
+     *         If the store's opening times are not found, a "not found"
+     *         message is returned with a status code of 404 (NOT FOUND).
+     */
     @GetMapping("{store_name}")
     public ResponseEntity<Object> getChainByName(@PathVariable("store_name")String name){
         Collection<OpeningTime> OpenOptional = service.getByName(name);
