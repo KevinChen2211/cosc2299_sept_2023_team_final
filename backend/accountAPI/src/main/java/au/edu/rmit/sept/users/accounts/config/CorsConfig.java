@@ -9,6 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class CorsConfig {
 
     @Bean
+    // This allows for the api to be accessed by frontend applications
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override

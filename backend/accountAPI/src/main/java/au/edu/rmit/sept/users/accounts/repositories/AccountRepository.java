@@ -13,7 +13,6 @@ import java.util.Optional;
 public interface AccountRepository {
     ResponseEntity<String> create(AccountModel account);
 
-    //Find book by ID
     Optional<AccountModel> findById(String email, String password);
 
     ResponseEntity<String> update(AccountModel newDetails, String email, String password);
