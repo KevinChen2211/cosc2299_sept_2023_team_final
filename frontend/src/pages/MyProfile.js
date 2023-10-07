@@ -51,8 +51,8 @@ function MyProfile({ email, password, logoutUser }) { // function receives email
     // clear user's email
     setEmail(null);
     logoutUser();
-    // navigates to signup upon deletion
-    navigate("/signup");
+    // navigates to homepage upon deletion
+    navigate("/");
   };
 
   // function to update user info

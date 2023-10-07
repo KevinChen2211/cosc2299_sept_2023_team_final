@@ -58,7 +58,7 @@ export default function ProductPage({ cartItems, updateCartItems }) {
               width={'250px'} height={'250px'} ></img> </span>
             <span width={'10px'}></span>
           </div>
-          <div>
+          <div className="product-info">
             <h3><span className='productName'>{cartItem.name}</span></h3><br></br>
             <h4><span className='productPrice'>Price ${cartItem.price}</span></h4><br></br>
             Category: {cartItem.category}<br />
