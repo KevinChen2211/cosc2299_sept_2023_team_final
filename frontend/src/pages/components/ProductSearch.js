@@ -38,6 +38,7 @@ export default function ProductSearch() {
         setSelectedChain('all');
         setSelectedSubCategory('all');
         setSelectedCategory('all');
+        setShowSubCategory(false);
         setSortedResults(searchResults);
     };
 
@@ -115,7 +116,7 @@ export default function ProductSearch() {
             <SearchBar />
             <h1>Search Results for: {searchTerm}</h1>
             <div className='filter-bar'>
-                <button onClick={handleSort} sortOrder={sortOrder}>
+                <button class="category-button" onClick={handleSort} sortOrder={sortOrder}>
                     Sort by Price ({sortOrder === 'asc' ? 'High to Low' : 'Low to High'})
                 </button>
                 <select value={selectedCategory} onChange={handleCategorySelect}>
@@ -144,7 +145,7 @@ export default function ProductSearch() {
                         </option>
                     ))}
                 </select>
-                <button onClick={handleResetFilter}>
+                <button class="category-button" onClick={handleResetFilter}>
                     Reset filter
                 </button>
             </div>

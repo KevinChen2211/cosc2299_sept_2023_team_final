@@ -7,8 +7,10 @@ export default function BackButton() {
         navigate(-1);
     }
     return <>
-        <button onClick={goBack} className="back-button">
+        <button onClick={goBack} className="default-home-button">
             Back
         </button>
+        <br />
+        <br />
     </>;
 }

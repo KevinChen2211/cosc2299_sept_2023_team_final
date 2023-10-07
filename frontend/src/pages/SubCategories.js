@@ -28,7 +28,7 @@ const SubCategory = (props) => {
     return (
         <div>
             <BackButton />
-            <h2>Sub Categories for {location.state.subCategories} :</h2>
+            <h1>Sub Categories for {location.state.subCategories.replace(/-/g, ' ')} :</h1>
             <div className="sub-category-list">
                 {subCategories.map((subcategory) => (
                     <div

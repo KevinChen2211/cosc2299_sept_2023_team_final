@@ -40,7 +40,7 @@ export default function LoggedIn() {
     return (
         <>
             < div className="home-page-search-categories" >
-                < button onClick={routeChange} > Categories</button >
+                <button class="default-home-button" role="button" onClick={routeChange} > Categories</button>
                 <SearchBar />
             </div >
             <img
@@ -51,16 +51,21 @@ export default function LoggedIn() {
             <div className="specials-container">
                 {products.map(product => (
                     <div
-                        className="home-popular-items"
+                        className="products"
                         key={product.productID}
                         onClick={() => handleImageClick(product.name, product.productID)}
                     >
                         <img
+                            className="popular-image"
                             src={product.imageLocation}
-                            alt={product.name} width="100"
+                            alt={product.name} width="100rem"
                         />
                         <br />
-                        <strong>{product.name}</strong> - ${product.price.toFixed(2)}
+                        <strong>{product.name}</strong>
+                        <br />
+                        - ${product.price.toFixed(2)}
+                        <br />
+                        from {product.chain}
                     </div>
                 ))}
 
