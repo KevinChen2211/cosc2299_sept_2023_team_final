@@ -27,7 +27,21 @@ public class FilterController {
     {
         this.service = serv;
     }
-    // Return filter options of list of searched product: chain, cat, subcat 
+    
+    /**
+     * Fetches filter options (chain, category, subcategory, promotion status) for
+     * products based on a search name.
+     *
+     * @param name The search name for which filter options are to be retrieved.
+     * 
+     * @return ResponseEntity<Object> Returns a map containing distinct chains,
+     *         categories, subcategories,
+     *         and promotion status of products matching the search name with a
+     *         status
+     *         code of 200 (OK).
+     *         If no matching products are found, a "not found" message is returned
+     *         with a status code of 404 (NOT FOUND).
+     */
     @GetMapping("name/{search_name}")
     public ResponseEntity<Object> getOptionsByName(@PathVariable("search_name") String name) {
         Collection<Product> productOptional = this.service.getByName(name);
@@ -62,7 +76,20 @@ public class FilterController {
                 HttpStatus.OK);
     }
 
-    // Return filter options of chains
+    /**
+     * Fetches filter options (chains) for products based on a given subcategory
+     * name.
+     *
+     * @param name The name of the subcategory for which filter options are to be
+     *             retrieved.
+     * 
+     * @return ResponseEntity<Object> Returns a map containing distinct chains of
+     *         products matching
+     *         the subcategory name with a status code of 200 (OK).
+     *         If no matching products are found, or there are no chains
+     *         associated with the given subcategory, appropriate messages are
+     *         returned with a status code of 404 (NOT FOUND).
+     */
     @GetMapping("sub/{sub_name}")
     public ResponseEntity<Object> getOptionsBySubCat(@PathVariable("sub_name") String name){
         Collection<Product> productOptional = this.service.getByName(name);
