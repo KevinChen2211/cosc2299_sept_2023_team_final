@@ -3,7 +3,7 @@ import { getFirstName, getIsNotified, getLastName, getPhone, removeUser, setEmai
 import { getAccount, deleteAccount, verifySignUpUser } from "../data/repository";
 import { useNavigate } from "react-router-dom";
 
-function MyProfile({ email, password }) { // function receives email and password as props
+function MyProfile({ email, password, logoutUser }) { // function receives email and password as props
   // initialize state variables
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -40,7 +40,7 @@ function MyProfile({ email, password }) { // function receives email and passwor
   const handleDelete = () => {
     setShowConfirmation(true);
   };
- 
+
   // function to confirm and execute delete account
   const handleDeleteConfirmed = async () => {
     // delete the user's acc
@@ -50,6 +50,7 @@ function MyProfile({ email, password }) { // function receives email and passwor
     removeUser();
     // clear user's email
     setEmail(null);
+    logoutUser();
     // navigates to signup upon deletion
     navigate("/signup");
   };
@@ -261,7 +262,7 @@ function MyProfile({ email, password }) { // function receives email and passwor
                   type="button"
                   className="close"
                   // close dialog when the exit button is clicked
-                  onClick={() => setShowConfirmation(false)} 
+                  onClick={() => setShowConfirmation(false)}
                 >
                   <span>&times;</span>
                 </button>
@@ -274,7 +275,7 @@ function MyProfile({ email, password }) { // function receives email and passwor
                   type="button"
                   className="btn btn-secondary"
                   // close dialog when "Cancel" is clicked
-                  onClick={() => setShowConfirmation(false)} 
+                  onClick={() => setShowConfirmation(false)}
                 >
                   Cancel
                 </button>
@@ -282,7 +283,7 @@ function MyProfile({ email, password }) { // function receives email and passwor
                   type="button"
                   className="btn btn-danger"
                   // trigger delete action when "Delete" is clicked
-                  onClick={handleDeleteConfirmed} 
+                  onClick={handleDeleteConfirmed}
                 >
                   Delete
                 </button>
