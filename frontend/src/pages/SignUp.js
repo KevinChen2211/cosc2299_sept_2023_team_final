@@ -1,73 +1,46 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { setEmail, setPassword, verifySignUpUser } from "../data/repository";
-import axios from 'axios';
 
 function SignUp(props) {
+    // initialize state variables
     const [fields, setFields] = useState({ firstname: "", lastname: "", mobile: "", email: "", password: "", isNotified: "false" });
+    // intialize an error message state
     const [errorMessage, setErrorMessage] = useState(null);
+    // initialize navigate function
     const navigate = useNavigate();
 
-
+    // function to handle input field changes
     const handleInputChange = (event) => {
         const name = event.target.name;
         const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
 
-        // Copy fields.
+        // create temporary object to update the state based on changed input field
         const temp = { firstname: fields.firstname, lastname: fields.lastname, mobile: fields.mobile, email: fields.email, password: fields.password, isNotfied: fields.isNotified };
-        // OR use spread operator.
-        // const temp = { ...fields };
 
-        // Update field and state.
+        // updates temporary object with new value and sets it as the new state
         temp[name] = value;
         setFields(temp);
     }
 
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
-
-    //     const verified = verifySignUpUser(fields.firstname, fields.lastname, fields.mobile, fields.email, fields.password);
-
-    //     // If verified signup the user.
-    //     if (verified === true) {
-    //         // storing user account
-    //         axios.post('http://localhost:8081/v1/account/create')
-    //             .then(response => {
-    //                 props.loginUser(fields.email);
-    //                 // saveUser(fields.firstname, fields.lastname, fields.mobile, fields.email, fields.password);
-    //                 // initUsers();
-    //                 // Navigate to the home page.
-    //                 navigate("/");
-    //                 setErrorMessage('');
-    //             })
-    //             .catch(error => {
-
-    //                 setErrorMessage(`Error creating account: ${error.message}`);
-    //             });
-
-
-    //         return;
-    //     }
-
-    //     // Set error message.
-    //     setErrorMessage(verified);
-    // }
+    // function to handle form submission
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        const verified = verifySignUpUser(fields.firstname, fields.lastname, fields.mobile, fields.email, fields.password, fields.isNotfied);
+        // verify user signup info 
+        const verified = verifySignUpUser(fields.firstname, fields.lastname, fields.mobile, fields.email, fields.password, fields.isNotified);
         if (verified === true) {
             // Prepare the user data to be sent in the POST request
             const userData = {
                 firstName: fields.firstname,
                 lastName: fields.lastname,
-                // address: "123 main st",
                 email: fields.email,
                 password: fields.password,
                 phone: fields.mobile,
                 isNotified: fields.isNotified
             };
 
+            // send a POST request to create a user account on the server
             fetch(`http://localhost:8081/v1/account/create`, {
                 method: 'POST',
                 headers: {
@@ -77,7 +50,7 @@ function SignUp(props) {
             })
                 .then((response) => {
                     if (response.ok) {
-
+                        // if request is successful, login the user, set email and password, navigate to LoggedIn page
                         props.loginUser(fields.email, fields.password);
                         setEmail(fields.email);
                         setPassword(fields.password);
@@ -98,7 +71,7 @@ function SignUp(props) {
         }
     };
 
-    // Sign Up form
+    // signup form
     return (
         <div>
             <h2>Create Account</h2>

@@ -3,8 +3,8 @@ import { getFirstName, getIsNotified, getLastName, getPhone, removeUser, setEmai
 import { getAccount, deleteAccount, verifySignUpUser } from "../data/repository";
 import { useNavigate } from "react-router-dom";
 
-function MyProfile({ email, password }) {
-  // const history = useHistory();
+function MyProfile({ email, password }) { // function receives email and password as props
+  // initialize state variables
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
@@ -19,34 +19,42 @@ function MyProfile({ email, password }) {
     const name = event.target.name;
     const value = event.target.value;
 
-    // Update field and state.
+    // update field and state
     setFields(prevState => ({
       ...prevState,
       [name]: value
     }));
   }
 
+  // function to enable editing user info
   const handleEditClick = () => {
     setIsEditing(true);
   };
 
+  // function to cancel editting user info
   const handleCancelClick = () => {
     setIsEditing(false);
   };
 
+  // function to initiate delete account process
   const handleDelete = () => {
     setShowConfirmation(true);
   };
-
+ 
+  // function to confirm and execute delete account
   const handleDeleteConfirmed = async () => {
+    // delete the user's acc
     deleteAccount(email, password);
     setShowConfirmation(false);
+    // remove user's data from the app
     removeUser();
+    // clear user's email
     setEmail(null);
+    // navigates to login page upon deletion
     navigate("/login");
   };
 
-
+  // function to update user info
   const handleUpdate = (event) => {
 
     event.preventDefault();
@@ -54,18 +62,17 @@ function MyProfile({ email, password }) {
     const verified = verifySignUpUser(fields.firstname, fields.lastname, fields.mobile, email, password);
     console.log(verified);
     if (verified === true) {
-      // Prepare the user data to be sent in the POST request
-
+      // prep user data to be sent in the POST request
       const userData = {
         firstName: fields.firstname,
         lastName: fields.lastname,
-        address: "123 main st",
         email: email,
         password: password,
         phone: fields.mobile,
         isNotified: isNotified // Use isNotified state directly
       };
 
+      // sends PUT request to update user's account
       fetch(`http://localhost:8081/v1/account/update/${email}/${password}`, {
         method: 'PUT',
         headers: {
@@ -75,6 +82,7 @@ function MyProfile({ email, password }) {
       })
         .then((response) => {
           if (response.ok) {
+            // if the request is successful, update state and exit edit mode
             console.log(response.ok);
             setErrorMessage('');
             setIsEditing(false);
@@ -93,7 +101,7 @@ function MyProfile({ email, password }) {
     }
   };
 
-  // Fetch user data and set the last name when the component mounts
+  // fetch user data and set the state when the component mounts
   useEffect(() => {
     async function fetchData() {
       try {
@@ -107,7 +115,7 @@ function MyProfile({ email, password }) {
         setPhone(userPhone);
         setIsNotified(userIsNotified);
 
-        // Initialize fields state after fetching data
+        // initialize fields state after fetching data
         setFields({ firstname: userFirstName, lastname: userLastName, mobile: userPhone });
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -137,7 +145,7 @@ function MyProfile({ email, password }) {
             </div>
             <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               {!isEditing ? (
-                // Display User Information
+                // display user account infomation
                 <>
                   <div className="form-group">
                     <label htmlFor="firstName">First Name</label>
@@ -173,7 +181,7 @@ function MyProfile({ email, password }) {
                   </div>
                 </>
               ) : (
-                // Edit Form
+                // edit form 
                 <>
                   <div className="form-group">
                     <label htmlFor="firstName">First Name</label>
@@ -210,7 +218,7 @@ function MyProfile({ email, password }) {
             </div>
           </div>
           {isEditing && (
-            // "Cancel", "Update", and "Delete" buttons
+            // cancel + update + delete buttons
             <div className="row gutters">
               <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                 <button
@@ -243,7 +251,7 @@ function MyProfile({ email, password }) {
       </div>
 
       {showConfirmation && (
-        // Delete confirmation dialog
+        // delete confirmation dialog
         <div className="modal fade show" style={{ display: "block" }}>
           <div className="modal-dialog">
             <div className="modal-content">
@@ -252,7 +260,8 @@ function MyProfile({ email, password }) {
                 <button
                   type="button"
                   className="close"
-                  onClick={() => setShowConfirmation(false)} // Close the dialog when the close button is clicked
+                  // close dialog when the exit button is clicked
+                  onClick={() => setShowConfirmation(false)} 
                 >
                   <span>&times;</span>
                 </button>
@@ -264,14 +273,16 @@ function MyProfile({ email, password }) {
                 <button
                   type="button"
                   className="btn btn-secondary"
-                  onClick={() => setShowConfirmation(false)} // Close the dialog when "Cancel" is clicked
+                  // close dialog when "Cancel" is clicked
+                  onClick={() => setShowConfirmation(false)} 
                 >
                   Cancel
                 </button>
                 <button
                   type="button"
                   className="btn btn-danger"
-                  onClick={handleDeleteConfirmed} // Trigger the delete action when "Delete" is clicked
+                  // trigger delete action when "Delete" is clicked
+                  onClick={handleDeleteConfirmed} 
                 >
                   Delete
                 </button>

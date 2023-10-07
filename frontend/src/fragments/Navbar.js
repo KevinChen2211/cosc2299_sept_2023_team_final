@@ -24,8 +24,7 @@ function Navbar(props) {
 
           </ul>
           <ul className="navbar-nav">
-
-            {/* if a user is not logged in, they will see a Sign Up and Sign In page available in nav bar */}
+            
             {props.email === null ?
               <>
 

@@ -4,23 +4,23 @@ import LoggedIn from "./LoggedIn";
 
 function Home(props) {
 
+  // initialize navigate function
   const navigate = useNavigate();
 
-
+  // function to handle form submission
   const handleSubmit = (event) => {
+    // signup button will navigate user to the signup page
     navigate("/signup");
     return;
   }
 
   return (
     <div className="text-center">
-      {/* content describing website purpose */}
-
       <h1>Welcome to SuperPrice!</h1>
       <div className="form-group">
 
       </div>
-      {props.email === null ?
+      {props.email === null | props.email === "" ?
         <>
           <p>[INSERT CONTENT IMAGE]</p>
           <br></br>
@@ -36,6 +36,7 @@ function Home(props) {
           <p></p><p>Already have an account?<a href="/login"> Login here</a></p>
         </>
         :
+        // displays LoggedIn page if the user is logged in
         <>
           <LoggedIn />
         </>

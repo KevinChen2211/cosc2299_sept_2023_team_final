@@ -8,7 +8,6 @@ function Notifications({ email, password }) {
   const navigate = useNavigate();
   const [promotedItems, setPromotedItems] = useState([]);
   const handleImageClick = (product, productIdentifier) => {
-    // Replace with the actual URLs with the navigate 
     navigate("/product/" + product, { state: { productID: productIdentifier } });
   };
 
@@ -24,7 +23,6 @@ function Notifications({ email, password }) {
   }, []);
 
   useEffect(() => {
-    // Fetch products for the given subcategory from the backend
     axios.get(`http://localhost:8080/product/promotion`)
       .then(response => {
         setPromotedItems(response.data);
@@ -57,7 +55,7 @@ function Notifications({ email, password }) {
         </div>
 
         :
-        <div>Notifications are not available as you have opt out of receiving it.</div>
+        <div>Notifications are not available as you have opt out of receiving any.</div>
       }
     </div>
   );
