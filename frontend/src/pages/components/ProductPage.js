@@ -44,7 +44,7 @@ export default function ProductPage({ cartItems, updateCartItems }) {
   return (
     <tbody>
       <td align='right'>
-        <button onClick={() => navigate('/shoppingCart')}>
+        <button className="default-home-button" onClick={() => navigate('/shoppingCart')}>
           <span >
             Shopping Cart
           </span>
@@ -62,10 +62,9 @@ export default function ProductPage({ cartItems, updateCartItems }) {
             <h3><span className='productName'>{cartItem.name}</span></h3><br></br>
             <h4><span className='productPrice'>Price ${cartItem.price}</span></h4><br></br>
             Category: {cartItem.category}<br />
-            Average Rating: {cartItem.avgRating}<br />
             Chain: {cartItem.chain}<br />
             <br />
-            <button onClick={handleAddToCart}> Add to cart</button>
+            <button className="default-home-button" onClick={handleAddToCart}> Add to cart</button>
             <br /><br />
           </div>
         </div>
