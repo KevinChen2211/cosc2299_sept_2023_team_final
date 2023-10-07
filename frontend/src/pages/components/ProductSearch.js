@@ -114,7 +114,8 @@ export default function ProductSearch() {
         <div>
             <BackButton />
             <SearchBar />
-            <h1>Search Results for: {searchTerm}</h1>
+            <br />
+            <h1>{sortedResults.length} items found, Search Results for: {searchTerm}</h1>
             <div className='filter-bar'>
                 <button class="category-button" onClick={handleSort} sortOrder={sortOrder}>
                     Sort by Price ({sortOrder === 'asc' ? 'High to Low' : 'Low to High'})
@@ -146,7 +147,7 @@ export default function ProductSearch() {
                     ))}
                 </select>
                 <button class="category-button" onClick={handleResetFilter}>
-                    Reset filter
+                    Reset Filter
                 </button>
             </div>
             {noProductsFound ? (

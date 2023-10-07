@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router";
+import BackArrow from "../../assets/back.png"
 
 export default function BackButton() {
     const navigate = useNavigate();
@@ -8,7 +9,11 @@ export default function BackButton() {
     }
     return <>
         <button onClick={goBack} className="default-home-button">
-            Back
+            <img
+                src={BackArrow}
+                width="40rem"
+            />
+            <div>Back</div>
         </button>
         <br />
         <br />

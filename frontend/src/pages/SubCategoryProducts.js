@@ -73,7 +73,7 @@ const Subcategory = (props) => {
                     ))}
                 </select>
                 <button className='category-button' onClick={handleResetFilter}>
-                    Reset filter
+                    Reset Filter
                 </button>
             </div>
             <h2>Products for Subcategory: {location.state.subCategoriesProducts}</h2>

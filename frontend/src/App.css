@@ -449,3 +449,12 @@ select option:checked {
 [data-popup='tooltip'].popup-overlay {
   background: transparent;
 }
+
+
+.product-info{
+  margin: 0 3rem;
+  padding: 1rem 0 0 0;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  height: 70%;
+  width: 15rem;
+}
