@@ -18,7 +18,7 @@ function Home(props) {
       <div className="form-group">
 
       </div>
-      {props.email === null | props.email === "" ?
+      {props.email === null || props.email === "" ?
         <>
           <br />
           <img

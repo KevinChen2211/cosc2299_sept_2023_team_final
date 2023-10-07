@@ -32,7 +32,8 @@ function Login(props) {
       // If verified, login the user.
       if (verified === true) {
         props.loginUser(fields.email);
-
+        setEmail(fields.email);
+        setPassword(fields.password);
         // Navigate to the home page.
         navigate("/");
         return;
