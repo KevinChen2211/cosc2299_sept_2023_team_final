@@ -110,12 +110,13 @@ function SignUp(props) {
                         </div>
 
                         <div className="form-group">
-                            <label for="notifications">
-                                <input type="checkbox" name="isNotified" value={fields.isNotified} onChange={handleInputChange} /> I would like to receive notifications from SuperPrice
-                            </label>
+                            <div class="checkbox-wrapper-1">
+                                <input id="example-1" name="isNotified" class="substituted" type="checkbox" aria-hidden="true" value={fields.isNotified} onChange={handleInputChange} />
+                                <label for="example-1">I would like to receive notifications from SuperPrice</label>
+                            </div>
                         </div>
                         <div className="form-group">
-                            <input type="submit" className="btn btn-primary" value="Sign Up" />
+                            <button type="submit" className="button-interactive">Sign Up</button>
                         </div>
                         <p></p><p>Already have an account?<a href="/login"> Login here</a></p>
                         {errorMessage !== null &&

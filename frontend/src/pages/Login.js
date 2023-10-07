@@ -17,8 +17,6 @@ function Login(props) {
 
     // creating a temporary object to updcate the state based on changed input field
     const temp = { email: fields.email, password: fields.password };
-  
-    // update the temporary object with nre value and set it as the new value
     temp[name] = value;
     setFields(temp);
   }
@@ -26,35 +24,34 @@ function Login(props) {
   // function to handle form submit
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     try {
       // verify the user login info using verifyUser function
       const verified = await verifyUser(fields.email, fields.password);
-  
-      // If verified, login the user
+
+      // If verified, login the user.
       if (verified === true) {
         props.loginUser(fields.email);
-        setEmail(fields.email);
-        setPassword(fields.password);
 
-        // navigate to LoggedIn page
+        // Navigate to the home page.
         navigate("/");
         return;
       }
-  
-      // reset password input field to blank
+
+      // Reset password field to blank.
       const temp = { ...fields };
       temp.password = "";
       setFields(temp);
-  
+
+      // Set error message.
       setErrorMessage("Email and/or password invalid, please try again.");
     } catch (error) {
       console.error("Error during form submission:", error);
       setErrorMessage("An error occurred during verification.");
     }
   };
-  
-  // login form
+
+  // Sign In form
   return (
     <div>
       <h2>Log In</h2>
@@ -76,7 +73,7 @@ function Login(props) {
             </div>
             <p></p><p>Don't have an account?<a href="/signup"> Sign up here</a></p>
             <div className="form-group">
-              <input type="submit" className="btn btn-primary" value="Login" />
+              <button type="submit" className="button-interactive">Login</button>
             </div>
             {errorMessage !== null &&
               <div className="form-group">

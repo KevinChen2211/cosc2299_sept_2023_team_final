@@ -108,7 +108,9 @@ img{
 
 .container {
     display: flex;
-    width: 45%;
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .container > * {

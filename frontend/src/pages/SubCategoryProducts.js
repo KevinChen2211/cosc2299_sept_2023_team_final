@@ -61,7 +61,7 @@ const Subcategory = (props) => {
         <div>
             <BackButton />
             <div className='filter-bar'>
-                <button onClick={handleSort} sortOrder={sortOrder}>
+                <button className='category-button' onClick={handleSort} sortOrder={sortOrder}>
                     Sort by Price ({sortOrder === 'asc' ? 'High to Low' : 'Low to High'})
                 </button>
                 <select value={selectedChain} onChange={handleChainChange}>
@@ -72,12 +72,12 @@ const Subcategory = (props) => {
                         </option>
                     ))}
                 </select>
-                <button onClick={handleResetFilter}>
+                <button className='category-button' onClick={handleResetFilter}>
                     Reset filter
                 </button>
             </div>
             <h2>Products for Subcategory: {location.state.subCategoriesProducts}</h2>
-            <div className='product-list'>
+            <div className='product-list' >
                 {sortedResults.map(product => (
                     <div
                         key={product.productID}
@@ -94,6 +94,7 @@ const Subcategory = (props) => {
                     </div>
                 ))}
             </div>
+
         </div>
     );
 }
