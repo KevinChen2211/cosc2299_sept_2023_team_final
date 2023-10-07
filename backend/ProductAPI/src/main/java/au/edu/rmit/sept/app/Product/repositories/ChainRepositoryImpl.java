@@ -15,7 +15,13 @@ import au.edu.rmit.sept.app.Product.models.Chain;
 
 @Repository
 public class ChainRepositoryImpl implements ChainRepository {
-    
+
+    /**
+     * Fetches all chains from an external service.
+     *
+     * @return List<Chain> Returns a list of all chains.
+     *                    If no chains are found or an error occurs, an empty list is returned.
+     */
     @Override
     public List<Chain> findAll() {
             RestTemplate restTemplate = new RestTemplate();
@@ -35,6 +41,15 @@ public class ChainRepositoryImpl implements ChainRepository {
             }
     }
 
+    /**
+     * Retrieves a specific chain based on its name from an external service.
+     *
+     * @param name The name of the chain to be retrieved.
+     *
+     * @return Chain Returns the chain details.
+     *         If the chain with the specified name is not found or an error occurs,
+     *         null is returned.
+     */
     @Override
     public Chain getByName(String name) {
         RestTemplate restTemplate = new RestTemplate();

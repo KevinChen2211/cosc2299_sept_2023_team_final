@@ -12,7 +12,13 @@ import au.edu.rmit.sept.app.Product.models.Store;
 
 @Repository
 public class StoreRepositoryImpl implements StoreRepository {
-    
+
+    /**
+     * Fetches all available stores from an external service.
+     *
+     * @return List<Store> Returns a list of all stores.
+     *         If no stores are found or an error occurs, an empty list is returned.
+     */
     @Override
         public List<Store> findAll() {
                 RestTemplate restTemplate = new RestTemplate();
@@ -32,6 +38,18 @@ public class StoreRepositoryImpl implements StoreRepository {
                 }
         }
 
+        /**
+         * Fetches stores from an external service based on given postcodes and/or
+         * chains.
+         *
+         * @param postcodes A list of postcodes to filter the stores by.
+         * @param chains    A list of chains to filter the stores by.
+         *
+         * @return List<Store> Returns a list of stores filtered by the given postcodes
+         *         and/or chains.
+         *         If no stores match the criteria, or an error occurs, an empty list is
+         *         returned.
+         */
         @Override
         public List<Store> findStoresByPostcodesAndChains(List<String> postcodes, List<String> chains) {
             RestTemplate restTemplate = new RestTemplate();
