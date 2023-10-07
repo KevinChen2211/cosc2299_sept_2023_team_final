@@ -1,5 +1,5 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: Helvetica, sans-serif;
   font-size: 16px;
   line-height: 1.6;
 }
@@ -45,6 +45,18 @@ p {
 .navbar {
   background-color: #0D659D;
   color:#0D659D;
+}
+
+.nav-bar-container{
+  display: flex;
+  width: 90%;
+  align-items: center;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.login-here{
+  font-size: larger;
 }
 
 @keyframes App-logo-spin {
@@ -141,6 +153,8 @@ p {
 
 .home-banner{
   width: 100%;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  border-radius: 0.5rem;
 }
 
 .container-text-center p{
@@ -153,6 +167,12 @@ p {
 .search-bar-div{
   display: flex;
   justify-content: flex-end;
+}
+
+.home-description{
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  padding: 2rem;
+  border-radius: 0.5rem;
 }
 
 /* interactive button */
