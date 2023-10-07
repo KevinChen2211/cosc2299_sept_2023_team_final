@@ -35,6 +35,13 @@ public class ProductController {
         this.service = serv;
     }
 
+    /**
+     * Fetches all available products.
+     *
+     * @return ResponseEntity<Object> Returns a list of all products with a status
+     *         code of 200 (OK).
+     *         If there are no products, an empty list will be returned.
+     */
     @GetMapping("all")
     public ResponseEntity<Object> getAllProducts(){
         return new ResponseEntity<>(this.service.getProducts(),HttpStatus.OK);
@@ -46,8 +53,16 @@ public class ProductController {
         return service.getProducts();
     }
 
-    
-
+    /**
+     * Retrieves a specific product based on its ID.
+     *
+     * @param id The ID of the product to be retrieved.
+     *
+     * @return ResponseEntity<Object> Returns the product details with a status code
+     *         of 200 (OK).
+     *         If the product with the specified ID is not found, a "not found"
+     *         message is returned with a status code of 404 (NOT FOUND).
+     */
     @GetMapping("id/{product_id}")
     public ResponseEntity<Object> getProductById(@PathVariable("product_id")String id){
         Product productOptional = service.getById(id);
@@ -55,7 +70,17 @@ public class ProductController {
             return new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(productOptional,HttpStatus.OK);
     }
-
+    
+    /**
+     * Retrieves a specific products based on its name.
+     *
+     * @param name The name of the products to be retrieved.
+     *
+     * @return ResponseEntity<Object> Returns the product details with a status code
+     *         of 200 (OK).
+     *         If the products with the specified name is not found, a "not found"
+     *         message is returned with a status code of 404 (NOT FOUND).
+     */
     @GetMapping("name/{product_name}")
     public ResponseEntity<Object> getProductByName(@PathVariable("product_name")String name){
         Collection<Product> productOptional = service.getByName(name);
@@ -64,6 +89,16 @@ public class ProductController {
         return new ResponseEntity<>(productOptional,HttpStatus.OK);
     }
 
+    /**
+     * Retrieves a specific products based on its chain.
+     *
+     * @param name The chain of the products to be retrieved.
+     *
+     * @return ResponseEntity<Object> Returns the product details with a status code
+     *         of 200 (OK).
+     *         If the products with the specified chain is not found, a "not found"
+     *         message is returned with a status code of 404 (NOT FOUND).
+     */
     @GetMapping("chain/{product_chain}")
     public ResponseEntity<Object> getProductByChain(@PathVariable("product_chain")String name){
         Collection<Product> productOptional = service.getByChain(name);
@@ -72,6 +107,16 @@ public class ProductController {
         return new ResponseEntity<>(productOptional,HttpStatus.OK);
     }
 
+    /**
+     * Retrieves a specific products based on its category.
+     *
+     * @param name The category of the products to be retrieved.
+     *
+     * @return ResponseEntity<Object> Returns the product details with a status code
+     *         of 200 (OK).
+     *         If the products with the specified subcategory is not found, a "not found"
+     *         message is returned with a status code of 404 (NOT FOUND).
+     */
     @GetMapping("cate/{product_cate}")
     public ResponseEntity<Object> getProductByCategory(@PathVariable("product_cate")String name){
         Collection<Product> productOptional = service.getByCategory(name);
@@ -80,6 +125,16 @@ public class ProductController {
         return new ResponseEntity<>(productOptional,HttpStatus.OK);
     }
 
+    /**
+     * Retrieves a specific products based on its subcategory.
+     *
+     * @param name The subcategory of the products to be retrieved.
+     *
+     * @return ResponseEntity<Object> Returns the product details with a status code
+     *         of 200 (OK).
+     *         If the products with the specified subcategory is not found, a "not found"
+     *         message is returned with a status code of 404 (NOT FOUND).
+     */
     @GetMapping("subcate/{product_subcate}")
     public ResponseEntity<Object> getProductBySubCate(@PathVariable("product_subcate")String name){
         Collection<Product> productOptional = service.getBySubCategory(name);
@@ -88,6 +143,21 @@ public class ProductController {
         return new ResponseEntity<>(productOptional,HttpStatus.OK);
     }
 
+    /**
+     * Fetches products based on various filter criteria.
+     *
+     * @param name     Name of the product.
+     * @param cat      Categories of the product.
+     * @param subcat   Subcategories of the product.
+     * @param chain    Chains of the product.
+     * @param promoted Promotion status of the product.
+     *
+     * @return ResponseEntity<Object> Returns a list of products matching the filter
+     *         criteria
+     *         with a status code of 200 (OK).
+     *         If no products match the criteria, a "Products not found"
+     *         message is returned with a status code of 404 (NOT FOUND).
+     */
     @GetMapping("")
      public ResponseEntity<Object> Search(
              @RequestParam(required = false) String name,
@@ -102,6 +172,14 @@ public class ProductController {
          return new ResponseEntity<>(stores, HttpStatus.OK);
      }
 
+     /**
+      * Retrieves all products that are on promotion.
+      *
+      * @return ResponseEntity<Object> Returns a list of products on promotion with a
+      *         status code of 200 (OK).
+      *         If there are no products on promotion, a "not found" message is
+      *         returned with a status code of 404 (NOT FOUND).
+      */
     @GetMapping("promotion")
     public ResponseEntity<Object> getProductOnPromotion(){
         Collection<Product> productOptional = service.getByPromotion();
