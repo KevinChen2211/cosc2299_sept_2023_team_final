@@ -34,6 +34,14 @@ public class CateAndSubCategoryController {
         this.service = serv;
     }
 
+    /**
+     * Retrieves all available categories from an external service.
+     *
+     * @return ResponseEntity<Object> Returns a sorted list of all categories with a
+     *         status code of 200 (OK).
+     *         If no categories are found, a "No categories found." message is
+     *         returned with a status code of 404 (NOT FOUND).
+     */
     @GetMapping("all/cate")
     public ResponseEntity<Object> getAllCate() {
         RestTemplate restTemplate = new RestTemplate();
@@ -47,6 +55,14 @@ public class CateAndSubCategoryController {
         }
     }
 
+    /**
+     * Retrieves all available subcategories from an external service.
+     *
+     * @return ResponseEntity<Object> Returns a sorted list of all subcategories
+     *         with a status code of 200 (OK).
+     *         If no subcategories are found, a "No categories found." message is
+     *         returned with a status code of 404 (NOT FOUND).
+     */
     @GetMapping("all/subcate")
     public ResponseEntity<Object> getAllSubCate() {
         RestTemplate restTemplate = new RestTemplate();
@@ -61,6 +77,20 @@ public class CateAndSubCategoryController {
         }
     }
 
+    /**
+     * Retrieves all subcategories associated with a given category from an external
+     * service.
+     *
+     * @param CateName The name of the category for which subcategories are to be
+     *                 retrieved.
+     *
+     * @return ResponseEntity<Object> Returns a sorted list of subcategories
+     *         associated with the given category
+     *         with a status code of 200 (OK).
+     *         If no subcategories are found for the given category, a
+     *         "No subcategories found for the given category." message is returned
+     *         with a status code of 404 (NOT FOUND).
+     */
     @GetMapping("sub/{cate_sub}")
     public ResponseEntity<Object> getAllSubCateByCate(@PathVariable("cate_sub") String CateName) {
         RestTemplate restTemplate = new RestTemplate();
