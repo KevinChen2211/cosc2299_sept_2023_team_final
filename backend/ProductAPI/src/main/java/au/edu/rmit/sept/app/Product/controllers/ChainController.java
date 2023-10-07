@@ -22,11 +22,28 @@ public class ChainController {
         this.service = serv;
     }
 
+    /**
+     * Fetches all available chains.
+     * 
+     * @return ResponseEntity<Object> Returns a list of all chains with a status
+     *         code of 200 (OK).
+     *         If there are no chains, an empty list will be returned.
+     */
     @GetMapping("all")
     public ResponseEntity<Object> getAllChains(){
         return new ResponseEntity<>(this.service.getChains(),HttpStatus.OK);
     }
 
+    /**
+     * Retrieves a specific chain based on its name.
+     * 
+     * @param name The name of the chain to be retrieved.
+     * 
+     * @return ResponseEntity<Object> Returns the chain details with a status code
+     *         of 200 (OK).
+     *         If the chain with the specified name is not found, a "not found"
+     *         message is returned with a status code of 404 (NOT FOUND).
+     */
     @GetMapping("name/{chain_name}")
     public ResponseEntity<Object> getChainByName(@PathVariable("chain_name")String name){
         Chain ChainOptional = service.getByName(name);
