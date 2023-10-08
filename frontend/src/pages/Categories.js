@@ -1,7 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router";
-import supermarket from "../assets/supermarket.png";
+import { useNavigate } from "react-router";
+import BackButton from "./components/BackButton";
+import bakery from "../assets/bakery.png"
+import dairy from "../assets/dairy.png"
+import fruit from "../assets/fruit.png"
+import meat from "../assets/meat.png"
 
 
 export default function Categories() {
@@ -9,10 +13,10 @@ export default function Categories() {
     const navigate = useNavigate();
 
     const categoryImages = {
-        "bakery": "bakery.jpg", // Replace with actual image URLs
-        "dairy-and-eggs": "dairy.jpg",
-        "fruit-and-veg": "fruit.jpg",
-        "meat-and-seafood": "meat.jpg",
+        "bakery": bakery,
+        "dairy-and-eggs": dairy,
+        "fruit-and-veg": fruit,
+        "meat-and-seafood": meat,
     };
 
     const categoriesClick = (subCategory) => {
@@ -34,6 +38,7 @@ export default function Categories() {
 
     return (
         <div>
+            <BackButton />
             <h1>Categories</h1>
             <div className="category-list">
                 {categories.map((category) => (
@@ -43,8 +48,7 @@ export default function Categories() {
                         onClick={() => categoriesClick(category)}
                     >
                         <img
-                            // src={categoryImages[category]}
-                            src={supermarket}
+                            src={categoryImages[category]}
                             alt={category}
                         />
                         <p>{category.replace(/-/g, ' ')}</p>

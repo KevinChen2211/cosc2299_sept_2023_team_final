@@ -14,64 +14,83 @@ import java.net.http.HttpResponse;
 import java.util.Optional;
 
 @Repository
-public class AccountRepositoryImpl implements AccountRepository{
+public class AccountRepositoryImpl implements AccountRepository {
     private final DataSource source;
 
     @Autowired
-    public AccountRepositoryImpl(DataSource source){
+    // Assign datasource
+    public AccountRepositoryImpl(DataSource source) {
         this.source = source;
     }
 
-
+    // Find account by email and password
     public Optional<AccountModel> findById(String email, String password) {
         try {
             RestTemplate restTemplate = new RestTemplate();
-            String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/customers/" + email + "/" + password;
+            // Database URL
+            String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/customers/" + email + "/"
+                    + password;
             Optional<AccountModel> account = Optional.of(restTemplate.getForObject(url, AccountModel.class));
             return account;
-        } catch (HttpClientErrorException e) {
-            throw new ResponseStatusException(e.getStatusCode());
-        }
-    }
-    @Override
-    public ResponseEntity<String> create(AccountModel account) {
-        try {
-            RestTemplate restTemplate = new RestTemplate();
-            String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/customers";
-            restTemplate.postForObject(url, account, String.class);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            // error handling
         } catch (HttpClientErrorException e) {
             throw new ResponseStatusException(e.getStatusCode());
         }
     }
 
     @Override
-    public ResponseEntity<String> update(AccountModel newDetails, String email, String password) {
-        try{
+    // create account
+    public ResponseEntity<String> create(AccountModel account) {
+        try {
             RestTemplate restTemplate = new RestTemplate();
-            String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/customers/" + email + "/" + password + "?lastName= " + newDetails.lastName() + "&password=" + newDetails.password() + "&phone= " + newDetails.phone() + "&firstName=" + newDetails.firstName() +"&address=" + newDetails.address() + "&isNotified=" + newDetails.isNotified();
+            // database URL
+            String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/customers";
+            restTemplate.postForObject(url, account, String.class);
+            // successful creation
+            return new ResponseEntity<>(HttpStatus.CREATED);
+            // error handling
+        } catch (HttpClientErrorException e) {
+            throw new ResponseStatusException(e.getStatusCode());
+        }
+    }
+
+    @Override
+    // update account by email and password
+    public ResponseEntity<String> update(AccountModel newDetails, String email, String password) {
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            // database URL
+            String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/customers/" + email + "/"
+                    + password + "?lastName=" + newDetails.lastName() + "&password=" + newDetails.password()
+                    + "&phone=" + newDetails.phone() + "&firstName=" + newDetails.firstName() + "&address="
+                    + newDetails.address() + "&isNotified=" + newDetails.isNotified();
             ResponseEntity<String> response = restTemplate.exchange(
                     url,
                     HttpMethod.PUT,
                     HttpEntity.EMPTY,
                     String.class);
             return response;
+            // error handling
         } catch (HttpClientErrorException e) {
             throw new ResponseStatusException(e.getStatusCode());
         }
     }
 
     @Override
+    // delete account by email and password
     public ResponseEntity<String> deleteById(String email, String password) {
         try {
             RestTemplate restTemplate = new RestTemplate();
-            String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/customers/" + email + "/" + password;
+            // database URL
+            String url = "https://qb003608hb.execute-api.ap-southeast-2.amazonaws.com/test/customers/" + email + "/"
+                    + password;
             ResponseEntity<String> response = restTemplate.exchange(
                     url,
                     HttpMethod.DELETE,
                     HttpEntity.EMPTY,
                     String.class);
             return response;
+            // error handling
         } catch (HttpClientErrorException e) {
             throw new ResponseStatusException(e.getStatusCode());
         }

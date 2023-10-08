@@ -1,7 +1,8 @@
 // Subcategory.js
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import BackButton from './components/BackButton';
 
 const SubCategory = (props) => {
     const [subCategories, setSubCategories] = useState([]);
@@ -26,7 +27,8 @@ const SubCategory = (props) => {
 
     return (
         <div>
-            <h2>Sub Categories for {location.state.subCategories} :</h2>
+            <BackButton />
+            <h1>Sub Categories for {location.state.subCategories.replace(/-/g, ' ')} :</h1>
             <div className="sub-category-list">
                 {subCategories.map((subcategory) => (
                     <div

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import '../styling.css';
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 
-export default function Checkout({cartItems, updateCartItems}) {
+export default function Checkout({ cartItems, updateCartItems }) {
   const [formData, setFormData] = useState({
     email: "",
     firstName: "",
@@ -18,7 +18,7 @@ export default function Checkout({cartItems, updateCartItems}) {
   const handleRemoveItem = (indexToRemove) => {
     const updatedFormData = cartItems.filter((_, index) => index !== indexToRemove);
     updateCartItems(updatedFormData);
-  };  
+  };
 
   const navigate = useNavigate();
 
@@ -47,14 +47,14 @@ export default function Checkout({cartItems, updateCartItems}) {
     }
     if (!formData.phone) {
       errors.phone = "Phone is required";
-    }else if (!/^04\d{8}$/.test(formData.phone)) {
+    } else if (!/^04\d{8}$/.test(formData.phone)) {
       errors.phone = "Invalid phone number";
     }
 
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
     } else {
-      navigate("/delivery", { state: { totalAmount: calculateTotal() } });
+      navigate("/delivery", { state: { totalAmount: calculateTotal(), firstName: formData.firstName, lastName: formData.lastName, address: formData.address } });
     }
   };
 
@@ -66,7 +66,7 @@ export default function Checkout({cartItems, updateCartItems}) {
     return total.toFixed(2);
   }
 
-  return (  
+  return (
     <main>
       <button onClick={() => navigate('/shoppingCart')} >
         <span>
@@ -74,23 +74,23 @@ export default function Checkout({cartItems, updateCartItems}) {
         </span>
       </button>
 
-      <div className='center'>Checkout</div>  <br/>
+      <div className='center'>Checkout</div>  <br />
 
-      <div style={{display:'flex'}}>
+      <div style={{ display: 'flex' }}>
         {/* Left container contains "my order" */}
-        <div className='containerCheckout' style={{display:'flex',flexDirection:'column'}}>
+        <div className='containerCheckout' style={{ display: 'flex', flexDirection: 'column' }}>
 
           <div className='subtitle'><b>My Order</b></div>
           <hr />
           {/* Render items in a loop */}
           {cartItems.map((item, index) => (
-            <div key={index} style={{display:'flex'}}>
+            <div key={index} style={{ display: 'flex' }}>
               {/* Cancel Item */}
               <button className='cancelButton' onClick={() => handleRemoveItem(index)}>
                 X
               </button>
-              <img src={item.imageLocation} alt={item.name} width={70} height={70}/> 
-              <div style={{display:'flex',flexDirection:'column'}}>
+              <img src={item.imageLocation} alt={item.name} width={70} height={70} />
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <span className='productName'>{item.name}</span>
                 <span className='productPrice'>Price ${item.price * item.boughtQuantity}</span>
               </div>
@@ -103,12 +103,12 @@ export default function Checkout({cartItems, updateCartItems}) {
               <span className="textColumnLeft"><b><i>Total Amount:</i></b></span>
               <span className="textColumnRight"><b>$ {calculateTotal()}</b></span>
             </div>
-            <br/>
+            <br />
           </div>
         </div>
 
         {/* Right container contains contact information */}
-        <div className='containerCheckout' style={{display:'flex',flexDirection:'column'}}>
+        <div className='containerCheckout' style={{ display: 'flex', flexDirection: 'column' }}>
           <div className='subtitle'><b>Contact Information</b></div>
           <hr />
 

@@ -3,6 +3,7 @@ import SearchBar from "./components/SearchBar";
 import supermarket from "../assets/supermarket.png";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import ProductComponent from "./components/ProductComponent";
 
 export default function LoggedIn() {
     const navigate = useNavigate();
@@ -25,12 +26,6 @@ export default function LoggedIn() {
         return shuffled.slice(0, num);
     };
 
-    const handleImageClick = (product, productIdentify) => {
-        // Replace with the actual URLs with the navigate 
-        navigate("/product/" + product, { state: { productID: productIdentify } });
-        return;
-    }
-
     const routeChange = () => {
         let path = `/categories`;
         navigate(path);
@@ -40,7 +35,7 @@ export default function LoggedIn() {
     return (
         <>
             < div className="home-page-search-categories" >
-                < button onClick={routeChange} > Categories</button >
+                <button class="default-home-button" role="button" onClick={routeChange} > Categories</button>
                 <SearchBar />
             </div >
             <img
@@ -50,18 +45,7 @@ export default function LoggedIn() {
             <h1>Popular Items</h1>
             <div className="specials-container">
                 {products.map(product => (
-                    <div
-                        className="home-popular-items"
-                        key={product.productID}
-                        onClick={() => handleImageClick(product.name, product.productID)}
-                    >
-                        <img
-                            src={product.imageLocation}
-                            alt={product.name} width="100"
-                        />
-                        <br />
-                        <strong>{product.name}</strong> - ${product.price.toFixed(2)}
-                    </div>
+                    <ProductComponent product={product} />
                 ))}
 
             </div>

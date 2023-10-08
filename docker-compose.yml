@@ -5,18 +5,21 @@ services:
   account-api:
     platform: "linux/amd64"
     build: ./backend/accountAPI
+    image: 053324332342.dkr.ecr.us-east-1.amazonaws.com/p05-01-superprice-account-api
     ports:
       - "8081:8081"
 
   product-api:
     platform: "linux/amd64"
     build: ./backend/ProductAPI
+    image: 053324332342.dkr.ecr.us-east-1.amazonaws.com/p05-01-superprice-product-api
     ports:
       - "8080:8080"
-      
+
   web:
     platform: "linux/amd64"
     build: ./frontend
+    image: 053324332342.dkr.ecr.us-east-1.amazonaws.com/p05-01-superprice-frontend
     ports:
       - "3000:3000"
     environment:

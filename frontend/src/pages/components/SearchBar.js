@@ -8,19 +8,26 @@ function SearchBar() {
 
 
     const handleSearch = () => {
-        navigate("/productsearch/" + searchTerm, { state: { productName: searchTerm } });
+        if (searchTerm.length > 0) {
+            navigate("/productsearch/" + searchTerm, { state: { productName: searchTerm } });
+        }
 
     };
 
     return (
-        <div>
+        <div className='search-bar-div'>
             <input
+                className='search-bar-input'
                 type="text"
-                placeholder="Search..."
+                placeholder="Search for items..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <button onClick={() => handleSearch()}>Search</button>
+            <button
+                class="default-home-button"
+                onClick={() => handleSearch()}
+            >Search
+            </button>
         </div>
     );
 }

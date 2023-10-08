@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import MyProfile from "./pages/MyProfile";
 import SignUp from "./pages/SignUp";
+import Notifications from "./pages/Notifications";
 import ProductPage from "./pages/components/ProductPage";
 import Categories from "./pages/Categories";
 import SubCategories from "./pages/SubCategories"
@@ -13,15 +14,17 @@ import Checkout from "./pages/Checkout";
 import Delivery from "./pages/Delivery";
 import Payment from "./pages/Payment";
 import ShoppingCart from "./pages/ShoppingCart";
-import { getUser, removeUser } from "./data/repository";
+import { getEmail, getPassword, removeUser } from "./data/repository";
 import ProductSearch from "./pages/components/ProductSearch"
 import './App.css';
 
 function App() {
-  const [email, setEmail] = useState(getUser());
+  const [email, setEmail] = useState(getEmail());
+  const [password, setPassword] = useState(getPassword());
 
-  const loginUser = (email) => {
+  const loginUser = (email, password) => {
     setEmail(email);
+    setPassword(password);
   }
 
   const logoutUser = () => {
@@ -42,7 +45,7 @@ function App() {
   return (
     <div className="d-flex flex-column min-vh-100">
       <Router>
-        <Navbar email={email} logoutUser={logoutUser} />
+        <Navbar email={email} password={password} logoutUser={logoutUser} />
         <p></p>
 
         <main role="main">
@@ -51,7 +54,8 @@ function App() {
               <Route path="/" element={<Home email={email} />} />
               <Route path="/signup" element={<SignUp loginUser={loginUser} />} />
               <Route path="/login" element={<Login loginUser={loginUser} />} />
-              <Route path="/profile" element={<MyProfile email={email} />} />
+              <Route path="/profile" element={<MyProfile email={email} password={getPassword()} logoutUser={logoutUser} />} />
+              <Route path="/notifications" element={<Notifications email={email} password={getPassword()} />} />
               <Route path="/checkout" element={<Checkout cartItems={cartItems} updateCartItems={updateCartItems} />} />
               <Route path="/payment" element={<Payment cartItems={cartItems} />} />
               <Route path="/shoppingcart" element={<ShoppingCart cartItems={cartItems} updateCartItems={updateCartItems} />} />
