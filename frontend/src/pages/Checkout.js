@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import '../styling.css';
 import { useNavigate } from "react-router-dom";
+import BackButton from "./components/BackButton";
 
 export default function Checkout({ cartItems, updateCartItems }) {
   const [formData, setFormData] = useState({
@@ -68,11 +69,7 @@ export default function Checkout({ cartItems, updateCartItems }) {
 
   return (
     <main>
-      <button onClick={() => navigate('/shoppingCart')} >
-        <span>
-          Back to shopping cart
-        </span>
-      </button>
+      <BackButton />
 
       <div className='center'>Checkout</div>  <br />
 

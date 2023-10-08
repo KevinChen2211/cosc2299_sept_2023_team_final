@@ -41,7 +41,7 @@ function Navbar(props) {
                   <Link className="nav-link" to="/shoppingcart"><img src={shoppingCart} alt="shoppingcart" width="30" height="30" /></Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/login" onClick={props.logoutUser}><img src={logout} alt="logout" width="30" height="30" /></Link>
+                  <Link className="nav-link" to="/" onClick={props.logoutUser}><img src={logout} alt="logout" width="30" height="30" /></Link>
                 </li>
 
               </>

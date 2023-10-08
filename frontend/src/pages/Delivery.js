@@ -2,6 +2,7 @@ import '../styling.css';
 import { useLocation, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import SwitchButton from './components/SwitchButton';
+import BackButton from './components/BackButton';
 
 
 export default function ShoppingCart({ cartItems }) {
@@ -32,9 +33,7 @@ export default function ShoppingCart({ cartItems }) {
     return (
         <div align="center">
             <div align="left">
-                <button onClick={() => navigate('/checkout')}>
-                    <span>Back to checkout</span>
-                </button>
+                <BackButton />
             </div>
             <h2>Select Delivery Option</h2>
             <h3>delivering to {location.state.address}</h3>

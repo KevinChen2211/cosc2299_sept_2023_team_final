@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
+import BackButton from './components/BackButton';
 
 
 export default function ShoppingCart({ cartItems, updateCartItems }) {
@@ -40,6 +41,7 @@ export default function ShoppingCart({ cartItems, updateCartItems }) {
 
   return (
     <div>
+      <BackButton />
       <div className='center'>Shopping cart</div>
       <br />
 

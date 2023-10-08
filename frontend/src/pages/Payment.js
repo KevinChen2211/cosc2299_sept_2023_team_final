@@ -3,7 +3,7 @@ import '../styling.css';
 import { useLocation, useNavigate } from "react-router-dom";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-
+import BackButton from "./components/BackButton";
 export default function Payment({ cartItems }) {
 
   const navigate = useNavigate();
@@ -104,11 +104,7 @@ export default function Payment({ cartItems }) {
 
     <div className="containerPayment" align='center'>
       <div align='left'>
-        <button onClick={() => navigate('/delivery')} >
-          <span>
-            Back to delivery
-          </span>
-        </button>
+        <BackButton />
       </div>
       <div className="center">Payment</div>
       <form onSubmit={handleSubmit}>
