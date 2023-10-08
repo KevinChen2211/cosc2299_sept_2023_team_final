@@ -27,7 +27,7 @@ export default function ShoppingCart({cartItems, updateCartItems}){
   const navigate = useNavigate();
 
   const handleCheckout = () => {
-    navigate("/delivery");
+    navigate("/checkout");
   }
   
   return (
@@ -91,7 +91,7 @@ export default function ShoppingCart({cartItems, updateCartItems}){
               <td align='right'>
                 <button className='checkoutButton'  onClick={handleCheckout} >
                   <span >
-                    Continue to delivery options
+                    Continue to checkout
                   </span>
                 </button>
               </td>

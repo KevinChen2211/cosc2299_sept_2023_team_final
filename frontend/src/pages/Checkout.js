@@ -89,10 +89,10 @@ export default function Checkout({cartItems, updateCartItems}) {
               <button className='cancelButton' onClick={() => handleRemoveItem(index)}>
                 X
               </button>
-              <img src={`../assets/${item.image}`} alt="itemImage" width={70} height={70} />
+              <img src={item.imageLocation} alt={item.name} width={70} height={70}/> 
               <div style={{display:'flex',flexDirection:'column'}}>
                 <span className='productName'>{item.name}</span>
-                <span className='productPrice'>Price ${item.price * item.quantity}</span>
+                <span className='productPrice'>Price ${item.price * item.boughtQuantity}</span>
               </div>
             </div>
           ))}
