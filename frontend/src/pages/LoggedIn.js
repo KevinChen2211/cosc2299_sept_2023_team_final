@@ -3,6 +3,7 @@ import SearchBar from "./components/SearchBar";
 import supermarket from "../assets/supermarket.png";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import ProductComponent from "./components/ProductComponent";
 
 export default function LoggedIn() {
     const navigate = useNavigate();
@@ -50,23 +51,7 @@ export default function LoggedIn() {
             <h1>Popular Items</h1>
             <div className="specials-container">
                 {products.map(product => (
-                    <div
-                        className="products"
-                        key={product.productID}
-                        onClick={() => handleImageClick(product.name, product.productID)}
-                    >
-                        <img
-                            className="popular-image"
-                            src={product.imageLocation}
-                            alt={product.name} width="100rem"
-                        />
-                        <br />
-                        <strong>{product.name}</strong>
-                        <br />
-                        - ${product.price.toFixed(2)}
-                        <br />
-                        from {product.chain}
-                    </div>
+                    <ProductComponent product={product} />
                 ))}
 
             </div>

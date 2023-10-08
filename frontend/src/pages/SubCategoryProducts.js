@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import BackButton from './components/BackButton';
+import ProductComponent from './components/ProductComponent';
 
 const Subcategory = (props) => {
     const [products, setProducts] = useState([]);
@@ -79,19 +80,7 @@ const Subcategory = (props) => {
             <h2>Products for Subcategory: {location.state.subCategoriesProducts}</h2>
             <div className='product-list' >
                 {sortedResults.map(product => (
-                    <div
-                        key={product.productID}
-                        className='products'
-                        onClick={() => handleImageClick(product.name, product.productID)}
-                    >
-                        <img src={product.imageLocation} alt={product.name} width="100" />
-                        <br />
-                        <strong>{product.name}</strong>
-                        <br />
-                        ${product.price.toFixed(2)} AUD
-                        <br />
-                        Sold by: {product.chain}
-                    </div>
+                    <ProductComponent product={product} />
                 ))}
             </div>
 
