@@ -26,11 +26,6 @@ function Notifications({ email, password }) {
   const uniqueSubCategory = new Set();
   sortedResults.forEach(product => uniqueSubCategory.add(product.subcategory));
 
-  const handleImageClick = (product, productIdentifier) => {
-    navigate("/product/" + product, { state: { productID: productIdentifier } });
-  };
-
-
   const handleSort = () => {
     const sortedProducts = [...sortedResults].sort((a, b) => {
       if (sortOrder === 'asc') {

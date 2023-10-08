@@ -26,12 +26,6 @@ export default function LoggedIn() {
         return shuffled.slice(0, num);
     };
 
-    const handleImageClick = (product, productIdentify) => {
-        // Replace with the actual URLs with the navigate 
-        navigate("/product/" + product, { state: { productID: productIdentify } });
-        return;
-    }
-
     const routeChange = () => {
         let path = `/categories`;
         navigate(path);
