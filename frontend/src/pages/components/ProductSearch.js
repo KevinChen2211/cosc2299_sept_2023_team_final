@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import SearchBar from "./SearchBar";
 import BackButton from './BackButton';
@@ -15,8 +15,6 @@ export default function ProductSearch() {
     const [selectedChain, setSelectedChain] = useState('all');
     const [selectedSubCategory, setSelectedSubCategory] = useState('all');
     const [showSubCategory, setShowSubCategory] = useState(false);
-
-    const navigate = useNavigate();
 
 
     const handleSort = () => {

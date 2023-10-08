@@ -1,6 +1,6 @@
 // Subcategory.js
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import BackButton from './components/BackButton';
 import ProductComponent from './components/ProductComponent';
@@ -11,13 +11,6 @@ const Subcategory = (props) => {
     const [sortOrder, setSortOrder] = useState('asc');
     const [selectedChain, setSelectedChain] = useState('all');
     const location = useLocation();
-    const navigate = useNavigate();
-
-    const handleImageClick = (product, productIdentifier) => {
-        // Replace with the actual URLs with the navigate 
-        navigate("/product/" + product, { state: { productID: productIdentifier } });
-        return;
-    }
 
     const handleSort = () => {
         const sortedProducts = [...sortedResults].sort((a, b) => {
