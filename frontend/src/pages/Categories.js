@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 import BackButton from "./components/BackButton";
 import bakery from "../assets/bakery.png"
 import dairy from "../assets/dairy.png"
