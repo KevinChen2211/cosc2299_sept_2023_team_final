@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import SearchBar from "./SearchBar";
 import BackButton from './BackButton';
+import ProductComponent from './ProductComponent';
 
 export default function ProductSearch() {
     const { searchTerm } = useParams();
@@ -17,10 +18,6 @@ export default function ProductSearch() {
 
     const navigate = useNavigate();
 
-    const handleImageClick = (product, productIdentifier) => {
-        // Replace with the actual URLs with the navigate 
-        navigate("/product/" + product, { state: { productID: productIdentifier } });
-    };
 
     const handleSort = () => {
         const sortedProducts = [...sortedResults].sort((a, b) => {
@@ -157,19 +154,7 @@ export default function ProductSearch() {
             ) : (
                 <div className='product-list'>
                     {sortedResults.map(product => (
-                        <div
-                            key={product.productID}
-                            className='products'
-                            onClick={() => handleImageClick(product.name, product.productID)}
-                        >
-                            <img src={product.imageLocation} alt={product.name} width="100" />
-                            <br />
-                            <strong>{product.name}</strong>
-                            <br />
-                            ${product.price.toFixed(2)} AUD
-                            <br />
-                            Sold by: {product.chain}
-                        </div>
+                        <ProductComponent product={product} />
                     ))}
                 </div>
             )}

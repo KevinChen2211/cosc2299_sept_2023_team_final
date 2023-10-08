@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import BackButton from './components/BackButton';
+import ProductComponent from "./components/ProductComponent";
 
 function Notifications({ email, password }) {
 
@@ -113,6 +114,7 @@ function Notifications({ email, password }) {
   return (
     <div className="text-center">
       <h1>Notifications</h1>
+      <h2>This page displays all items that are on promotion!</h2>
       {isNotified === true ?
         <>
           <BackButton />
@@ -152,19 +154,7 @@ function Notifications({ email, password }) {
           </div>
           <div className='product-list'>
             {sortedResults.map(product => (
-              <div
-                key={product.productID}
-                className='products'
-                onClick={() => handleImageClick(product.name, product.productID)}
-              >
-                <img src={product.imageLocation} alt={product.name} width="100" />
-                <br />
-                <strong>{product.name}</strong>
-                <br />
-                ${product.price.toFixed(2)} AUD
-                <br />
-                Sold by: {product.chain}
-              </div>
+              <ProductComponent product={product} />
             ))}
           </div>
         </>
