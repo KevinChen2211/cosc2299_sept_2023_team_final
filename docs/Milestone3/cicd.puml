@@ -1,0 +1,29 @@
+@startuml
+title CI-CD workflow
+
+actor "Contributor" as contributor
+participant "Local Repository" as local_repository
+database "Remote Repository Pull Request" as remote_repository_pr
+database "Remote Repository main" as remote_repository_main
+database "Git action server" as git_action_server
+
+group usual workflow
+    contributor -> remote_repository_main: request pull
+    remote_repository_main -> local_repository: update local repository
+    contributor -> contributor: do work
+    contributor -> local_repository: commit work
+end
+
+group Run locally
+    contributor -> local_repository: run ACT to run git actions locally
+end
+
+contributor -> remote_repository_pr: push commits
+remote_repository_pr -> remote_repository_main: rebase to main
+remote_repository_main -> git_action_server: run git actions
+git_action_server -> git_action_server: Build and test AccoutAPI
+git_action_server -> git_action_server: Build and test ProductAPI
+git_action_server -> git_action_server: Build and test Web Application
+git_action_server -> remote_repository_main: send results
+
+@enduml
