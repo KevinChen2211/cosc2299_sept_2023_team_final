@@ -22,15 +22,12 @@
 * MSTeams : https://teams.microsoft.com/l/team/19%3aNChlnKbsNFo61Gx2VLHjMo5etMlfKM6DgI-l8FfGS341%40thread.tacv2/conversations?groupId=f663c8bd-84db-444a-bc08-1aaf3f67e12b&tenantId=d1323671-cdbe-4417-b4d4-bdb24b51316b 
 
 	
-## Code documentation - Release 0.1.0 - date
-* feature 1
-* feature 2
-* feature 3
-  
-
-# Run Instructions
-
-Up to date instructions on how to run your project.
+## Code documentation - Release 1.0.0
+* Product Search and Categorization
+* Price Comparison
+* Delivery Organization
+* Notifications and Alerts
+* User-Friendly Interface
 
 
 # Initial Setup
@@ -60,6 +57,10 @@ docker-compose up -d --build
 ```
 docker ps
 ```
+- Access the content by travelling to:
+```
+http://localhost:3000/
+```
 - to stop the containers run the command:
 ```
 docker-compose down
@@ -71,11 +72,9 @@ to do so open the ./mvnw file in VSCode and in the bottom right change CRLF to L
 ![convert CRLF to LF](LineEnd.png)
 
 ## Backend (Not recommended)
-
-- Delete any unused services (i.e. backend/movies). They are there only for an initial reference.
-- Use [Spring initializr](https://start.spring.io/) to create your (micro)services
-- Place any new backend service in its own directory (i.e., backend/<service-name>)
-- Confirm you can run your applicaiton (./mvnw package && java -jar target/[microservice]-0.0.1-SNAPSHOT.jar)
+- cd into backend/(seperateAPI)
+- Confirm you can run your applicaiton (./mvnw package && java -jar target/[accountAPI]-0.0.1-SNAPSHOT.jar)
+- Confirm you can run your applicaiton (./mvnw package && java -jar target/[productAPI]-0.0.1-SNAPSHOT.jar)
 
 ## Frontend (Not recommended)
 - cd into frontend/
