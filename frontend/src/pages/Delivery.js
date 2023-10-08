@@ -9,6 +9,7 @@ export default function ShoppingCart({ cartItems }) {
     const location = useLocation();
     const [deliveryFee, setDeliveryFee] = useState(7);
 
+
     const calculateTotal = () => {
         let total = 0;
         for (const item of cartItems) {
@@ -44,13 +45,21 @@ export default function ShoppingCart({ cartItems }) {
                     value="Standard Delivery"
                     name="delivery"
                     checked={deliveryFee === 7}
-                    onChange={() => handleFeeChange(7)}
+                    onChange={() => {
+                        handleFeeChange(7);
+                    }}
+
                 />
                 <span> Delivered between: {addDaysToDate(7)} - {addDaysToDate(14)} </span>
                 <br />
                 <span>$7 delivery fee</span>
                 <br />
-                Select time preference: <SwitchButton />
+                {deliveryFee == 7 ?
+
+                    <> Select time preference: <SwitchButton /> </>
+                    :
+                    <></>
+                }
                 <hr />
             </div>
             <div className="express-delivery">
@@ -60,13 +69,20 @@ export default function ShoppingCart({ cartItems }) {
                     value="Express Delivery"
                     name="delivery"
                     checked={deliveryFee === 14}
-                    onChange={() => handleFeeChange(14)}
+                    onChange={() => {
+                        handleFeeChange(14);
+                    }}
                 />
                 <span> Delivered between: {addDaysToDate(1)} - {addDaysToDate(7)} </span>
                 <br />
                 <span>$14 delivery fee</span>
                 <br />
-                Select time preference: <SwitchButton />
+                {deliveryFee == 14 ?
+
+                    <> Select time preference: <SwitchButton /> </>
+                    :
+                    <></>
+                }
             </div>
             <br />
             <br />
