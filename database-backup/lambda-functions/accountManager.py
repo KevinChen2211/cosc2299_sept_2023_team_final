@@ -77,6 +77,10 @@ def lambda_handler(event, context):
                 print(phone)
                 new_password = query_parameters.get('password', '')
                 print(new_password)
+                new_is_notif_str = query_parameters.get('isNotified', '')
+                new_is_notif = True if new_is_notif_str.lower() == 'true' else None
+                new_is_notif = False if new_is_notif_str.lower() == 'false' else new_is_notif
+                print(new_is_notif)
                 
                 response = table.get_item(
                     Key={'email': email}
@@ -90,7 +94,7 @@ def lambda_handler(event, context):
                         update_expression = "SET"
                         expression_attribute_values = {}
                         
-                        if not (firstName or lastName or address or phone or new_password):
+                        if not (firstName or lastName or address or phone or new_password or (new_is_notif is not None)):
                             return {
                                 'statusCode': 400,
                                 'headers': {
@@ -118,6 +122,10 @@ def lambda_handler(event, context):
                         if new_password:
                             update_expression += " password = :password,"
                             expression_attribute_values[":password"] = new_password
+                            
+                        if new_is_notif is not None:
+                            update_expression += " isNotified = :isNotified,"
+                            expression_attribute_values[":isNotified"] = new_is_notif
                     
                         # Remove the trailing comma from the update expression
                         update_expression = update_expression.rstrip(',')
@@ -164,7 +172,7 @@ def lambda_handler(event, context):
             request_body = json.loads(event['body'])
             
             # Extract and validate required attributes
-            required_attributes = ['email', 'firstName', 'lastName', 'password', 'address', 'phone']
+            required_attributes = ['email', 'firstName', 'lastName', 'password', 'address', 'phone', 'isNotified']
             for attr in required_attributes:
                 if attr not in request_body:
                     return {
@@ -197,7 +205,8 @@ def lambda_handler(event, context):
                     'lastName': request_body['lastName'],
                     'password': request_body['password'],
                     'address': request_body.get('address', ''),
-                    'phone': request_body.get('phone', '')
+                    'phone': request_body.get('phone', ''),
+                    'isNotified': request_body.get('isNotified', '')
                 }
             )
             
