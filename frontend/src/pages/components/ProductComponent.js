@@ -21,6 +21,11 @@ export default function ProductComponent({ product }) {
             ${product.price.toFixed(2)} AUD
             <br />
             Sold by: {product.chain}
+            {product.isPromoted == true ?
+                <div>Product is on Sale!</div>
+                :
+                <></>
+            }
         </div>
     );
 }
