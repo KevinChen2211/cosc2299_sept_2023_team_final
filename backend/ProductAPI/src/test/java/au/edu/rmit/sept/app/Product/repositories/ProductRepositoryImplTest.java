@@ -55,7 +55,7 @@ public class ProductRepositoryImplTest {
 
         doReturn(new ArrayList<>()).when(productRepository).executeGetForObject(anyString(), eq(Product[].class));
 
-        Product result = productRepository.getById("25870763");
+        Product result = productRepository.getById("10000000");
 
         assertNotNull(result);
         assertTrue(result instanceof Product, "Every element in the list should be an instance of Product");
